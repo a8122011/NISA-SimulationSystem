@@ -1,10 +1,10 @@
 package java.simulateAssetFormationWithNISA;
 
-public class advancedSettingValidation {
+public class AdvancedSettingValidation {
     String annualChangeMoneyError;
     String endingAgeError; //エラーメッセージを保持するためのString
 
-    public advancedSettingValidation() {
+    public AdvancedSettingValidation() {
     }
 
     public void setAnnualChangeMoneyError(String annualChangeMoneyError) {
