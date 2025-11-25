@@ -2,11 +2,11 @@
 
 package java.simulateAssetFormationWithNISA;
 
-public class advancedSettingStr { //公開クラス
+public class AdvancedSettingStr { //公開クラス
     String requestAnnualChangeMoney;
     String requestEndingAge;
 
-    public advancedSettingStr(String requestAnnualChangeMoney, String requestEndingAge) { //コンストラクタ インスタンス生成時に2つの文字列を受け取り、そのままフィールドに代入する
+    public AdvancedSettingStr(String requestAnnualChangeMoney, String requestEndingAge) { //コンストラクタ インスタンス生成時に2つの文字列を受け取り、そのままフィールドに代入する
         this.requestAnnualChangeMoney = requestAnnualChangeMoney;
         this.requestEndingAge = requestEndingAge;
     }
