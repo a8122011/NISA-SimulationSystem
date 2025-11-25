@@ -1,7 +1,7 @@
 package jp.java.voyage.simulateAssetFormationWithNISA;
 
 //ライフイベントの年齢と必要資金をまとめたデータクラス
-public class lifeEventStr {
+public class LifeEventStr {
     String lifeEventAge1;
     String requiredFunds1;
     String lifeEventAge2;
@@ -13,7 +13,7 @@ public class lifeEventStr {
     String lifeEventAge5;
     String requiredFunds5;
 
-    public lifeEventStr(String lifeEventAge1, String requiredFunds1, String lifeEventAge2, String requiredFunds2, String lifeEventAge3, String requiredFunds3, String lifeEventAge4, String requiredFunds4, String lifeEventAge5, String requiredFunds5) {
+    public LifeEventStr(String lifeEventAge1, String requiredFunds1, String lifeEventAge2, String requiredFunds2, String lifeEventAge3, String requiredFunds3, String lifeEventAge4, String requiredFunds4, String lifeEventAge5, String requiredFunds5) {
         this.lifeEventAge1 = lifeEventAge1;
         this.requiredFunds1 = requiredFunds1;
         this.lifeEventAge2 = lifeEventAge2;
