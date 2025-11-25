@@ -7,7 +7,7 @@ public class AdvancedSettingValidation {
     public AdvancedSettingValidation() {
     }
 
-    public void setAnnualChangeMoneyError(String annualChangeMoneyError) {
+    public void setAnnualChangeMoneyError(String annualChangeMoneyError) { //void戻り値なしを意味する
         this.annualChangeMoneyError = annualChangeMoneyError;
     }
 
