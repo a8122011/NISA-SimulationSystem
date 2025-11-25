@@ -132,7 +132,7 @@ public class HomeController {
             double monthlySavings = Double.parseDouble(requestMonthlySavings);
             double initialValue = Double.parseDouble(requestInitialValue);
 
-            // ライフプラン　初期化、後でフォームがから出ない場合のみ上書きする
+            // ライフイベント、詳細設定初期値を0に、後でフォームの値が空でない場合のみ上書きする
             int lifeEventAge1 = 0; double requiredFunds1 = 0;
             int lifeEventAge2 = 0; double requiredFunds2 = 0;
             int lifeEventAge3 = 0; double requiredFunds3 = 0;
@@ -141,7 +141,7 @@ public class HomeController {
             int annualChangeMonth = 0; int annualChangeMoney = 0;
             int endingAge = 0;
 
-            //ライフイベント　空でなければ数値に変換して変数にセット、フォームに入力されなった項目は0のまま
+            //ライフイベント　１～５が空でなければ数値に変換して変数にセット、フォームに入力されなかった項目は0のまま
             if (!requestLifeEventAge1.equals("") && !requestRequiredFunds1.equals("")) {
                 lifeEventAge1 = Integer.parseInt(requestLifeEventAge1);
                 requiredFunds1 = Double.parseDouble(requestRequiredFunds1);
@@ -163,9 +163,9 @@ public class HomeController {
                 requiredFunds5 = Double.parseDouble(requestRequiredFunds5);
             }
 
-            // 詳細設定　→
+            // 詳細設定　空でなければ数値に変換
             if (!annualChangePeriod.equals("")) {
-                annualChangeMonth = getAnnualChangeMonth(annualChangePeriod);
+                annualChangeMonth = getAnnualChangeMonth(annualChangePeriod); //文字列を月に変換
                 annualChangeMoney = Integer.parseInt(requestAnnualChangeMoney);
             }
             if (!requestEndingAge.equals("")) {
@@ -177,13 +177,14 @@ public class HomeController {
             advancedSetting = new advancedSetting(annualChangeMonth, annualChangeMoney, endingAge);
             params = new SimulationParams(id, expectedRateOfReturn, volatility, startAge, monthlySavings, initialValue, lifeEventParams, advancedSetting);
 
-            // バリデーションの初期化
+            // バリデーション用のオブジェクトを初期化
             lifeEventValidMessage = new lifeEventValidation();
             advancedSettingValidMessage = new advancedSettingValidation();
             validMessage = new Validation();
-            validateFlg = false;
+            validateFlg = false; //エラーなし
 
-            return "redirect:/list";
+            return "redirect:/list"; //　処理成功後、一覧ページにリダイレクト
+          
         } catch (Exception e) {
             // requestParamのセットとバリデーションの初期化
             lifeEventStr lifeEventStr = new lifeEventStr(requestLifeEventAge1, requestRequiredFunds1, requestLifeEventAge2, requestRequiredFunds2, requestLifeEventAge3, requestRequiredFunds3, requestLifeEventAge4, requestRequiredFunds4, requestLifeEventAge5, requestRequiredFunds5);
@@ -194,8 +195,26 @@ public class HomeController {
 
             // エラー文言のセット
             validMessage.typeValid(requestExpectedRateOfReturn, requestVolatility, requestStartAge, requestMonthlySavings, requestInitialValue, lifeEventStr, lifeEventValidMessage, advancedSettingStr, advancedSettingValidMessage);
-            validateFlg = true;
+            validateFlg = true; //エラーあり
 
-            return "redirect:/list";
+            return "redirect:/list"; //再度/listにリダイレクトして、入力フォームにエラーを表示
         }
+    } //@RequestParamでURLパラメータを取得
+
+  
+    @RequestMapping(value = "/", method = RequestMethod.GET) //Spring MVCのアノテーション　  /に対してHTTP GETリクエストが来た時にこのメソッドを呼び出す　@ReqestMappingはURLとHTTPメソッドを紐づける役割（GETはデータを取得するリクエスト）
+    public ModelAndView getHome(ModelAndView mav) { //ModelAndViewはSpringでビュー名＋モデルデータをまとめるオブジェクト
+        mav.setViewName("mainpage");
+        return mav;
     }
+
+    private static int getAnnualChangeMonth(String annualChangePeriod) { //privateこのクラス内だけで使える staticクラスから直接呼べる
+        return switch (annualChangePeriod) { //月数に変換して返す
+            case "6か月" -> 6;
+            case "1年" -> 12;
+            case "3年" -> 3 * 12;
+            case "5年" -> 5 * 12;
+            default -> 0;
+        };
+    }
+}
