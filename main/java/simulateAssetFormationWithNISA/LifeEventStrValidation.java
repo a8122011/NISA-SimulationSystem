@@ -1,6 +1,6 @@
 package jp.java.voyage.simulateAssetFormationWithNISA;
 
-public class lifeEventValidation {
+public class LifeEventValidation {
     String lifeEventAge1Error;
     String requiredFunds1Error;
     String lifeEventAge2Error;
@@ -12,7 +12,7 @@ public class lifeEventValidation {
     String lifeEventAge5Error;
     String requiredFunds5Error;
 
-    public lifeEventValidation() {
+    public LifeEventValidation() {
     }
 
     public void setLifeEventAge1Error(String lifeEventAge1Error) {
