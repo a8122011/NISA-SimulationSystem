@@ -16,31 +16,34 @@ import java.util.*;
 @Controller
 public class HomeController {
                           
-    record lifeEventsParams(
+    record LifeEventsParams(
       String lifeEvent1, int lifeEventAge1, double requiredFunds1, 
       String lifeEvent2, int lifeEventAge2, double requiredFunds2, 
       String lifeEvent3, int lifeEventAge3, double requiredFunds3, 
       String lifeEvent4, int lifeEventAge4, double requiredFunds4, 
       String lifeEvent5, int lifeEventAge5, double requiredFunds5) {}
-    record advancedSetting(int annualChangeMonth, int annualChangeMoney, int endingAge) {}
-    record SimulationParams(String id, double expectedRateOfReturn, double volatility, int startAge, double monthlySavings, double initialValue, lifeEventParams lifeEventParams, advancedSetting advancedSetting) {}
+  
+    record AdvancedSetting(int annualChangeMonth, int annualChangeMoney, int endingAge) {}
+    record SimulationParams(String id, double expectedRateOfReturn, double volatility, int startAge, double monthlySavings, double initialValue, LifeEventParams lifeEventParams, AdvancedSetting advancedSetting) {}
+    
     private String id;
     private double expectedRateOfReturn;
     private double volatility;
     private int startAge;
     private double monthlySavings;
     private double initialValue;
-    private lifeEventParams lifeEventParams;
-    private advancedSetting advancedSetting;
+    private LifeEventParams lifeEventParams;
+    private AdvancedSetting advancedSetting;
     private SimulationParams params = new SimulationParams(id, expectedRateOfReturn, volatility, startAge, monthlySavings, initialValue, lifeEventParams, advancedSetting);
-    private lifeEventValidation lifeEventValidMessage = new lifeEventValidation();
-    private advancedSettingValidation advancedSettingValidMessage = new advancedSettingValidation();
+    private LifeEventValidation lifeEventValidMessage = new LifeEventValidation();
+    private AdvancedSettingValidation advancedSettingValidMessage = new AdvancedSettingValidation();
     private Validation validMessage = new Validation();
      boolean validateFlg = false;
     List<List<Double>> valuationData;
     List<String> countList;
     double suggestedMax;
     int stepSize;
+  
     @RequestMapping(value="/mainpage")
     String mainpage(Model model) {
         model.addAttribute("time", LocalDateTime.now());
@@ -124,6 +127,7 @@ public class HomeController {
                    @RequestParam("annualChangePeriod") String annualChangePeriod, @RequestParam("annualChangeMoney") String requestAnnualChangeMoney,
                    @RequestParam("endingAge") String requestEndingAge) {
         String id = UUID.randomUUID().toString().substring(0, 8); //ランダムなIDを生成
+      
         try { //パラメータを数値に変換して処理
             // 必須項目　文字列を数値に Double.parseDouble小数、Integer.parseInt整数
             double expectedRateOfReturn = Double.parseDouble(requestExpectedRateOfReturn);
@@ -173,27 +177,27 @@ public class HomeController {
             }
 
             // 値のセット
-            lifeEventParams = new lifeEventParams(lifeEvent1, lifeEventAge1, requiredFunds1, lifeEvent2, lifeEventAge2, requiredFunds2, lifeEvent3, lifeEventAge3, requiredFunds3, lifeEvent4, lifeEventAge4, requiredFunds4, lifeEvent5, lifeEventAge5, requiredFunds5);
-            advancedSetting = new advancedSetting(annualChangeMonth, annualChangeMoney, endingAge);
+            lifeEventParams = new LifeEventParams(lifeEvent1, lifeEventAge1, requiredFunds1, lifeEvent2, lifeEventAge2, requiredFunds2, lifeEvent3, lifeEventAge3, requiredFunds3, lifeEvent4, lifeEventAge4, requiredFunds4, lifeEvent5, lifeEventAge5, requiredFunds5);
+            advancedSetting = new AdvancedSetting(annualChangeMonth, annualChangeMoney, endingAge);
             params = new SimulationParams(id, expectedRateOfReturn, volatility, startAge, monthlySavings, initialValue, lifeEventParams, advancedSetting);
 
             // バリデーション用のオブジェクトを初期化
-            lifeEventValidMessage = new lifeEventValidation();
-            advancedSettingValidMessage = new advancedSettingValidation();
+            lifeEventValidMessage = new LifeEventValidation();
+            advancedSettingValidMessage = new AdvancedSettingValidation();
             validMessage = new Validation();
             validateFlg = false; //エラーなし
 
             return "redirect:/list"; //　処理成功後、一覧ページにリダイレクト
           
-        } catch (Exception e) {
+        } catch (Exception e) { //try{}ブロック内で例外が発生した場合に実行される部分
             // requestParamのセットとバリデーションの初期化
-            lifeEventStr lifeEventStr = new lifeEventStr(requestLifeEventAge1, requestRequiredFunds1, requestLifeEventAge2, requestRequiredFunds2, requestLifeEventAge3, requestRequiredFunds3, requestLifeEventAge4, requestRequiredFunds4, requestLifeEventAge5, requestRequiredFunds5);
-            lifeEventValidMessage = new lifeEventValidation();
-            advancedSettingStr advancedSettingStr = new advancedSettingStr(requestAnnualChangeMoney, requestEndingAge);
-            advancedSettingValidMessage = new advancedSettingValidation();
+            LifeEventStr lifeEventStr = new LifeEventStr(requestLifeEventAge1, requestRequiredFunds1, requestLifeEventAge2, requestRequiredFunds2, requestLifeEventAge3, requestRequiredFunds3, requestLifeEventAge4, requestRequiredFunds4, requestLifeEventAge5, requestRequiredFunds5);
+            lifeEventValidMessage = new LifeEventValidation(); //どの項目がエラーかを保持
+            AdvancedSettingStr advancedSettingStr = new AdvancedSettingStr(requestAnnualChangeMoney, requestEndingAge);
+            advancedSettingValidMessage = new AdvancedSettingValidation(); //どの項目がエラーかを保持
             validMessage = new Validation();
-
-            // エラー文言のセット
+          
+            // エラーメッセージのセット　どの項目が不正だったのかをユーザーに表示できる
             validMessage.typeValid(requestExpectedRateOfReturn, requestVolatility, requestStartAge, requestMonthlySavings, requestInitialValue, lifeEventStr, lifeEventValidMessage, advancedSettingStr, advancedSettingValidMessage);
             validateFlg = true; //エラーあり
 
