@@ -5,7 +5,7 @@
         <meta charset="UTF-8">
         <title>新NISA 資産形成シミュレーションシステム</title>
         <link rel="stylesheet" th:href="@{/jquery-ui.min.css}">
-        <link rel="stylesheet" th:href="@{/mainpage.css}">
+        <link rel="stylesheet" href="mainpage.css">
         <script src="https://code.jquery.com/jquery.js"></script>
         <script type="text/javascript" th:src="@{/jquery-ui.min.js}"></script>
     </head>
@@ -13,7 +13,7 @@
     <body>
         <h1>新NISA資産形成シミュレーション</h1>
 
-        //入力必須項目
+        <!-- 入力必須項目 -->
         <br>
         <button type="button" id="productSelectionButton">金融商品選択  >&emsp;</button>
         <div id="dialog">
@@ -21,7 +21,7 @@
         </div>
         <br><br>
         
-        <form action="?"> //ユーザーの入力値を送信するフォーム クエリパラメータで自己ページへ送信という意味？
+        <form action="?"> <!-- ユーザーの入力値を送信するフォーム クエリパラメータで自己ページへ送信という意味？ -->
             <div class="formContainer">
                 <table>
                     <tr>
@@ -50,7 +50,7 @@
                     </tr>
                 </table>
 
-                //入力任意項目（ライフイベント）
+                <!-- 入力任意項目（ライフイベント） -->
                 <div class="buttons">
                     <button type="button" id="lifePlanButton"> + ライフイベントを追加</button>
                 </div>
@@ -142,7 +142,7 @@
                    </tr>
                 </table>
 
-                //入力任意項目（詳細設定）
+                <!-- 入力任意項目（詳細設定） -->
                 <div class="buttons">
                     <button type="button" id="advancedSettingButton">+ 詳細設定を追加</button>
                 </div>
@@ -181,7 +181,7 @@
         </form>
         
 
-        //シミュレーション情報
+        <!-- シミュレーション設定 -->
         <div class="paramList">
             <table>
                 <thead>
@@ -253,7 +253,7 @@
             <p>※当該評価は過去の一定期間の実績の分析結果を元に予測したものであり、 将来の運用成果等を保証したものではありません。</p>
         </div>
 
-        //シミュレーショングラフ
+        <!-- シミュレーショングラフ -->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.bundle.js"></script> //Chart.bungle.js読み込み
         <script th:inline="javascript">
             var ctx = document.getElementById("myLineChart"); //ctx：キャンバス
@@ -295,15 +295,15 @@
                     ],
                 },
 
-                //グラフ設定
+                <!-- グラフ設定 -->
                 options: {
-                    title:{ //グラフ上部に表示
+                    title:{ <!-- グラフ上部に表示 -->
                         display: true,
                         text: '資産額推移'
                         　},
                     
                     scales: {
-                        yAxes: [{ //Y軸設定
+                        yAxes: [{   <!-- Y軸設定 --> 
                             ticks: {
                                 suggestedMax: /*[[${suggestedMax}]]*/ "suggestedMax", //縦軸最大値
                                 suggestedMin: 0, //縦軸下限0
@@ -360,24 +360,24 @@
                             $("#dialog").dialog("close");
                         },
 
-                        // ダイアログを非表示
+                        <!-- ダイアログの非表示 --> 
                         "閉じる":function(){
                             $("#dialog").dialog("close");
                         }
                     }
                 });
                 
-                // ダイアログを表示
+                <!-- ダイアログを表示 -->
                 $("#productSelectionButton").click(function(){
                     $("#dialog").dialog("open");
                 });
     
-                // ライフプランの表示非表示
+                <!-- ライフプランの表示非表示 --> 
                 $("#lifePlanButton").click(function(){
                     $(".lifePlan").toggleClass("display");
                 });
     
-                // 詳細設定の表示非表示
+                <!--  詳細設定の表示非表示 -->
                 $("#advancedSettingButton").click(function(){
                     $(".advancedSetting").toggleClass("display");
                 });
