@@ -12,7 +12,8 @@
 
     <body>
         <h1>新NISA資産形成シミュレーション</h1>
-        
+
+        //入力必須項目
         <br>
         <button type="button" id="productSelectionButton">金融商品選択  >&emsp;</button>
         <div id="dialog">
@@ -48,7 +49,8 @@
                             <div th:text="${initialValueError}" class="validColor"></div>&emsp;万</th>
                     </tr>
                 </table>
-        
+
+                //入力任意項目（ライフイベント）
                 <div class="buttons">
                     <button type="button" id="lifePlanButton"> + ライフイベントを追加</button>
                 </div>
@@ -139,7 +141,8 @@
                         </td>
                    </tr>
                 </table>
-            
+
+                //入力任意項目（詳細設定）
                 <div class="buttons">
                     <button type="button" id="advancedSettingButton">+ 詳細設定を追加</button>
                 </div>
@@ -177,6 +180,7 @@
             </div>
         </form>
 
+        //シミュレーション情報
         <div class="paramList">
             <table>
                 <thead>
@@ -247,6 +251,212 @@
             <canvas id="myLineChart"></canvas>
             <p>※当該評価は過去の一定期間の実績の分析結果を元に予測したものであり、 将来の運用成果等を保証したものではありません。</p>
         </div>
+
+        //シミュレーショングラフ
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.bundle.js"></script> //Chart.bungle.js読み込み
+        <script th:inline="javascript">
+            var ctx = document.getElementById("myLineChart"); //ctx：キャンバス
+            var myLineChart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: /*[[${monthCountList}]]*/ "monthCountList",
+                    datasets: [
+                        {
+                            label: '上位30%',
+                            data: /*[[${top30Percent}]]*/ "top30Percent",
+                            borderColor: '#e14024',
+                            backgroundColor: "rgba(0,0,0,0)"
+                        },
+                        {
+                            label: '中央値',
+                            data: /*[[${median}]]*/ "median",
+                            borderColor: '#f8b500',
+                            backgroundColor: "rgba(0,0,0,0)"
+                        },
+                        {
+                            label: '下位30%',
+                            data: /*[[${bottom30Percent}]]*/ "bottom30Percent",
+                            borderColor: '#66FF33',
+                            backgroundColor: "rgba(0,0,0,0)"
+                        },
+                        {
+                            label: '下位10%',
+                            data: /*[[${bottom10Percent}]]*/ "bottom10Percent",
+                            borderColor: '#0099cc',
+                            backgroundColor: "rgba(0,0,0,0)"
+                        },
+                        {
+                            label: '運用なし',
+                            data: /*[[${noOperation}]]*/ "noOperation",
+                            borderColor: '#666c67',
+                            backgroundColor: "rgba(0,0,0,0)"
+                        }
+                    ],
+                },
+
+                //グラフ設定
+                options: {
+                    title:{ //グラフ上部に表示
+                        display: true,
+                        text: '資産額推移'
+                        　},
+                    
+                    scales: {
+                        yAxes: [{ //Y軸設定
+                            ticks: {
+                                suggestedMax: /*[[${suggestedMax}]]*/ "suggestedMax", //縦軸最大値
+                                suggestedMin: 0, //縦軸下限0
+                                stepSize: /*[[${stepSize}]]*/" stepSize",//目盛の間隔
+                                callback: function(value, index, values){
+                                    return  value +  '万円' //縦軸の単位
+                                }
+                            }
+                        }]
+                    },
+                }
+            });
+        </script>
+
+        <script type="text/javascript">
+            $(function(){
+                $("#dialog").dialog({
+                    autoOpen:false,
+                    width:900,
+                    height:600,
+                    modal:true,
+                    buttons:{
+                        "選択":function(){
+                            const productName = $('input:radio[name="productName"]:checked').val();
+                            if (productName === 'sbi_allCountry') {
+                                $("#expectedRateOfReturn").val(9.999);
+                                $("#volatility").val(19.916);
+                                $("#productName").html('ＳＢＩ・全世界株式<br>インデックスファンド');
+                            } else if (productName === 'one_developedCountry') {
+                                $("#expectedRateOfReturn").val(12.327);
+                                $("#volatility").val(21.455);
+                                $("#productName").html('たわらノーロード 先進国株式');
+                            } else if (productName === 'one_allCountry') {
+                                $("#expectedRateOfReturn").val(11.172);
+                                $("#volatility").val(18.341);
+                                $("#productName").html('たわらノーロード 全世界株式');
+                            } else if (productName === 'daiwa_s&p500') {
+                                $("#expectedRateOfReturn").val(12.360);
+                                $("#volatility").val(21.350);
+                                $("#productName").html('iFree S&P500インデックス');
+                            } else if (productName === 'daiwa_emergingCountry') {
+                                $("#expectedRateOfReturn").val(7.237);
+                                $("#volatility").val(16.471);
+                                $("#productName").html('iFree 新興国株式インデックス');
+                            } else if (productName === 'nissei_nikkeiAverage') {
+                                $("#expectedRateOfReturn").val(9.165);
+                                $("#volatility").val(22.358);
+                                $("#productName").html('＜購入・換金手数料なし＞ニッセイ<br>日経平均インデックスファンド');
+                            } else if (productName === 'nissei_foreignStocks') {
+                                $("#expectedRateOfReturn").val(11.027);
+                                $("#volatility").val(19.450);
+                                $("#productName").html('＜購入・換金手数料なし＞ニッセイ<br>外国株式インデックスファンド');
+                            } else if (productName === 'nissei_nikkei225') {
+                                $("#expectedRateOfReturn").val(8.777);
+                                $("#volatility").val(23.106);
+                                $("#productName").html('ニッセイ日経２２５<br>インデックスファンド');
+                            } else if (productName === 'mitsui_japaneseStocks') {
+                                $("#expectedRateOfReturn").val(6.979);
+                                $("#volatility").val(21.092);
+                                $("#productName").html('三井住友・ＤＣつみたてＮＩＳＡ・<br>日本株インデックスファンド');
+                            } else if (productName === 'ufj_nikkeiAverage') {
+                                $("#expectedRateOfReturn").val(9.178);
+                                $("#volatility").val(22.388);
+                                $("#productName").html('eMAXIS Slim 国内株式(日経平均)');
+                            } else if (productName === 'ufj_topix') {
+                                $("#expectedRateOfReturn").val(6.412);
+                                $("#volatility").val(21.243);
+                                $("#productName").html('eMAXIS Slim 国内株式(TOPIX)');
+                            } else if (productName === 'ufj_s&p500') {
+                                $("#expectedRateOfReturn").val(12.432);
+                                $("#volatility").val(21.325);
+                                $("#productName").html('eMAXIS Slim 米国株式(S&P500)');
+                            } else if (productName === 'ufj_emergingCountryStocks') {
+                                $("#expectedRateOfReturn").val(6.146);
+                                $("#volatility").val(17.163);
+                                $("#productName").html('eMAXIS Slim 新興国株式<br>インデックス');
+                            } else if (productName === 'ufj_developedCountryStocks') {
+                                $("#expectedRateOfReturn").val(11.056);
+                                $("#volatility").val(19.472);
+                                $("#productName").html('eMAXIS Slim 先進国株式<br>インデックス');
+                            } else if (productName === 'ufj_allCountry') {
+                                $("#expectedRateOfReturn").val(9.905);
+                                $("#volatility").val(17.836);
+                                $("#productName").html('eMAXIS Slim 全世界株式<br>(オール・カントリー)');
+                            } else if (productName === 'ufj_allCountryExceptJapan') {
+                                $("#expectedRateOfReturn").val(10.331);
+                                $("#volatility").val(18.537);
+                                $("#productName").html('eMAXIS Slim 全世界株式(除く日本)');
+                            } else if (productName === 'ufj_balance') {
+                                $("#expectedRateOfReturn").val(4.830);
+                                $("#volatility").val(9.962);
+                                $("#productName").html('eMAXIS Slim バランス<br>（8資産均等型）');
+                            } else if (productName === 'rakuten_USA') {
+                                $("#expectedRateOfReturn").val(11.905);
+                                $("#volatility").val(21.448);
+                                $("#productName").html('楽天・全米株式<br>インデックス・ファンド');
+                            } else if (productName === 'sbi_globalSmallMid-capStocks') {
+                                $("#expectedRateOfReturn").val(9.086);
+                                $("#volatility").val(22.915);
+                                $("#productName").html('EXE-i グローバル中小型株式<br>ファンド');
+                            } else if (productName === 'capital_allCountry') {
+                                $("#expectedRateOfReturn").val(12.961);
+                                $("#volatility").val(18.889);
+                                $("#productName").html('キャピタル世界株式ファンド<br>（ＤＣ年金つみたて専用）');
+                            } else if (productName === 'daiwa_fang') {
+                                $("#expectedRateOfReturn").val(21.404);
+                                $("#volatility").val(30.861);
+                                $("#productName").html('iFreeNEXT FANG+インデックス');
+                            } else if (productName === 'daiwa_nasdaq100') {
+                                $("#expectedRateOfReturn").val(16.320);
+                                $("#volatility").val(24.880);
+                                $("#productName").html('iFreeNEXT NASDAQ100<br>インデックス');
+                            } else if (productName === 'daiwa_nydow') {
+                                $("#expectedRateOfReturn").val(10.451);
+                                $("#volatility").val(21.279);
+                                $("#productName").html('iFree NYダウ・インデックス');
+                            } else if (productName === 'norin_oobune') {
+                                $("#expectedRateOfReturn").val(9.506);
+                                $("#volatility").val(18.545);
+                                $("#productName").html('農林中金＜パートナーズ＞<br>長期厳選投資 おおぶね');
+                            } else {
+                                $("#expectedRateOfReturn").val();
+                                $("#volatility").val();
+                                $("#productName").html('');
+                            }
+
+                        $("#dialog").dialog("close");
+                    },
+                    "Cancel":function(){
+                        // ダイアログを非表示
+                        $("#dialog").dialog("close");
+                    }
+                }
+            });
+
+            $("#productSelectionButton").click(function(){
+                // ダイアログを表示
+                $("#dialog").dialog("open");
+            });
+
+            // ライフプランの表示非表示
+            $("#lifePlanButton").click(function(){
+                $(".lifePlan").toggleClass("display");
+            });
+
+            // 詳細設定の表示非表示
+            $("#advancedSettingButton").click(function(){
+                $(".advancedSetting").toggleClass("display");
+            });
+
+            });
+        </script>
+    </body>
+</html>
 
 
 
