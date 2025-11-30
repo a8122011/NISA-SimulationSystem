@@ -1,6 +1,5 @@
-
 //ファイル元
-package java.simulateAssetFormationWithNISA;
+package jp.java.simulator.simulateAssetFormationWithNISA;
 
 //Spring Frameworkの機能を使う
 import org.springframework.stereotype.Controller;
