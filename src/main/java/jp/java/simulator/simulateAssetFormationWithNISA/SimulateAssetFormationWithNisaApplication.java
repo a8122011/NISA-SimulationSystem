@@ -4,7 +4,7 @@ package jp.java.simulator.simulateAssetFormationWithNISA;
 import org.springframework.boot.SpringApplication; //Spring Bootアプリケーションを起動するためのクラス
 import org.springframework.boot.autoconfigure.SpringBootApplication; //Spring Bootの自動設定・コンポーネントスキャン
 
-@SpringBootApplication　//アノテーション
+@SpringBootApplication //アノテーション
 public class SimulateAssetFormationWithNisaApplication {
 
 	public static void main(String[] args) {
