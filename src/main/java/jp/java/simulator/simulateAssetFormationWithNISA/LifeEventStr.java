@@ -1,5 +1,4 @@
-
-package jp.java.voyage.simulateAssetFormationWithNISA;
+package jp.java.simulator.simulateAssetFormationWithNISA;
 
 //ライフイベントの年齢と必要資金をまとめたデータクラス
 public class LifeEventStr {
