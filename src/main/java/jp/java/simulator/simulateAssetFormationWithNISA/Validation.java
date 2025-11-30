@@ -1,4 +1,4 @@
-package jp.java.voyage.simulateAssetFormationWithNISA;
+package jp.java.simulator.simulateAssetFormationWithNISA;
 
 import java.util.regex.Pattern; //正規表現のパターンを表すクラス
 import java.util.regex.Matcher; //Patternを使って文字列がそのパターンにマッチするかチェックするためのクラス
