@@ -1,4 +1,4 @@
-package java.simulateAssetFormationWithNISA;
+package jp.java.simulator.simulateAssetFormationWithNISA;
 
 public class AdvancedSettingValidation {
     String annualChangeMoneyError;
