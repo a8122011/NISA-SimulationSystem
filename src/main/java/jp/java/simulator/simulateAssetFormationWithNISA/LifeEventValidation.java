@@ -1,4 +1,4 @@
-package jp.java.voyage.simulateAssetFormationWithNISA;
+package jp.java.simulator.simulateAssetFormationWithNISA;
 
 public class LifeEventValidation {
     String lifeEventAge1Error;
