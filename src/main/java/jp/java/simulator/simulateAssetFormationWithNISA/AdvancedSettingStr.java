@@ -1,4 +1,4 @@
-package java.simulateAssetFormationWithNISA;
+package jp.java.simulator.simulateAssetFormationWithNISA;
 
 //2つの文字列フィールドを引数で受け取って初期化するデータ保持クラス
 public class AdvancedSettingStr { //公開クラス
