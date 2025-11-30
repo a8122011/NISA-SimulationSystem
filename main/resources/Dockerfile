@@ -1,15 +1,8 @@
-FROM maven:3.9.6-jdk-21 AS build
-WORKDIR /app
+FROM maven:3-eclipse-temurin-21 AS build
 COPY . .
 RUN mvn clean package -Dmaven.test.skip=true
 
-# ベースイメージとしてOpenJDK 17のslimバージョンを使用
-FROM openjdk:21-jdk-slim
-
-# 作成したアプリケーションのJarファイルをイメージ内にコピー
-COPY --from=build /target/simulateAssetFormationWithNISA-0.0.1-SNAPSHOT.jar /app.demo.jar
-
+FROM eclipse-temurin:21-alpine
+COPY --from=build /target/simulateAssetFormationWithNISA-0.0.1-SNAPSHOT.jar demo.jar
 EXPOSE 8888
-
-# アプリケーションを実行
-ENTRYPOINT ["java", "-jar", "/app.demo.jar"]
+ENTRYPOINT ["java","-jar", "demo.jar"]
