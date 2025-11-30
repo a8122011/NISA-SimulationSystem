@@ -1,7 +1,6 @@
+package jp.java.simulator.simulateAssetFormationWithNISA; //このファイルが所属するフォルダ
 
-package java.SimulateAssetFormationWithNISA; //このファイルが所属するフォルダ
-
-import java.simulateAssetFormationWithNISA.HomeController.SimulationParams;  //HomeControllerファイルのクラスrecordを読み込む宣言
+import java.simulator.simulateAssetFormationWithNISA.HomeController.SimulationParams;  //HomeControllerファイルのクラスrecordを読み込む宣言
 
 import java.math.BigDecimal;  //少数を正確に扱う金融計算のためのクラス
 import java.math.RoundingMode;  //小数点の丸め方指定
