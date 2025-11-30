@@ -13,7 +13,7 @@ public class Validation {
     public Validation() {
     } //デフォルトのコンストラクタ。オブジェクト作成時に必ず呼び出される
 
-    public void typeValid(String expectedRateOfReturn, String volatility, String startAge, String monthlySavings, String initialValue, lifeEventStr lifeEventStr, lifeEventValidation lev, advancedSettingStr advancedSettingStr, advancedSettingValidation asv) {
+    public void typeValid(String expectedRateOfReturn, String volatility, String startAge, String monthlySavings, String initialValue, LifeEventStr lifeEventStr, LifeEventValidation lev, AdvancedSettingStr advancedSettingStr, AdvancedSettingValidation asv) {
         Pattern pattern1 = Pattern.compile("^[+-]?[0-9]+$|^[+-]?[0-9]+\\.[0-9]+$"); //整数or小数、＋－
         Pattern pattern2 = Pattern.compile("^[+-]?[0-9]+$"); //整数、＋－
         Matcher matcher1 = pattern1.matcher(expectedRateOfReturn);
