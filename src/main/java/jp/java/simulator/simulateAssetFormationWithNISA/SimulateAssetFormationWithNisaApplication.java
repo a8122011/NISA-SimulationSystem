@@ -1,4 +1,4 @@
-package java.simulateAssetFormationWithNISA;
+package jp.java.simulator.simulateAssetFormationWithNISA;
 
 //Spring Bootアプリを起動する
 import org.springframework.boot.SpringApplication; //Spring Bootアプリケーションを起動するためのクラス
