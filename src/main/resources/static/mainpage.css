@@ -1,0 +1,220 @@
+/*共通項目*/
+* {
+    color: #4A4A4A;
+    font-weight: 400;
+    font-size: 30px;
+    text-align: center;
+    margin: 20px 40px;
+}
+
+h1 {
+    color: white;
+    font-size: 40px;
+    background-color: #90CE9C;
+    padding: 40px;
+    text-align: center;
+}
+
+.hidden {
+    display: none;
+}
+
+.buttons {
+    text-align: center;
+    margin: 30px 0px 0px 20px;
+}
+
+/* 入力フォーム */
+.formContainer {
+    max-width:850px;
+    margin:0 auto;
+}
+
+.formContainer table {
+    margin: auto;
+    text-align: center;
+}
+
+.formContainer th,.formContainer td {
+    padding: 10px;
+}
+
+.formContainer input {
+    width: 150px;
+    font-size: 20px;
+    padding: 10px;
+    margin: 5px 0px 5px 20px;
+    border-radius: 10px;
+    background-color: #E8F5EB
+    border: 2px solid #C8DCCF
+}
+
+.formContainer input:focus {
+    border-color: #90CE9C;
+    outline: 0;
+}
+
+/*商品選択ボタン*/
+#productSelectionButton {
+    align-items: center;
+    width: auto;
+    margin: 10px auto;
+    padding: .8em 3.2em;
+    background-color: #fff;
+    border:2px solid #90ce9c;
+    border-radius: 30px;
+    color: #90ce9c;
+    font-weight: 600;
+    font-size: 1em;
+    cursor: pointer;
+}
+
+/*ライフイベント、詳細設定ボタン*/
+#lifePlanButton , #advancedSettingButton {
+    color: #90CE9C;
+    background-color: white;
+    padding: 10px 20px;
+    border-radius: 50px;
+    border: 2px solid #90CE9C;
+    cursor: pointer;
+}
+
+#productSelectionButton:hover, #lifePlanButton:hover, #advancedSettingButton:hover {
+    transform: scale(1.05);
+}
+
+.lifeEvents, .advancedSettings {
+    display: none;
+}
+
+.display {
+    display: table-row;
+}
+
+/*エラーメッセージ*/
+.validColor {
+    color: #E85C5C;
+}
+
+/* 年変化 */
+.annualChangePeriod {
+    position: relative;
+}
+
+.annualChangePeriod::before, .annualChangePeriod::after {
+    position: absolute;
+    content: '';
+    pointer-events: none;
+}
+
+.annualChangePeriod::before {
+    display: inline-block;
+    right: 4.5px;
+    border-radius: 0 5px 5px 0;
+    background-color: #90CE9C;
+}
+
+.annualChangePeriod::after {
+    position: absolute;
+    top: 50%;
+    right: 1.4em;
+    transform: translate(50%, -50%) rotate(45deg);
+    width: 5px;
+    height: 5px;
+    border-bottom: 3px solid #fff;
+    border-right: 3px solid #fff;
+}
+
+.annualChangePeriod select {
+    appearance: none;
+    min-width: 100px;
+    height: 2.2em;
+    padding: .4em 3.6em .4em .8em;
+    border: none;
+    border-radius: 5px;
+    background-color: #E8F5EB;
+    color: #4A4A4A;
+    font-size: 1em;
+    cursor: pointer;
+}
+
+.annualChangePeriod select:focus {
+    outline: 2px solid #6ABF7E;
+    cursor: pointer;
+}
+
+/*開始ボタン*/
+#start {
+    color: white;
+    background-color: #6ABF7E;
+    padding: 20px 30px;
+    border-radius: 50px;
+    width: 70%;
+    border: none;
+    cursor: pointer;
+}
+
+/*シミュレーション情報*/
+.paramList {
+    margin: 20px;
+}
+
+.paramList table {
+    width:80%; 
+    margin:0 auto; 
+    -webkit-border-radius:6px; 
+    -moz-border-radius:6px; 
+    border-radius:6px; 
+    padding: 10px; 
+    border: solid 2px #C8DCCF;
+    background-color: #E8F5EB; 
+}
+
+.paramList th {
+    border-collapse: collapse; 
+    border: solid 2px ##C8DCCF; 
+}
+
+/* グラフ表示 */ 
+.chartContainer {
+    width:80%; 
+    margin:0 auto; 
+} 
+
+/* 商品選択ダイアログ */ 
+.productSelection {
+    margin: 20px;
+    font-size: 0.9em; 
+} 
+
+.productSelection table { 
+    width:95%; 
+    margin:0 auto; 
+    padding: 10px; 
+    border-collapse: collapse;
+    background-color: #E8F5EB;
+} 
+
+.productSelection th, .productSelection td { 
+    border: solid 2px #C8DCCF; 
+} 
+
+.returnWidth {
+    width:90px; 
+}
+
+.volaWidth {
+    width:110px; 
+}
+
+.companyWidth {
+    width:140px; 
+}
+
+.recommendedLevelWidth {
+    width: 80px;
+}
+
+.productSelection input { 
+    transform: scale(1.5) 
+}
