@@ -40,7 +40,14 @@ public class Validation {
         if (!(matcher2.matches())) {
             this.volatilityError = "商品を選択するか、半角数字を入力してください";
         }
-        if (!(matcher3.matches() || startage < 0 || startage > 64)) {
+        
+        int startAgeValue = -1;
+        try {
+            startAgeValue = Integer.parseInt(startAge); // startAge はメソッド引数の String
+        } catch (NumberFormatException e) {
+            // 変換できなければ startAgeValue = -1 のまま
+        }
+        if (!(matcher3.matches() || startAge < 0 || startAge > 64)) {
             this.startAgeError = "0～64を入力してください";
         }
         if (!(matcher4.matches())) {
