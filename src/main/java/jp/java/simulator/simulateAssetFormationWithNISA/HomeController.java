@@ -15,9 +15,11 @@ import java.util.*;
 
 @Controller
 public class HomeController {
+
+  record LifeEventParams(String lifeEvent1, int lifeEventAge1, double requiredFunds1, String lifeEvent2, int lifeEventAge2, double requiredFunds2, String lifeEvent3, int lifeEventAge3, double requiredFunds3, String lifeEvent4, int lifeEventAge4, double requiredFunds4, String lifeEvent5, int lifeEventAge5, double requiredFunds5) {}
   
     record AdvancedSetting(int annualChangeMonth, int annualChangeMoney, int endingAge) {}
-    record SimulationParams(String id, double expectedRateOfReturn, double volatility, int startAge, double monthlySavings, double initialValue, LifeEventsParams lifeEventParams, AdvancedSetting advancedSetting) {}
+    record SimulationParams(String id, double expectedRateOfReturn, double volatility, int startAge, double monthlySavings, double initialValue, LifeEventParams lifeEventParams, AdvancedSetting advancedSetting) {}
     
     private String id;
     private double expectedRateOfReturn;
