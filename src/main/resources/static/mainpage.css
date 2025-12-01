@@ -2,7 +2,7 @@
 * {
     color: #4A4A4A;
     font-weight: 400;
-    font-size: 10px;
+    font-size: 20px;
     text-align: center;
     margin: 20px 40px;
 }
@@ -186,31 +186,34 @@ h1 {
 } 
 
 .productSelection table { 
-    width:95%; 
     margin:0 auto; 
     padding: 10px; 
     border-collapse: collapse;
-    background-color: #90CE9C9C;
-} 
-
-.productSelection th, .productSelection td { 
     border: solid 2px #C8DCCF; 
 } 
 
+.productSelection th {
+    background-color: #90CE9C9C;
+} 
+
+.fundnameWidth{
+    width:120px;
+}
+    
 .returnWidth {
     width:90px; 
 }
 
 .volaWidth {
-    width:110px; 
+    width:90px; 
 }
 
 .companyWidth {
-    width:140px; 
+    width:200px; 
 }
 
-.recommendedLevelWidth {
-    width: 80px;
+.detailWidth {
+    width:200px; 
 }
 
 .productSelection input { 
