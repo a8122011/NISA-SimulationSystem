@@ -1,38 +1,54 @@
+//XMLファイル
 <?xml version="1.0" encoding="UTF-8"?>
+
+//Mavenのルールで書かれている
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+	//このPOMファイルはMaven 4.0.0
 	<modelVersion>4.0.0</modelVersion>
+
+	//Spring Bootの基本設定
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
 		<version>3.1.5</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>jp.java.voyage</groupId>
+
+	//プロジェクトの基本情報
+	<groupId>jp.java.simulator</groupId>
 	<artifactId>simulateAssetFormationWithNISA</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>0.0.1-SNAPSHOT</version> //jarファイル名にも使われる
+	//プロジェクトの説明
 	<name>simulateAssetFormationWithNISA</name>
 	<description>新NISAによるライフプランに合わせた資産形成シミュレーション</description>
+
+	//Javaのバージョン設定
 	<properties>
 		<java.version>17</java.version>
 	</properties>
+	
 	<dependencies>
+		//Spring Boot Web
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
 
+		//テスト用
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
 
+		//Thymeleaf(テンプレートエンジン)(HTMLを生成するためのテンプレート機能)
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-thymeleaf</artifactId>
 		</dependency>
 
+		//AWS Lambda用の依存
 		<dependency>
 			<groupId>com.amazonaws</groupId>
 			<artifactId>aws-lambda-java-core</artifactId>
@@ -50,6 +66,7 @@
 		</dependency>
 	</dependencies>
 
+	//build設定 Spring Bootのfat jar(1つにまとまった実行可能jar)を作るプラグイン
 	<build>
 		<plugins>
 			<plugin>
