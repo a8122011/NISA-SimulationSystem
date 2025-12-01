@@ -52,7 +52,7 @@
 
                 <!-- 入力任意項目（ライフイベント） -->
                 <div class="buttons">
-                    <button type="button" id="lifePlanButton"> + ライフイベントを追加</button>
+                    <button type="button" id="lifeEventsButton"> + ライフイベントを追加</button>
                 </div>
             
                 <table>
@@ -148,7 +148,7 @@
                 </div>
             
                 <table>
-                    <tr class="advancedSettings">
+                    <tr class="advancedSetting">
                         <th colspan="2" style="text-align: right"><label>年変化</label></th>
                         <th><span>つみたて月額を</span>
                             <label class="annualChangePeriod">
@@ -167,7 +167,7 @@
                         </th>
                     </tr>
             
-                    <tr class="advancedSettings">
+                    <tr class="advancedSetting">
                         <th colspan="2" style="text-align: right"><label>シミュレーション終了年齢</label></th>
                         <th><input name="endingAge" type="text" />
                             <div th:text="${endingAgeError}" class="validColor"></div> 歳</th>
@@ -254,9 +254,9 @@
         </div>
 
         <!-- シミュレーショングラフ -->
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.bundle.js"></script> //Chart.bungle.js読み込み
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.bundle.js"></script>  <!-- Chart.bungle.js読み込み　-->
         <script th:inline="javascript">
-            var ctx = document.getElementById("myLineChart"); //ctx：キャンバス
+            var ctx = document.getElementById("myLineChart");  <!-- ctx:キャンバス-->
             var myLineChart = new Chart(ctx, {
                 type: 'line',
                 data: {
@@ -320,7 +320,7 @@
 
         <script type="text/javascript">
             $(function(){
-                $("#dialog").dialog({
+                $("#SelectFunds").dialog({
                     autoOpen:false,
                     width:900,
                     height:600,
@@ -357,24 +357,24 @@
                                 $("#volatility").val();
                                 $("#productName").html('');
                             }
-                            $("#dialog").dialog("close");
+                            $("#SelectFunds").dialog("close");
                         },
 
                         <!-- ダイアログの非表示 --> 
                         "閉じる":function(){
-                            $("#dialog").dialog("close");
+                            $("#SelectFunds").dialog("close");
                         }
                     }
                 });
                 
                 <!-- ダイアログを表示 -->
                 $("#productSelectionButton").click(function(){
-                    $("#dialog").dialog("open");
+                    $("#SelectFunds").dialog("open");
                 });
     
                 <!-- ライフプランの表示非表示 --> 
-                $("#lifePlanButton").click(function(){
-                    $(".lifePlan").toggleClass("display");
+                $("#lifeEventsButton").click(function(){
+                    $(".lifeEvents").toggleClass("display");
                 });
     
                 <!--  詳細設定の表示非表示 -->
