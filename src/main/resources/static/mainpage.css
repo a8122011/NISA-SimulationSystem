@@ -2,7 +2,7 @@
 * {
     color: #4A4A4A;
     font-weight: 400;
-    font-size: 30px;
+    font-size: 20px;
     text-align: center;
     margin: 20px 40px;
 }
@@ -31,6 +31,7 @@ h1 {
 }
 
 .formContainer table {
+    width: 150px;
     margin: auto;
     text-align: center;
 }
@@ -45,7 +46,8 @@ h1 {
     padding: 10px;
     margin: 5px 0px 5px 20px;
     border-radius: 10px;
-    background-color: #ebebeb
+    background-color: #90CE9C9C;
+    border: none;
 }
 
 .formContainer input:focus {
@@ -56,9 +58,10 @@ h1 {
 /*商品選択ボタン*/
 #productSelectionButton {
     align-items: center;
-    width: 60%;
+    width: 40%;
     margin: 10px auto;
     padding: 0.8em 3.2em;
+    font-size: 0.7em
     background-color: #fff;
     border:2px solid #90ce9c;
     border-radius: 30px;
@@ -181,7 +184,6 @@ h1 {
 /* 商品選択ダイアログ */ 
 .productSelection {
     margin: 15px;
-    font-size: 0.6em;
 } 
 
 .productSelection table { 
@@ -189,7 +191,12 @@ h1 {
     padding: 10px; 
     border-collapse: collapse;
     border: solid 2px #C8DCCF;
+    font-size: 0.6em;
 } 
+
+.productSelection th, .productSelection td {
+    border: solid 2px #C8DCCF;
+}
 
 .fundnameWidth{
     width:130px;
