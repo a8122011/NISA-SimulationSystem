@@ -70,7 +70,7 @@ h1 {
 }
 
 /*ライフイベント、詳細設定ボタン*/
-#lifePlanButton , #advancedSettingButton {
+#lifeEventsButton , #advancedSettingButton {
     color: #90CE9C;
     background-color: white;
     padding: 10px 20px;
@@ -79,11 +79,11 @@ h1 {
     cursor: pointer;
 }
 
-#productSelectionButton:hover, #lifePlanButton:hover, #advancedSettingButton:hover {
+#productSelectionButton:hover, #lifeEventsButton:hover, #advancedSettingButton:hover {
     transform: scale(1.03);
 }
 
-.lifeEvents, .advancedSettings {
+.lifeEvents, .advancedSetting {
     display: none;
 }
 
