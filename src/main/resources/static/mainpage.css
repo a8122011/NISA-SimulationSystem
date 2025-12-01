@@ -31,7 +31,7 @@ h1 {
 }
 
 .formContainer table {
-    width: 150px;
+    width: 200px;
     margin: auto;
     text-align: center;
 }
@@ -41,17 +41,35 @@ h1 {
 }
 
 .formContainer input {
+    margin-bottom: 10px;
+}
+
+.formContainer input:first-of-type {
+    margin-top: 10px;
+}
+
+.formContainer textarea {
+    height: 100px;
+    margin-bottom: 10px;
+}
+.formContainer input, textarea {
+    font-size: 1em;
     width: 100px;
-    font-size: 20px;
     padding: 10px;
-    margin: 5px 0px 5px 20px;
+    border: 1px solid #90CE9C91;
+    background: #90CE9C91;
     border-radius: 10px;
-    background-color: #90CE9C9C;
-    border: none;
+    -moz-background-clip: padding;
+    -webkit-background-clip: padding-box;
+    background-clip: padding-box;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    width: 90%;
+    max-width: 80px;
 }
 
 .formContainer input:focus {
-    border-color: #90CE9C;
+    border:  1px solid #90CE9C;
     outline: 0;
 }
 
@@ -62,20 +80,20 @@ h1 {
     margin: 10px auto;
     padding: 0.8em 3.2em;
     font-size: 0.7em
-    background-color: #fff;
-    border:2px solid #90ce9c;
     border-radius: 30px;
+    border:2px solid #90ce9c;
     color: #90ce9c;
+    background-color: white;
     cursor: pointer;
 }
 
 /*ライフイベント、詳細設定ボタン*/
 #lifeEventsButton , #advancedSettingButton {
-    color: #90CE9C;
-    background-color: white;
     padding: 10px 20px;
     border-radius: 50px;
     border: 2px solid #90CE9C;
+    color: #90CE9C;
+    background-color: white;
     cursor: pointer;
 }
 
@@ -167,7 +185,6 @@ h1 {
     border-radius:6px; 
     padding: 10px; 
     border: solid 2px #C8DCCF;
-    background-color: #E8F5EB; 
 }
 
 .paramList th {
@@ -182,20 +199,16 @@ h1 {
 } 
 
 /* 商品選択ダイアログ */ 
-.productSelection {
-    margin: 15px;
-} 
-
 .productSelection table { 
     margin:0 auto; 
     padding: 10px; 
     border-collapse: collapse;
     border: solid 2px #C8DCCF;
-    font-size: 0.6em;
 } 
 
 .productSelection th, .productSelection td {
     border: solid 2px #C8DCCF;
+    font-size: 0.6em;
 }
 
 .fundnameWidth{
