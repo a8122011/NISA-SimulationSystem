@@ -46,7 +46,6 @@ h1 {
     margin: 5px 0px 5px 20px;
     border-radius: 10px;
     background-color: #E8F5EB
-    border: 2px solid #C8DCCF
 }
 
 .formContainer input:focus {
@@ -171,7 +170,7 @@ h1 {
 
 .paramList th {
     border-collapse: collapse; 
-    border: solid 2px ##C8DCCF; 
+    border: solid 2px #C8DCCF; 
 }
 
 /* グラフ表示 */ 
@@ -182,8 +181,8 @@ h1 {
 
 /* 商品選択ダイアログ */ 
 .productSelection {
-    margin: 20px;
-    font-size: 0.9em; 
+    margin: 15px;
+    font-size: 0.6em; 
 } 
 
 .productSelection table { 
@@ -191,7 +190,7 @@ h1 {
     margin:0 auto; 
     padding: 10px; 
     border-collapse: collapse;
-    background-color: #E8F5EB;
+    background-color: #90CE9C9C;
 } 
 
 .productSelection th, .productSelection td { 
