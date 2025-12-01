@@ -2,7 +2,7 @@
 * {
     color: #4A4A4A;
     font-weight: 400;
-    font-size: 30px;
+    font-size: 20px;
     text-align: center;
     margin: 20px 40px;
 }
@@ -57,14 +57,13 @@ h1 {
 /*商品選択ボタン*/
 #productSelectionButton {
     align-items: center;
-    width: auto;
+    width: 60%;
     margin: 10px auto;
-    padding: .8em 3.2em;
+    padding: 0.8em 3.2em;
     background-color: #fff;
     border:2px solid #90ce9c;
     border-radius: 30px;
     color: #90ce9c;
-    font-weight: 600;
     font-size: 1em;
     cursor: pointer;
 }
@@ -80,7 +79,7 @@ h1 {
 }
 
 #productSelectionButton:hover, #lifePlanButton:hover, #advancedSettingButton:hover {
-    transform: scale(1.05);
+    transform: scale(1.03);
 }
 
 .lifeEvents, .advancedSettings {
