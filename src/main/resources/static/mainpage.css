@@ -106,7 +106,7 @@ h1 {
 }
 
 .display {
-    display: table-row;
+    display: block; /* toggleClassで表示 */
 }
 
 /*エラーメッセージ*/
@@ -199,7 +199,7 @@ h1 {
 } 
 
 /* 商品選択ダイアログ */ 
-.SelectFunds {
+#SelectFunds {
     display: none;
 }
 
