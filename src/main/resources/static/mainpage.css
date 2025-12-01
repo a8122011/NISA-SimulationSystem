@@ -2,7 +2,7 @@
 * {
     color: #4A4A4A;
     font-weight: 400;
-    font-size: 20px;
+    font-size: 30px;
     text-align: center;
     margin: 20px 40px;
 }
@@ -40,12 +40,12 @@ h1 {
 }
 
 .formContainer input {
-    width: 150px;
+    width: 100px;
     font-size: 20px;
     padding: 10px;
     margin: 5px 0px 5px 20px;
     border-radius: 10px;
-    background-color: #E8F5EB
+    background-color: #ebebeb
 }
 
 .formContainer input:focus {
@@ -63,7 +63,6 @@ h1 {
     border:2px solid #90ce9c;
     border-radius: 30px;
     color: #90ce9c;
-    font-size: 1em;
     cursor: pointer;
 }
 
@@ -182,30 +181,26 @@ h1 {
 /* 商品選択ダイアログ */ 
 .productSelection {
     margin: 15px;
-    font-size: 0.6em; 
+    font-size: 0.6em;
 } 
 
 .productSelection table { 
     margin:0 auto; 
     padding: 10px; 
     border-collapse: collapse;
-    border: solid 2px #C8DCCF; 
-} 
-
-.productSelection th {
-    background-color: #90CE9C9C;
+    border: solid 2px #C8DCCF;
 } 
 
 .fundnameWidth{
-    width:120px;
+    width:130px;
 }
     
 .returnWidth {
-    width:90px; 
+    width:60px; 
 }
 
 .volaWidth {
-    width:90px; 
+    width:60px; 
 }
 
 .companyWidth {
