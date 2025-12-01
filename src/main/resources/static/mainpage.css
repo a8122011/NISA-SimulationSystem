@@ -199,6 +199,10 @@ h1 {
 } 
 
 /* 商品選択ダイアログ */ 
+.SelectFunds {
+    display: none;
+}
+
 .productSelection table { 
     margin:0 auto; 
     padding: 10px; 
