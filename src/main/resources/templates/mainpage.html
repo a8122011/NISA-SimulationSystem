@@ -25,26 +25,24 @@
         </div>
         <br><br>
 
-        <div class= "fundsWeight" style="display:none;">
-            <table>
-                <tr>
-                    <th><label>商品：</label></th>
-                    <th><span id="selectedFund1"></span></th>
-                    <th><span id="selectedFund2"></span></th>
-                </tr>
-            </table>
-            <table>
-                <tr class= "weightInputs">
-                    <th><label>割合：</label></th>
-                    <th><label id="weightLabel1"></label> 
-                        <input type="number" id="weight1" placeholder="50"> %
-                    </th>
-                    <th><label id="weightLabel2"></label> 
-                        <input type="number" id="weight2" placeholder="50"> % 
-                    </th>
-                </tr>
-            </table>
-        </div>
+        <table>
+            <tr class= "selectedFundName" style="display:none;">>
+                <th><label>商品：</label></th>
+                <th><span id="selectedFund1"></span></th>
+                <th><span id="selectedFund2"></span></th>
+            </tr>
+        </table>
+        <table>
+            <tr class= "weightInputs">
+                <th><label>割合：</label></th>
+                <th><label id="weightLabel1"></label> 
+                    <input type="number" id="weight1" placeholder="50"> %
+                </th>
+                <th><label id="weightLabel2"></label> 
+                    <input type="number" id="weight2" placeholder="50"> % 
+                </th>
+            </tr>
+        </table>
         
         <form action="?"> <!-- ユーザーの入力値を送信するフォーム クエリパラメータで自己ページへ送信 -->
             <div class="formContainer">
