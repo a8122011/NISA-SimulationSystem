@@ -25,17 +25,19 @@
             <table>
                 <tr>
                     <th><label>商品：</label></th>
-                    <th>  <!-- 商品表示1 -->  </th>
-                    <th>  <!-- 商品表示2 -->  </th>
+                    <th><span id="SelectedFund1"></span></th>
+                    <th><span id="SelectedFund2"></span></th>
                 </tr>
-                <tr>
-                    <th><label id="weightLabel1"></label> 
-                        <input type="number" id="weight1" placeholder="50"> %
-                    </th>
-                    <th><label id="weightLabel2"></label> 
-                        <input type="number" id="weight2" placeholder="50"> % 
-                    </th>  
-                </tr>
+                <div id= "WeightInputs" style="display:none;">
+                    <tr>
+                        <th><label id="weightLabel1"></label> 
+                            <input type="number" id="weight1" placeholder="50"> %
+                        </th>
+                        <th><label id="weightLabel2"></label> 
+                            <input type="number" id="weight2" placeholder="50"> % 
+                        </th>
+                    </tr>
+                </div>
             </table>
         </div>
         
@@ -390,6 +392,10 @@
                             // 商品が1つだけ選ばれた場合
                             if(SelectedProducts.length === 1){
                                 const p = products[SelectedProducts[0]];
+                                
+                                $("#selectedFund1").text(p.name);
+                                $("#selectedFund2").text(""); 
+                                
                                 $("#expectedRateOfReturn").val(p.expectedRateOfReturn.toFixed(3));
                                 $("#volatility").val(p.volatility.toFixed(3));
                             }
@@ -399,6 +405,9 @@
                                 $("#weightInputs").show();
                                 $("#weightLabel1").text(products[SelectedProducts[0]].name);
                                 $("#weightLabel2").text(products[SelectedProducts[1]].name);
+
+                                $("#selectedFund1").text(products[SelectedProducts[0]].name);
+                                $("#selectedFund2").text(products[SelectedProducts[1]].name);
 
                                 //2商品の比率
                                 const weight1 = parseFloat($("#weight1").val()) / 100;
