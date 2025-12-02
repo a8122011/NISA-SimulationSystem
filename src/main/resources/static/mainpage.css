@@ -71,6 +71,8 @@ h1 {
 /*エラーメッセージ*/
 .validColor {
     color: #E85C5C;
+    font-weight: 200;
+    font-size: 0.8em;
 }
 
 /*選択された商品・割合*/
