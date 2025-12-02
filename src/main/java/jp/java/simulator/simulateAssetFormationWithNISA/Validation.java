@@ -47,7 +47,7 @@ public class Validation {
         } catch (NumberFormatException e) {
             // 変換できなければ startage = -1 のまま
         }
-        if (!(matcher3.matches() || startage < 0 || startage > 64)) {
+        if (!(matcher3.matches()) || startage < 0 || startage > 64) {
             this.startAgeError = "0～64を入力してください";
         }
         if (!(matcher4.matches())) {
