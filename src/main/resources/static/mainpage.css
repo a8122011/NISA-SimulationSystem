@@ -241,6 +241,14 @@ h1 {
 }
 
 /*ライフイベント、詳細設定ボタン*/
+.lifeEvents, .advancedSetting {
+    display: none;
+}
+
+.display {
+    display: table-row; /* toggleClassで表示 */
+}
+
 #lifeEventsButton , #advancedSettingButton {
     padding: 10px 20px;
     border-radius: 30px;
@@ -264,13 +272,3 @@ h1 {
 #productSelectionButton:hover, #lifeEventsButton:hover, #advancedSettingButton:hover, .start:hover{
     transform: scale(1.03);
 }
-
-.lifeEvents, .advancedSetting {
-    display: none;
-}
-
-.display {
-    display: table-row; /* toggleClassで表示 */
-}
-
-
