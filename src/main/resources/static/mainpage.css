@@ -256,6 +256,7 @@ h1 {
     border-radius: 20px;
     border: 2px solid #90CE9C;
     color: #90CE9C;
+    font-size:1.1em;
     background-color: white;
     cursor: pointer;
 }
