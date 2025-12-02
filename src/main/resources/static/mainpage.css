@@ -66,18 +66,18 @@ h1 {
 }
 
 /*選択された商品・割合*/
-#fundsWeight {
+.fundsWeight {
     margin-top: 20px;
     width: 100%;
 }
 
-#FundsWeight th {
+.FundsWeight th {
     padding: auto;
     text-align: center;
 }
 
-#FundsWeight #selectedFund1,
-#FundsWeight #selectedFund2 {
+.FundsWeight #selectedFund1,
+.FundsWeight #selectedFund2 {
     padding: 15px;
     border: 1px solid #d8f1dd;
     border-radius: 10px;
@@ -86,7 +86,7 @@ h1 {
     color: #90CE9C;
 }
 
-#fundsWeight input {
+.fundsWeight input {
     font-size: 1em;
     padding: 10px;
     font-size: 1em;
@@ -102,7 +102,7 @@ h1 {
     
 
 /* 比率入力部分 */
-#weightInputs table th {
+.weightInputs table th {
     text-align: center;
 }
 
@@ -247,7 +247,7 @@ h1 {
 }
 
 /*開始ボタン*/
-#start {
+.start {
     color: white;
     background-color: #6ABF7E;
     padding: 20px 30px;
