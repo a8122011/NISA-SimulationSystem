@@ -320,6 +320,35 @@
 
         <script type="text/javascript">
             $(function(){
+                const products = {
+                    //リスト化
+                    "mitsui_dc": { expectedRateOfReturn: 19.117, volatility: 8.677, name: '三井住友・DCつみたてNISA・日本株インデックスファンド' },
+                    "mitsubishi_emaxis": { expectedRateOfReturn: 9.564, volatility: 10.639, name: 'eMAIXISバランス(8資産均等型)' },
+                    "nomura_nomu": { expectedRateOfReturn: 10.852, volatility: 14.521, name: 'のむラップ・ファンド(積極型)' },
+                    "mitsui_smtam": { expectedRateOfReturn: 17.167, volatility: 20.659, name: 'SMTAMダウ・ジョーンズ インデックスファンド' },
+                    "amova_s&p500": { expectedRateOfReturn: 18.553, volatility: 21.038, name: '上場インデックスファンド米国株式(S&P500)' },
+                    "daiwa_iFree": { expectedRateOfReturn: 11.003, volatility: 18.989, name: 'iFreeETF JPX 日経400' }
+                };
+
+                // 任意の組み合わせの相関係数
+                const rhoMatrix = {
+                    "mitsui_dc,mitsubishi_emaxis": 0.8738,
+                    "mitsui_dc,nomura_nomu": 0.8620,
+                    "mitsui_dc,mitsui_smtam":0.7803,
+                    "mitsui_dc,amova_s&p500":0.2370,
+                    "mitsui_dc,daiwa_iFree":0.9949,
+                    "mitsubishi_emaxis,nomura_nomu": 0.9613,
+                    "mitsubishi_emaxis,mitsui_smtam": 0.8611,
+                    "mitsubishi_emaxis,amova_s&p500": 0.2112,
+                    "mitsubishi_emaxis,daiwa_iFree": 0.8580,
+                    "nomura_nomu,mitsui_smtam": 0.9406,
+                    "nomura_nomu,amova_s&p500": 0.2420,
+                    "nomura_nomu,daiwa_iFree": 0.8606,
+                    "mitsui_smtam,amova_s&p500": 0.2649,
+                    "mitsui_smtam,daiwa_iFree": 0.8030,
+                    "amova_s&p500,daiwa_iFree": 0.2679
+                };
+                
                 $("#SelectFunds").dialog({
                     autoOpen:false,
                     width:900,
@@ -327,60 +356,76 @@
                     modal:true,
                     buttons:{
                         "選択":function(){
-                            const productName = $('input:radio[name="productName"]:checked').val();
-                            if (productName === 'mitsui_dc') {
-                                $("#expectedRateOfReturn").val(19.117);
-                                $("#volatility").val(8.677);
-                                $("#productName").html('三井住友・DCつみたてNISA・日本株インデックスファンド');
-                            } else if (productName === 'mitsubishi_emaxis') {
-                                $("#expectedRateOfReturn").val(9.564);
-                                $("#volatility").val(10.639);
-                                $("#productName").html('eMAIXISバランス(8資産均等型)');
-                            } else if (productName === 'nomura_nomu') {
-                                $("#expectedRateOfReturn").val(10.852);
-                                $("#volatility").val(14.521);
-                                $("#productName").html('のむラップ・ファンド(積極型)');
-                            } else if (productName === 'mitsui_smtam') {
-                                $("#expectedRateOfReturn").val(17.167);
-                                $("#volatility").val(20.659);
-                                $("#productName").html('SMTAMダウ・ジョーンズ インデックスファンド');
-                            } else if (productName === 'amova_s&p500') {
-                                $("#expectedRateOfReturn").val(18.553);
-                                $("#volatility").val(21.038);
-                                $("#productName").html('上場インデックスファンド米国株式(S&P500)');
-                            } else if (productName === 'daiwa_iFree') {
-                                $("#expectedRateOfReturn").val(11.003);
-                                $("#volatility").val(18.989);
-                                $("#productName").html('iFreeETF JPX 日経400');
-                            } else {
-                                $("#expectedRateOfReturn").val();
-                                $("#volatility").val();
-                                $("#productName").html('');
+                            const SelectedProducts = $('input:checkbox[name="productName"]:checked').map(function(){ return this.value; }).get(); // 複数選択を取得、値の配列に変換
+                            if(SelectedProducts.length === 0){
+                                alert("少なくとも1つ選んでください");
+                                return;
                             }
-                            $("#SelectFunds").dialog("close");
-                        },
+                            if(SelectedProducts.length > 2){
+                                alert("選べるのは2つまでです");
+                                return;
+                            }
+    
+                            //選択された商品名を表示
+                            $("#productName").html(SelectedProducts.map(p => products[p].name).join(", ")); //商品名をカンマ区切りで表示
+    
+                            // 商品が1つだけ選ばれた場合
+                            if(SelectedProducts.length === 1){
+                                const p = products[SelectedProducts[0]];
+                                $("#expectedRateOfReturn").val(p.expectedRateOfReturn.toFixed(3));
+                                $("#volatility").val(p.volatility.toFixed(3));
+                            }
 
-                        // ダイアログの非表示 
-                        "閉じる":function(){
-                            $("#SelectFunds").dialog("close");
+                            //商品が2つ選ばれた場合
+                            else if(SelectedProducts.length === 2){
+                                $("#weightInputs").show();
+                                $("#weightLabel1").text(products[SelectedProducts[0]].name);
+                                $("#weightLabel2").text(products[SelectedProducts[1]].name);
+
+                                //2商品の比率
+                                const weight1 = parseFloat($("#weight1").val()) / 100;
+                                const weight2 = parseFloat($("#weight2").val()) / 100;
+
+                                // 期待収益率の加重平均
+                                const expectedRateOfReturn = products[SelectedProducts[0]].expectedRateOfReturn * weight1 + products[SelectedProducts[1]].expectedRateOfReturn * weight2;
+
+                                // リスクの計算（相関係数考慮）
+                                const sigma1 = products[SelectedProducts[0]].volatility;
+                                const sigma2 = products[SelectedProducts[1]].volatility;
+                                const key = [SelectedProducts[0], SelectedProducts[1]].sort().join(",");
+                                const rho = rhoMatrix[key] || 0;
+                                // 共分散
+                                const volatility = Math.sqrt(
+                                    (weight1*sigma1)*(weight1*sigma1) + (weight2*sigma2)*(weight2*sigma2) + 2*weight1*weight2*sigma1*sigma2*rho
+                                );
+                                $("#expectedRateOfReturn").val(expectedRateOfReturn.toFixed(3));
+                                $("#volatility").val(volatility.toFixed(3));
+                            }
+                                    
+                                $("#SelectFunds").dialog("close");
+                            },
+    
+                            // ダイアログの非表示 
+                            "閉じる":function(){
+                                $("#SelectFunds").dialog("close");
+                            }
                         }
-                    }
-                });
-                
-                // ダイアログを表示
-                $("#productSelectionButton").click(function(){
-                    $("#SelectFunds").dialog("open");
-                });
-    
-                // ライフプランの表示非表示
-                $("#lifeEventsButton").click(function(){
-                    $(".lifeEvents").toggleClass("display");
-                });
-    
-                //  詳細設定の表示非表示
-                $("#advancedSettingButton").click(function(){
-                    $(".advancedSetting").toggleClass("display");
-                });
+                    });
+                    
+                    // ダイアログを表示
+                    $("#productSelectionButton").click(function(){
+                        $("#SelectFunds").dialog("open");
+                    });
+        
+                    // ライフプランの表示非表示
+                    $("#lifeEventsButton").click(function(){
+                        $(".lifeEvents").toggleClass("display");
+                    });
+        
+                    //  詳細設定の表示非表示
+                    $("#advancedSettingButton").click(function(){
+                        $(".advancedSetting").toggleClass("display");
+                    });
 
             });
         </script>
