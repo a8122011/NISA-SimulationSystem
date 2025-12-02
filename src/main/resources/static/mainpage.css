@@ -45,14 +45,14 @@ h1 {
 }
 
 .formContainer textarea {
-    height: 50px;
+    height: 60px;
     margin-bottom: 10px;
 }
 
 .formContainer input, textarea {
     font-size: 0.8em;
     padding: 10px;
-    border: 1px solid #e0fbfd;
+    border: 1px solid #C8DCCF;
     border-radius: 5px;
     -moz-background-clip: padding;
     -webkit-background-clip: padding-box;
@@ -64,7 +64,7 @@ h1 {
 }
 
 .formContainer input:focus {
-    border: 1.5px solid #90CE9C;
+    border: 1.5px solid #6A9EFD;
     outline: 0;
 }
 
@@ -129,7 +129,6 @@ h1 {
     display: inline-block;
     right: 4.5px;
     border-radius: 0 5px 5px 0;
-    background-color: #90CE9C;
 }
 
 .annualChangePeriod::after {
@@ -139,8 +138,8 @@ h1 {
     transform: translate(50%, -50%) rotate(45deg);
     width: 5px;
     height: 5px;
-    border-bottom: 3px solid #fff;
-    border-right: 3px solid #fff;
+    border-bottom: 3px solid #6A9EFD;
+    border-right: 3px solid #6A9EFD;
 }
 
 .annualChangePeriod select {
@@ -150,14 +149,13 @@ h1 {
     padding: .4em 3.6em .4em .8em;
     border: none;
     border-radius: 5px;
-    background-color: #E8F5EB;
     color: #4A4A4A;
     font-size: 1em;
     cursor: pointer;
 }
 
 .annualChangePeriod select:focus {
-    outline: 2px solid #6ABF7E;
+    outline: 2px solid #6A9EFD;
     cursor: pointer;
 }
 
@@ -172,6 +170,7 @@ h1 {
     padding: 10px; 
     border-collapse: collapse;
     border: solid 2px #C8DCCF;
+    font-size: 1em;
 } 
 
 .productSelection th, .productSelection td {
@@ -180,22 +179,18 @@ h1 {
 }
 
 .fundnameWidth{
-    width:130px;
+    width:250px;
 }
     
 .returnWidth {
-    width:60px; 
+    width:70px; 
 }
 
 .volaWidth {
-    width:60px; 
+    width:70px; 
 }
 
 .companyWidth {
-    width:200px; 
-}
-
-.detailWidth {
     width:200px; 
 }
 
@@ -233,7 +228,7 @@ h1 {
 /*商品選択ボタン*/
 #productSelectionButton {
     align-items: center;
-    padding: 20px 50px;
+    padding: 15px 50px;
     border-radius: 20px;
     border:2px solid #90CE9C;
     color: #90CE9C;
@@ -253,10 +248,10 @@ h1 {
 
 #lifeEventsButton , #advancedSettingButton {
     padding: 10px 20px;
-    border-radius: 20px;
+    border-radius: 30px;
     border: 2px solid #90CE9C;
     color: #90CE9C;
-    font-size:1.1em;
+    font-size:1em;
     background-color: white;
     cursor: pointer;
 }
