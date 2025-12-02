@@ -170,7 +170,7 @@
             
                 <table>
                     <tr class="advancedSetting">
-                        <th colspan="2" style="text-align: right"><label>年変化</label></th>
+                        <th colspan="2" style="text-align: right"><label>年変化 &emsp;&emsp; </label></th>
                         <th><span>つみたて月額を</span>
                             <label class="annualChangePeriod">
                                 <select name="annualChangePeriod">
@@ -190,8 +190,7 @@
             
                     <tr class="advancedSetting">
                         <th colspan="2" style="text-align: right"><label>シミュレーション終了年齢</label></th>
-                        <th><input name="endingAge" type="text" />
-                            <div th:text="${endingAgeError}" class="validColor"></div> 歳</th>
+                        <th><input name="endingAge" type="text" />歳<div th:text="${endingAgeError}" class="validColor"></div></th>
                     </tr>
                 </table>
             </div>
