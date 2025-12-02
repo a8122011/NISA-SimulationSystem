@@ -38,7 +38,7 @@ h1 {
 
 .formContainer th,.formContainer td {
     padding: 10px;
-    width: 100px
+    width: 100px;
 }
 
 .formContainer input {
@@ -79,7 +79,7 @@ h1 {
     width: 40%;
     margin: 10px auto;
     padding: 0.8em 3.2em;
-    font-size: 0.7em
+    font-size: 0.7em;
     border-radius: 30px;
     border:2px solid #90ce9c;
     color: #90ce9c;
@@ -181,7 +181,7 @@ h1 {
     border-radius:6px; 
     padding: 10px; 
     border: solid 2px #C8DCCF;
-    font-size: 0.6em
+    font-size: 0.6em;
 }
 
 .paramList th {
