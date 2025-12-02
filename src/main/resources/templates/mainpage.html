@@ -20,6 +20,25 @@
             <div th:insert="~{SelectFunds :: productSelection_body}"></div>
         </div>
         <br><br>
+
+        <div class= "FundsWeight">
+            <table>
+                <tr>
+                    <th><label>商品：</label></th>
+                    <th>  <!-- 商品表示1 -->  </th>
+                    <th>  <!-- 商品表示2 -->  </th>
+
+
+            <label id="weightLabel1"></label> 
+                            <input type="number" id="weight1" placeholder="50"> %
+                        </th>
+                        <th>
+                            <label id="weightLabel2"></label> 
+                            <input type="number" id="weight2" placeholder="50"> % 
+                        </th>
+                    </tr>
+                </div>
+            </table>
         
         <form action="?"> <!-- ユーザーの入力値を送信するフォーム クエリパラメータで自己ページへ送信 -->
             <div class="formContainer">
