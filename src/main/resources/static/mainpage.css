@@ -36,6 +36,7 @@ h1 {
 }
 
 .formContainer input {
+    height: 80px;
     margin-bottom: 5px;
 }
 
@@ -51,9 +52,8 @@ h1 {
 .formContainer input, textarea {
     font-size: 0.8em;
     padding: 10px;
-    border: 1px solid #d8f1dd;
-    background: #d8f1dd;
-    border-radius: 10px;
+    border: 1px solid #e0fbfd;
+    border-radius: 5px;
     -moz-background-clip: padding;
     -webkit-background-clip: padding-box;
     background-clip: padding-box;
