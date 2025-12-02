@@ -393,6 +393,8 @@
     
                             // 商品が1つだけ選ばれた場合
                             if(SelectedProducts.length === 1){
+                                $(".selectedFundName").show();
+                                
                                 const p = products[SelectedProducts[0]];
                                 
                                 $("#selectedFund1").text(p.name);
@@ -404,6 +406,7 @@
 
                             //商品が2つ選ばれた場合
                             else if(SelectedProducts.length === 2){
+                                $(".selectedFundName").show();
                                 $("#weightInputs").show();
                                 $("#weightLabel1").text(products[SelectedProducts[0]].name);
                                 $("#weightLabel2").text(products[SelectedProducts[1]].name);
