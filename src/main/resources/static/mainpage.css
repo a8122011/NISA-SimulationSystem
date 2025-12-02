@@ -138,6 +138,8 @@ h1 {
     outline: 0;
 }
 
+/*ボタン*/
+
 /*商品選択ボタン*/
 #productSelectionButton {
     align-items: center;
@@ -146,8 +148,8 @@ h1 {
     padding: 0.8em 3.2em;
     font-size: 0.7em;
     border-radius: 30px;
-    border:2px solid #90ce9c;
-    color: #90ce9c;
+    border:2px solid #90CE9C;
+    color: #90CE9C;
     background-color: white;
     cursor: pointer;
 }
