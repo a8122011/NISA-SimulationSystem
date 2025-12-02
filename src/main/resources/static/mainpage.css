@@ -238,6 +238,11 @@ h1 {
 }
 
 /*ライフイベント、詳細設定ボタン*/
+.lifeEvents {
+    width: 70%;
+}
+
+
 .lifeEvents, .advancedSetting {
     display: none;
 }
