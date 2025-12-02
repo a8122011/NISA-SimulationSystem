@@ -52,7 +52,7 @@ h1 {
 .formContainer input, textarea {
     font-size: 0.8em;
     padding: 10px;
-    border: 1px solid #C8DCCF;
+    border: 1px solid #B6CFFD;
     border-radius: 5px;
     -moz-background-clip: padding;
     -webkit-background-clip: padding-box;
@@ -117,6 +117,7 @@ h1 {
 /* 年変化 */
 .annualChangePeriod {
     position: relative;
+    border: 1px solid #B6CFFD;
 }
 
 .annualChangePeriod::before, .annualChangePeriod::after {
@@ -147,7 +148,6 @@ h1 {
     min-width: 100px;
     height: 2.2em;
     padding: .4em 3.6em .4em .8em;
-    border: none;
     border-radius: 5px;
     color: #4A4A4A;
     font-size: 1em;
@@ -155,7 +155,7 @@ h1 {
 }
 
 .annualChangePeriod select:focus {
-    outline: 2px solid #6A9EFD;
+    outline: 1.5px solid #6A9EFD;
     cursor: pointer;
 }
 
@@ -207,7 +207,7 @@ h1 {
     border-radius:6px; 
     padding: 10px; 
     border: solid 2px #C8DCCF;
-    font-size: 1.2em;
+    font-size: 1em;
 }
 
 .paramList th {
