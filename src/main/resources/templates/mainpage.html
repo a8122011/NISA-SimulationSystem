@@ -50,22 +50,22 @@
                         <th><input name="expectedRateOfReturn" id="expectedRateOfReturn" type="text" /> %</th>
                         <div th:text="${expectedRateOfReturnError}" class="validColor"></div>
                         
-                        <th><label>&emsp;ボラティリティ&emsp;</label></th>
+                        <th><label>ボラティリティ&emsp;</label></th>
                         <th><input name="volatility" id="volatility" type="text" /> %</th>
                         <div th:text="${volatilityError}" class="validColor"></div>
                     </tr>
                     <tr>
                         <th colspan="2" style="text-align: right"><label>シミュレーション開始年齢</label></th>
-                        <th colspan="2"><input name="startAge" type="text" /><div th:text="${startAgeError}" class="validColor"></div> 歳</th>
+                        <th colspan="2"><input name="startAge" type="text" /> 歳 <div th:text="${startAgeError}" class="validColor"></div></th>
                     </tr>
                     <tr>
                         <th colspan="2"style="text-align: right"><label>つみたて月額</label></th>
-                        <th colspan="2"><input name="monthlySavings" type="text" /><div th:text="${monthlySavingsError}" class="validColor"></div> 万</th>
+                        <th colspan="2"><input name="monthlySavings" type="text" /> 万 <div th:text="${monthlySavingsError}" class="validColor"></div></th>
                     </tr>
                     <tr>
                         <th colspan="2"style="text-align: right"><label>つみたて額初期値</label></th>
                         <th><input name="initialValue" type="text" />
-                            <div th:text="${initialValueError}" class="validColor"></div> 万</th>
+                            <div th:text="${initialValueError}" class="validColor"> 万 </div></th>
                     </tr>
                 </table>
 
@@ -199,6 +199,7 @@
             </div>
 
             <hr>
+            <br>
             
         </form>
         
