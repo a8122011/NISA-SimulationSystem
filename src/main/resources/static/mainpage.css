@@ -9,7 +9,7 @@
 
 h1 {
     color: white;
-    font-size: 30px;
+    font-size: 1.5em;
     background-color: #90CE9C;
     padding: 40px;
     text-align: center;
@@ -78,9 +78,28 @@ h1 {
 
 #FundsWeight #selectedFund1,
 #FundsWeight #selectedFund2 {
+    padding: 15px;
+    border: 1px solid #d8f1dd;
+    border-radius: 10px;
+    font-size: 1.3em;
     font-weight: bold;
     color: #90CE9C;
 }
+
+#fundsWeight input {
+    font-size: 1em;
+    padding: 10px;
+    font-size: 1em;
+    padding: 10px;
+    border: 1px solid #d8f1dd;
+    border-radius: 10px;
+    -moz-background-clip: padding;
+    -webkit-background-clip: padding-box;
+    background-clip: padding-box;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    max-width: 80px;
+    
 
 /* 比率入力部分 */
 #weightInputs table th {
@@ -96,7 +115,6 @@ h1 {
 }
 
 .formContainer table {
-    width: 200px;
     margin: auto;
     text-align: center;
 }
