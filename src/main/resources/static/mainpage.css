@@ -189,7 +189,7 @@ h1 {
 }
 
 .display {
-    display: block; /* toggleClassで表示 */
+    display: table-row; /* toggleClassで表示 */
 }
 
 /*エラーメッセージ*/
