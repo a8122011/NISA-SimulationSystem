@@ -70,9 +70,13 @@ h1 {
     width: 100%;
 }
 
+.fundsWeight table {
+    width: 0.7em;
+    text-align: center;
+}
+
 .FundsWeight th {
     padding: auto;
-    text-align: center;
 }
 
 .FundsWeight #selectedFund1,
@@ -83,9 +87,10 @@ h1 {
     font-size: 1.3em;
     font-weight: bold;
     color: #90CE9C;
-}
+}   
 
-.fundsWeight input {
+/* 比率入力部分 */
+.weightInputs input {
     font-size: 1em;
     padding: 10px;
     font-size: 1em;
@@ -98,12 +103,6 @@ h1 {
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
     max-width: 80px;
-    
-
-/* 比率入力部分 */
-.weightInputs table th {
-    text-align: center;
-}
 
 
 
