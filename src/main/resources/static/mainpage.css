@@ -167,19 +167,24 @@ h1 {
 
 .productSelection table { 
     margin:0 auto; 
-    padding: 10px; 
+    padding: 20px; 
     border-collapse: collapse;
     border: solid 2px #C8DCCF;
-    font-size: 1em;
+    font-size: 20em;
 } 
 
 .productSelection th, .productSelection td {
     border: solid 2px #C8DCCF;
-    font-size: 0.6em;
+    padding: 10px;
 }
 
+.productSelection thead {
+    font-size: 1.1em;
+}
+    
+
 .fundnameWidth{
-    width:250px;
+    width:300px;
 }
     
 .returnWidth {
