@@ -75,45 +75,36 @@ h1 {
     font-size: 0.8em;
 }
 
+
 /*選択された商品・割合*/
-.fundsWeight {
-    margin-top: 20px;
-    width: 100%;
-}
-
-.fundsWeight table {
-    width: 0.7em;
+.selectedFundName {
     text-align: center;
+    margin: auto;
 }
-
-.FundsWeight th {
-    padding: auto;
-}
-
-.FundsWeight #selectedFund1,
-.FundsWeight #selectedFund2 {
+#selectedFund1, #selectedFund2 {
+    font-size: 1.2em;
+    font-weight: 350;
     padding: 15px;
-    border: 1px solid #d8f1dd;
-    border-radius: 10px;
-    font-size: 1.3em;
-    font-weight: bold;
-    color: #90CE9C;
+    
+}
+
+.weightInputs {
+    text-align: center;
+    margin:auto 50px;
 }
 
 /* 比率入力部分 */
 .weightInputs input {
     font-size: 1em;
     padding: 10px;
-    font-size: 1em;
-    padding: 10px;
-    border: 1px solid #d8f1dd;
-    border-radius: 10px;
+    border: 1px solid #B6CFFD;
+    border-radius: 5px;
     -moz-background-clip: padding;
     -webkit-background-clip: padding-box;
     background-clip: padding-box;
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
-    max-width: 80px;
+    max-width: 60px;
 }
 
 /* 年変化 */
@@ -172,7 +163,7 @@ h1 {
     padding: 20px; 
     border-collapse: collapse;
     border: solid 2px #C8DCCF;
-    font-size: 20em;
+    font-size: 20px;
 } 
 
 .productSelection th, .productSelection td {
