@@ -252,14 +252,6 @@ h1 {
     cursor: pointer;
 }
 
-.lifeEvents, .advancedSetting {
-    display: none;
-}
-
-.display {
-    display: table-row; /* toggleClassで表示 */
-}
-
 /*開始ボタン*/
 .start {
     color: white;
@@ -275,4 +267,13 @@ h1 {
 #productSelectionButton:hover, #lifeEventsButton:hover, #advancedSettingButton:hover, .start:hover{
     transform: scale(1.03);
 }
+
+.lifeEvents, .advancedSetting {
+    display: none;
+}
+
+.display {
+    display: table-row; /* toggleClassで表示 */
+}
+
 
