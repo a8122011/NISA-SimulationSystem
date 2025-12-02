@@ -46,23 +46,21 @@
             <div class="formContainer">
                 <table>
                     <tr>
-                        <th><label>期待収益率</label></th>
+                        <th><label>期待収益率&emsp;</label></th>
                         <th><input name="expectedRateOfReturn" id="expectedRateOfReturn" type="text" /> %</th>
                         <div th:text="${expectedRateOfReturnError}" class="validColor"></div>
                         
-                        <th><label>&emsp;ボラティリティ</label></th>
+                        <th><label>&emsp;ボラティリティ&emsp;</label></th>
                         <th><input name="volatility" id="volatility" type="text" /> %</th>
                         <div th:text="${volatilityError}" class="validColor"></div>
                     </tr>
                     <tr>
                         <th colspan="2" style="text-align: right"><label>シミュレーション開始年齢</label></th>
-                        <th><input name="startAge" type="text" />
-                            <div th:text="${startAgeError}" class="validColor"></div> 歳</th>
+                        <th colspan="2"><input name="startAge" type="text" /><div th:text="${startAgeError}" class="validColor"></div> 歳</th>
                     </tr>
                     <tr>
                         <th colspan="2"style="text-align: right"><label>つみたて月額</label></th>
-                        <th><input name="monthlySavings" type="text" />
-                            <div th:text="${monthlySavingsError}" class="validColor"></div> 万</th>
+                        <th colspan="2"><input name="monthlySavings" type="text" /><div th:text="${monthlySavingsError}" class="validColor"></div> 万</th>
                     </tr>
                     <tr>
                         <th colspan="2"style="text-align: right"><label>つみたて額初期値</label></th>
@@ -199,6 +197,9 @@
             <div class="buttons">
                 <input type="submit" class="start" value="開始" formaction="/add" />
             </div>
+
+            <hr>
+            
         </form>
         
 
