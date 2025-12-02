@@ -15,7 +15,7 @@
 
         <!-- 入力必須項目 -->
         <br>
-        <button type="button" id="productSelectionButton">金融商品選択  >&emsp;</button>
+        <button type="button" id="productSelectionButton">金融商品選択 &emsp; ></button>
         <div id="SelectFunds">
             <div th:insert="~{SelectFunds :: productSelection_body}"></div>
         </div>
@@ -46,13 +46,13 @@
             <div class="formContainer">
                 <table>
                     <tr>
-                        <th><label>期待収益率&emsp;</label></th>
+                        <th><label>期待収益率 &emsp; </label></th>
                         <th><input name="expectedRateOfReturn" id="expectedRateOfReturn" type="text" /> %</th>
-                        <div th:text="${expectedRateOfReturnError}" class="validColor"></div>
+                        <th><div th:text="${expectedRateOfReturnError}" class="validColor"></div></th>
                         
-                        <th><label>ボラティリティ&emsp;</label></th>
+                        <th><label>ボラティリティ</label></th>
                         <th><input name="volatility" id="volatility" type="text" /> %</th>
-                        <div th:text="${volatilityError}" class="validColor"></div>
+                        <th><div th:text="${volatilityError}" class="validColor"></div></th>
                     </tr>
                     <tr>
                         <th colspan="2" style="text-align: right"><label>シミュレーション開始年齢</label></th>
@@ -64,8 +64,7 @@
                     </tr>
                     <tr>
                         <th colspan="2"style="text-align: right"><label>つみたて額初期値</label></th>
-                        <th><input name="initialValue" type="text" />
-                            <div th:text="${initialValueError}" class="validColor"> 万 </div></th>
+                        <th><input name="initialValue" type="text" /> 万 <div th:text="${initialValueError}" class="validColor"></div></th>
                     </tr>
                 </table>
                 <br>
