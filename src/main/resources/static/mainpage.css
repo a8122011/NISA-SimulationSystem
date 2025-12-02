@@ -24,6 +24,71 @@ h1 {
     margin: 30px 0px 0px 20px;
 }
 
+/* 商品選択ダイアログ */ 
+#SelectFunds {
+    display: none;
+}
+
+.productSelection table { 
+    margin:0 auto; 
+    padding: 10px; 
+    border-collapse: collapse;
+    border: solid 2px #C8DCCF;
+} 
+
+.productSelection th, .productSelection td {
+    border: solid 2px #C8DCCF;
+    font-size: 0.6em;
+}
+
+.fundnameWidth{
+    width:130px;
+}
+    
+.returnWidth {
+    width:60px; 
+}
+
+.volaWidth {
+    width:60px; 
+}
+
+.companyWidth {
+    width:200px; 
+}
+
+.detailWidth {
+    width:200px; 
+}
+
+.productSelection input { 
+    transform: scale(1.5) 
+}
+
+/*選択された商品・割合*/
+#fundsWeight {
+    margin-top: 20px;
+    width: 100%;
+}
+
+#FundsWeight th {
+    padding: auto;
+    text-align: center;
+}
+
+#FundsWeight #selectedFund1,
+#FundsWeight #selectedFund2 {
+    font-weight: bold;
+    color: #90CE9C;
+}
+
+/* 比率入力部分 */
+#weightInputs table th {
+    text-align: center;
+}
+
+
+
 /* 入力フォーム */
 .formContainer {
     max-width:850px;
@@ -194,44 +259,3 @@ h1 {
     width:80%; 
     margin:0 auto; 
 } 
-
-/* 商品選択ダイアログ */ 
-#SelectFunds {
-    display: none;
-}
-
-.productSelection table { 
-    margin:0 auto; 
-    padding: 10px; 
-    border-collapse: collapse;
-    border: solid 2px #C8DCCF;
-} 
-
-.productSelection th, .productSelection td {
-    border: solid 2px #C8DCCF;
-    font-size: 0.6em;
-}
-
-.fundnameWidth{
-    width:130px;
-}
-    
-.returnWidth {
-    width:60px; 
-}
-
-.volaWidth {
-    width:60px; 
-}
-
-.companyWidth {
-    width:200px; 
-}
-
-.detailWidth {
-    width:200px; 
-}
-
-.productSelection input { 
-    transform: scale(1.5) 
-}
