@@ -17,6 +17,13 @@ h1 {
     text-align: center;
 }
 
+h1 {
+    font-size: 1.2em;
+    color: #90CE9C;
+    padding: 40px;
+    text-align: center;
+}
+
 .hidden {
     display: none;
 }
@@ -145,33 +152,35 @@ h1 {
     padding: 20px; 
     border-collapse: collapse;
     border: solid 2px #C8DCCF;
+}
+
+.productSelection th {
+    font-size: 1em;
+}
+
+.productSelection td{
     font-size: 0.8em;
-} 
+}
 
 .productSelection th, .productSelection td {
     border: solid 2px #C8DCCF;
     padding: 10px;
 }
 
-.productSelection thead {
-    font-size: 1.1em;
-}
-    
-
 .fundnameWidth{
-    width:300px;
+    width: 35%;
 }
     
 .returnWidth {
-    width:70px; 
+    width: 15%; 
 }
 
 .volaWidth {
-    width:70px; 
+    width: 15%; 
 }
 
 .companyWidth {
-    width:200px; 
+    width: 35%; 
 }
 
 .productSelection input { 
