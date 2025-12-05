@@ -277,58 +277,58 @@
         <!-- シミュレーショングラフ -->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.bundle.js"></script>  <!-- Chart.bungle.js読み込み　-->
         <script th:inline="javascript">
-            var ctx = document.getElementById("myLineChart");  <!-- ctx:キャンバス-->
+            var ctx = document.getElementById("myLineChart").getContext('2d');  // ctx:キャンバス
             var myLineChart = new Chart(ctx, {
                 type: 'line',
                 data: {
-                    labels: /*[[${monthCountList}]]*/ "monthCountList",
+                    labels: /*[[${monthCountList}]]*/,
                     datasets: [
                         {
                             label: '上位30%',
-                            data: /*[[${top30Percent}]]*/ "top30Percent",
+                            data: /*[[${top30Percent}]]*/,
                             borderColor: '#e14024a9',
                             backgroundColor: "rgba(0,0,0,0)"
                         },
                         {
                             label: '中央値',
-                            data: /*[[${median}]]*/ "median",
+                            data: /*[[${median}]]*/,
                             borderColor: '#f8b500a9',
                             backgroundColor: "rgba(0,0,0,0)"
                         },
                         {
                             label: '下位30%',
-                            data: /*[[${bottom30Percent}]]*/ "bottom30Percent",
+                            data: /*[[${bottom30Percent}]]*/,
                             borderColor: '#73cf54a9',
                             backgroundColor: "rgba(0,0,0,0)"
                         },
                         {
                             label: '下位10%',
-                            data: /*[[${bottom10Percent}]]*/ "bottom10Percent",
+                            data: /*[[${bottom10Percent}]]*/,
                             borderColor: '#70c4e0a9',
                             backgroundColor: "rgba(0,0,0,0)"
                         },
                         {
                             label: '運用なし',
-                            data: /*[[${noOperation}]]*/ "noOperation",
+                            data: /*[[${noOperation}]]*/,
                             borderColor: '#666c67a9',
                             backgroundColor: "rgba(0,0,0,0)"
                         }
                     ],
                 },
 
-                <!-- グラフ設定 -->
+                // グラフ設定
                 options: {
-                    title:{ <!-- グラフ上部に表示 -->
+                    title:{ // グラフ上部に表示
                         display: true,
                         text: '資産額推移'
                         　},
                     
                     scales: {
-                        yAxes: [{   <!-- Y軸設定 --> 
+                        yAxes: [{ // Y軸設定 
                             ticks: {
-                                suggestedMax: /*[[${suggestedMax}]]*/ "suggestedMax", //縦軸最大値
+                                suggestedMax: /*[[${suggestedMax}]]*/, //縦軸最大値
                                 suggestedMin: 0, //縦軸下限0
-                                stepSize: /*[[${stepSize}]]*/" stepSize",//目盛の間隔
+                                stepSize: /*[[${stepSize}]]*/, //目盛の間隔
                                 callback: function(value, index, values){
                                     return  value +  '万円' //縦軸の単位
                                 }
