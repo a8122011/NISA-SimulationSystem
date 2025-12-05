@@ -121,55 +121,85 @@ public class HomeController {
                    @RequestParam("lifeEvent5") String lifeEvent5, @RequestParam("lifeEventAge5") String requestLifeEventAge5, @RequestParam("requiredFunds5") String requestRequiredFunds5,
                    @RequestParam("annualChangePeriod") String annualChangePeriod, @RequestParam("annualChangeMoney") String requestAnnualChangeMoney,
                    @RequestParam("endingAge") String requestEndingAge) {
-        String id = UUID.randomUUID().toString().substring(0, 8); //ランダムなIDを生成
+      String id = UUID.randomUUID().toString().substring(0, 8); //ランダムなIDを生成
+
+      //nullチェック
+      boolean hasError = false;
+      if (requestExpectedRateOfReturn == null || requestExpectedRateOfReturn.isEmpty()) {
+        validMessage.expectedRateOfReturnError = "期待収益率が入力されていません";
+        hasError = true;
+      }
+      if (requestVolatility == null || requestVolatility.isEmpty()) {
+          validMessage.volatilityError = "ボラティリティが入力されていません";
+          hasError = true;
+      }
+      if (requestStartAge == null || requestStartAge.isEmpty()) {
+          validMessage.startAgeError = "シミュレーション開始年齢が入力されていません";
+          hasError = true;
+      }
+      if (requestMonthlySavings == null || requestMonthlySavings.isEmpty()) {
+          validMessage.monthlySavingsError = "つみたて月額が入力されていません";
+          hasError = true;
+      }
+      if (requestInitialValue == null || requestInitialValue.isEmpty()) {
+          validMessage.initialValueError = "つみたて額初期値が入力されていません";
+          hasError = true;
+      }
+  
+      // エラーがあれば list に返す
+      if (hasError) {
+          validateFlg = true;
+          return "redirect:/list";
+      }
       
-        try { //パラメータを数値に変換して処理
-            // 必須項目　文字列を数値に Double.parseDouble小数、Integer.parseInt整数
-            double expectedRateOfReturn = Double.parseDouble(requestExpectedRateOfReturn);
-            double volatility = Double.parseDouble(requestVolatility);
-            int startAge = Integer.parseInt(requestStartAge);
-            double monthlySavings = Double.parseDouble(requestMonthlySavings);
-            double initialValue = Double.parseDouble(requestInitialValue);
+      
+      try { //パラメータを数値に変換して処理
+        // 必須項目　文字列を数値に Double.parseDouble小数、Integer.parseInt整数
+        double expectedRateOfReturn = Double.parseDouble(requestExpectedRateOfReturn);
+        double volatility = Double.parseDouble(requestVolatility);
+        int startAge = Integer.parseInt(requestStartAge);
+        double monthlySavings = Double.parseDouble(requestMonthlySavings);
+        double initialValue = Double.parseDouble(requestInitialValue);
+        
+        // ライフイベント 詳細設定初期値を0に、後でフォームの値が空でない場合のみ上書きする
+        int lifeEventAge1 = 0; double requiredFunds1 = 0;
+        int lifeEventAge2 = 0; double requiredFunds2 = 0;
+        int lifeEventAge3 = 0; double requiredFunds3 = 0;
+        int lifeEventAge4 = 0; double requiredFunds4 = 0;
+        int lifeEventAge5 = 0; double requiredFunds5 = 0;
+        int annualChangeMonth = 0; int annualChangeMoney = 0;
+        int endingAge = 0;
 
-            // ライフイベント、詳細設定初期値を0に、後でフォームの値が空でない場合のみ上書きする
-            int lifeEventAge1 = 0; double requiredFunds1 = 0;
-            int lifeEventAge2 = 0; double requiredFunds2 = 0;
-            int lifeEventAge3 = 0; double requiredFunds3 = 0;
-            int lifeEventAge4 = 0; double requiredFunds4 = 0;
-            int lifeEventAge5 = 0; double requiredFunds5 = 0;
-            int annualChangeMonth = 0; int annualChangeMoney = 0;
-            int endingAge = 0;
+        //ライフイベント　１～５が空でなければ数値に変換して変数にセット、フォームに入力されなかった項目は0のまま
+        if (!requestLifeEventAge1.equals("") && !requestRequiredFunds1.equals("")) {
+          lifeEventAge1 = Integer.parseInt(requestLifeEventAge1);
+          requiredFunds1 = Double.parseDouble(requestRequiredFunds1);
+        }
+        if (!requestLifeEventAge2.equals("") && !requestRequiredFunds2.equals("")) {
+          lifeEventAge2 = Integer.parseInt(requestLifeEventAge2);
+          requiredFunds2 = Double.parseDouble(requestRequiredFunds2);
+        }
+        if (!requestLifeEventAge3.equals("") && !requestRequiredFunds3.equals("")) {
+          lifeEventAge3 = Integer.parseInt(requestLifeEventAge3);
+          requiredFunds3 = Double.parseDouble(requestRequiredFunds3);
+        }
+        if (!requestLifeEventAge4.equals("") && !requestRequiredFunds4.equals("")) {
+          lifeEventAge4 = Integer.parseInt(requestLifeEventAge4);
+          requiredFunds4 = Double.parseDouble(requestRequiredFunds4);
+        }
+        if (!requestLifeEventAge5.equals("") && !requestRequiredFunds5.equals("")) {
+          lifeEventAge5 = Integer.parseInt(requestLifeEventAge5);
+          requiredFunds5 = Double.parseDouble(requestRequiredFunds5);
+        }
 
-            //ライフイベント　１～５が空でなければ数値に変換して変数にセット、フォームに入力されなかった項目は0のまま
-            if (!requestLifeEventAge1.equals("") && !requestRequiredFunds1.equals("")) {
-                lifeEventAge1 = Integer.parseInt(requestLifeEventAge1);
-                requiredFunds1 = Double.parseDouble(requestRequiredFunds1);
-            }
-            if (!requestLifeEventAge2.equals("") && !requestRequiredFunds2.equals("")) {
-                lifeEventAge2 = Integer.parseInt(requestLifeEventAge2);
-                requiredFunds2 = Double.parseDouble(requestRequiredFunds2);
-            }
-            if (!requestLifeEventAge3.equals("") && !requestRequiredFunds3.equals("")) {
-                lifeEventAge3 = Integer.parseInt(requestLifeEventAge3);
-                requiredFunds3 = Double.parseDouble(requestRequiredFunds3);
-            }
-            if (!requestLifeEventAge4.equals("") && !requestRequiredFunds4.equals("")) {
-                lifeEventAge4 = Integer.parseInt(requestLifeEventAge4);
-                requiredFunds4 = Double.parseDouble(requestRequiredFunds4);
-            }
-            if (!requestLifeEventAge5.equals("") && !requestRequiredFunds5.equals("")) {
-                lifeEventAge5 = Integer.parseInt(requestLifeEventAge5);
-                requiredFunds5 = Double.parseDouble(requestRequiredFunds5);
-            }
-
-            // 詳細設定　空でなければ数値に変換
-            if (!annualChangePeriod.equals("")) {
-                annualChangeMonth = getAnnualChangeMonth(annualChangePeriod); //文字列を月に変換
-                annualChangeMoney = Integer.parseInt(requestAnnualChangeMoney);
-            }
-            if (!requestEndingAge.equals("")) {
-                endingAge = Integer.parseInt(requestEndingAge);
-            }
+        // 詳細設定　空でなければ数値に変換
+        if (!annualChangePeriod.equals("")) {
+          annualChangeMonth = getAnnualChangeMonth(annualChangePeriod); //文字列を月に変換
+          annualChangeMoney = Integer.parseInt(requestAnnualChangeMoney);
+        }
+        if (!requestEndingAge.equals("")) {
+          endingAge = Integer.parseInt(requestEndingAge);
+        }
 
             // 値のセット
             lifeEventParams = new LifeEventParams(lifeEvent1, lifeEventAge1, requiredFunds1, lifeEvent2, lifeEventAge2, requiredFunds2, lifeEvent3, lifeEventAge3, requiredFunds3, lifeEvent4, lifeEventAge4, requiredFunds4, lifeEvent5, lifeEventAge5, requiredFunds5);
