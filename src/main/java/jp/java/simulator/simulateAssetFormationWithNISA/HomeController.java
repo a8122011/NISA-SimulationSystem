@@ -47,47 +47,44 @@ public class HomeController {
     
     @GetMapping("/list")
     String listItems(Model model) {
-        if (params.id() != null) {
-            if (validateFlg) {
-                model.addAttribute("params", params);
-                int i = 0;
-                for (List<Double> data : valuationData) {
-                    switch (i) {
-                        case 0 -> model.addAttribute("top10Percent", data);
-                        case 1 -> model.addAttribute("top30Percent", data);
-//                        case 2 -> model.addAttribute("expectedAverage", data);
-                        case 2 -> model.addAttribute("bottom30Percent", data);
-                        case 3 -> model.addAttribute("bottom10Percent", data);
-                        case 4 -> model.addAttribute("noOperation", data);
-                    }
-                    i++;
-                }
-                model.addAttribute("monthCountList", countList);
-                model.addAttribute("suggestedMax", suggestedMax);
-                model.addAttribute("stepSize", stepSize);
-            } else {
-                model.addAttribute("params", params);
-                valuationData = Simulation.getValuationData(params);
-                int i = 0;
-                for (List<Double> data : valuationData) {
-                    switch (i) {
-                        case 0 -> model.addAttribute("top30Percent", data);
-                        case 1 -> model.addAttribute("median", data);
-//                        case 2 -> model.addAttribute("expectedAverage", data);
-                        case 2 -> model.addAttribute("bottom30Percent", data);
-                        case 3 -> model.addAttribute("bottom10Percent", data);
-                        case 4 -> model.addAttribute("noOperation", data);
-                    }
-                    i++;
-                }
-                countList = Simulation.getAgeCountList(params);
-                model.addAttribute("monthCountList", countList);
-                suggestedMax = Simulation.getSuggestedMax(valuationData);
-                model.addAttribute("suggestedMax", suggestedMax);
-                stepSize = Simulation.getStepSize(suggestedMax);
-                model.addAttribute("stepSize", stepSize);
-            }
+
+      //params.id()がnullの場合
+      if (params.id() != null) {
+        model.addAttribute("params", params);
+        setErrorMessages(model);
+        return "mainpage";
+      }
+
+      //Validationエラーがある場合(計算しない)
+      if (validateFlg) {
+        model.addAttribute("params", params);
+        setErrorMessages(model);
+        return "mainpage";
+      }
+
+      valuationData = Simulation.getValuationData(params);
+      int i = 0;
+      for (List<Double> data : valuationData) {
+        switch (i) {
+            case 0 -> model.addAttribute("top10Percent", data);
+            case 1 -> model.addAttribute("top30Percent", data);
+            case 2 -> model.addAttribute("bottom30Percent", data);
+            case 3 -> model.addAttribute("bottom10Percent", data);
+            case 4 -> model.addAttribute("noOperation", data);
         }
+        i++;
+      }
+      countList = Simulation.getAgeCountList(params);
+      model.addAttribute("monthCountList", countList);
+      model.addAttribute("suggestedMax", suggestedMax);
+      model.addAttribute("stepSize", stepSize);
+
+      setErrorMessages(model);
+      
+      return "mainpage";
+    }
+  
+  private void setErrorMessages(Model model) {
         model.addAttribute("expectedRateOfReturnError", validMessage.expectedRateOfReturnError);
         model.addAttribute("volatilityError", validMessage.volatilityError);
         model.addAttribute("startAgeError", validMessage.startAgeError);
@@ -105,8 +102,6 @@ public class HomeController {
         model.addAttribute("requiredFunds5Error", lifeEventValidMessage.requiredFunds5Error);
         model.addAttribute("annualChangeMoneyError", advancedSettingValidMessage.annualChangeMoneyError);
         model.addAttribute("endingAgeError", advancedSettingValidMessage.endingAgeError);
-
-        return "mainpage";
     }
 
   
