@@ -16,8 +16,8 @@
                     <thead>
                         <tr>
                             <th class="fundnameWidth">ファンド名称</th>
-                            <th class="returnWidth">期待収益率</th>
-                            <th class="volaWidth">ボラティリティ</th>
+                            <th class="returnWidth">期待収益率 <button type="button" id="expectedRateOfReturnButton"> ? </button></th>
+                            <th class="volaWidth">ボラティリティ<button type="button" id="volatilityButton"> ? </button></th>
                             <th class="companyWidth">運用会社</th>
                             <th class="detailWidth">詳細</th>
                         </tr>
@@ -79,37 +79,14 @@
                 </table>
             </div>
         </div>
-
-         <script type="text/javascript">
-            $(function(){
-                
-                $("#SelectFunds").dialog({
-                    
-                                $("#SelectFunds").dialog("close");
-                        },
-                        // ダイアログの非表示 
-                        "閉じる":function(){
-                            $("#SelectFunds").dialog("close");
-                        }
-                      }
-                    });
-                    
-                    // ダイアログを表示
-                    $("#productSelectionButton").click(function(){
-                        $("#SelectFunds").dialog("open");
-                    });
         
-                    // ライフプランの表示非表示
-                    $("#lifeEventsButton").click(function(){
-                        $(".lifeEvents").toggleClass("display");
-                    });
-        
-                    //  詳細設定の表示非表示
-                    $("#advancedSettingButton").click(function(){
-                        $(".advancedSetting").toggleClass("display");
-                    });
-
+        <script type="text/javascript">
+            $("#expectedRateOfReturnButton").click(function(){
+                window.alert('期待収益率：平均的に得られると予想される収益の割合');
             });
+            $("#expectedRateOfReturnButton").click(function(){
+                window.alert('ボラティリティ：価格の変動性。期待収益率が期待通りとなる度合い。');
+            });                                       
         </script>
     </body>
 
