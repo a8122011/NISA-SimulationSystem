@@ -36,7 +36,7 @@ h1 {
 }
 
 .formContainer input {
-    height: 20px;
+    height: 40px;
     margin-bottom: 5px;
 }
 
@@ -50,7 +50,8 @@ h1 {
 }
 
 .formContainer input, textarea {
-    font-size: 0.8em;
+    text-align: right;
+    font-size: 1.3em;
     padding: 10px;
     border: 1px solid #B6CFFD;
     border-radius: 5px;
@@ -59,8 +60,7 @@ h1 {
     background-clip: padding-box;
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
-    width: 90%;
-    max-width: 100px;
+    max-width: 120px;
 }
 
 .formContainer input:focus {
