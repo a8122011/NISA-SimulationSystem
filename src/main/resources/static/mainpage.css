@@ -250,6 +250,16 @@ h1 {
     cursor: pointer;
 }
 
+/* 比率決定ボタン */
+#FundOKButton {
+    color: white;
+    font-size:1em;
+    background-color: #6ABF7E;
+    border-radius: 20px;
+    border: none;
+    cursor: pointer;
+}   
+
 /*開始ボタン*/
 .start {
     color: white;
