@@ -405,14 +405,11 @@
                             else if(SelectedProducts.length === 2){
                                 $(".selectedFundName").show();
                                 $(".weightInputs").show();
+                                
+                                $("#selectedFund1").text(products[SelectedProducts[0]].name);
+                                $("#selectedFund2").text(products[SelectedProducts[1]].name);
 
                                 $("#FundOKButton").click(function(){
-                                    $("#selectedFund1").text(products[SelectedProducts[0]].name);
-                                    $("#selectedFund2").text(products[SelectedProducts[1]].name);
-    
-                                    $("#selectedFund1").text(products[SelectedProducts[0]].name);
-                                    $("#selectedFund2").text(products[SelectedProducts[1]].name);
-    
                                     //2商品の比率
                                     const weight1 = parseFloat($("#weight1").val()) / 100;
                                     const weight2 = parseFloat($("#weight2").val()) / 100;
