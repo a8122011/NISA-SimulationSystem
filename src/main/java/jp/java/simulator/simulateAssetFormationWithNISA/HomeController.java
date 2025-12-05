@@ -123,35 +123,6 @@ public class HomeController {
                    @RequestParam("endingAge") String requestEndingAge) {
       String id = UUID.randomUUID().toString().substring(0, 8); //ランダムなIDを生成
 
-      //nullチェック
-      boolean hasError = false;
-      if (requestExpectedRateOfReturn == null || requestExpectedRateOfReturn.isEmpty()) {
-        validMessage.expectedRateOfReturnError = "期待収益率が入力されていません";
-        hasError = true;
-      }
-      if (requestVolatility == null || requestVolatility.isEmpty()) {
-          validMessage.volatilityError = "ボラティリティが入力されていません";
-          hasError = true;
-      }
-      if (requestStartAge == null || requestStartAge.isEmpty()) {
-          validMessage.startAgeError = "シミュレーション開始年齢が入力されていません";
-          hasError = true;
-      }
-      if (requestMonthlySavings == null || requestMonthlySavings.isEmpty()) {
-          validMessage.monthlySavingsError = "つみたて月額が入力されていません";
-          hasError = true;
-      }
-      if (requestInitialValue == null || requestInitialValue.isEmpty()) {
-          validMessage.initialValueError = "つみたて額初期値が入力されていません";
-          hasError = true;
-      }
-  
-      // エラーがあれば list に返す
-      if (hasError) {
-          validateFlg = true;
-          return "redirect:/list";
-      }
-      
       
       try { //パラメータを数値に変換して処理
         // 必須項目　文字列を数値に Double.parseDouble小数、Integer.parseInt整数
