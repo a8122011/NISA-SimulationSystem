@@ -110,19 +110,12 @@ h1 {
 /* 年変化 */
 .annualChangePeriod {
     position: relative;
-    border: 1px solid #B6CFFD;
 }
 
 .annualChangePeriod::before, .annualChangePeriod::after {
     position: absolute;
     content: '';
     pointer-events: none;
-}
-
-.annualChangePeriod::before {
-    display: inline-block;
-    right: 4.5px;
-    border-radius: 0 5px 5px 0;
 }
 
 .annualChangePeriod::after {
@@ -141,7 +134,7 @@ h1 {
     min-width: 100px;
     height: 1.7em;
     padding: .4em 3.6em .4em .8em;
-    color: #4A4A4A;
+    color: #B6CFFD;
     font-size: 1em;
     cursor: pointer;
 }
@@ -162,7 +155,7 @@ h1 {
     padding: 20px; 
     border-collapse: collapse;
     border: solid 2px #C8DCCF;
-    font-size: 20px;
+    font-size: 0.8em;
 } 
 
 .productSelection th, .productSelection td {
