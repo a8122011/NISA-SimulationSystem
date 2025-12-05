@@ -90,15 +90,6 @@ public class Validation {
             asv.setAnnualChangeMoneyError("半角数字を入力してください");
         }
         if (!(matcher17.matches())&& !(advancedSettingStr.requestEndingAge.equals(""))) {
-            asv.setEndingAgeError("0～64を入力してください");
+            asv.setEndingAgeError("0~64を入力してください");
         }
     }
-
-    public void ageValid(int startAge) { //年齢が0~64かをチェック
-//        Pattern pattern = Pattern.compile("[0-9]|[1-5][0-9]|6[0-4]"); // 0～64
-//        Matcher matcher1 = pattern.matcher(startAge);
-//        if (!(matcher1.matches())) {
-//            this.startAgeError = "0～64を入力してください";
-//        }
-    }
-}
