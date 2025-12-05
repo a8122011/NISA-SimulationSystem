@@ -35,8 +35,11 @@
         <table>
             <tr class= "weightInputs" style="display:none;">
                 <th><label>割合：</label></th>
-                <th><label id="weightLabel1"></label> <input type="number" id="weight1" placeholder="50"> % </th>
-                <th><label id="weightLabel2"></label> <input type="number" id="weight2" placeholder="50"> % </th>
+                <th><input type="number" id="weight1" placeholder="50"> % </th>
+                <th><input type="number" id="weight2" placeholder="50"> % </th>
+                <div class="buttons">
+                    <button type="button" id="FundOKButton"> 決定 </button>
+                </div>
             </tr>
         </table>
         
@@ -404,31 +407,34 @@
                             else if(SelectedProducts.length === 2){
                                 $(".selectedFundName").show();
                                 $(".weightInputs").show();
-                                $("#weightLabel1").text(products[SelectedProducts[0]].name);
-                                $("#weightLabel2").text(products[SelectedProducts[1]].name);
 
-                                $("#selectedFund1").text(products[SelectedProducts[0]].name);
-                                $("#selectedFund2").text(products[SelectedProducts[1]].name);
-
-                                //2商品の比率
-                                const weight1 = parseFloat($("#weight1").val()) / 100;
-                                const weight2 = parseFloat($("#weight2").val()) / 100;
-
-                                // 期待収益率の加重平均
-                                const expectedRateOfReturn = products[SelectedProducts[0]].expectedRateOfReturn * weight1 + products[SelectedProducts[1]].expectedRateOfReturn * weight2;
-
-                                // リスクの計算（相関係数考慮）
-                                const sigma1 = products[SelectedProducts[0]].volatility;
-                                const sigma2 = products[SelectedProducts[1]].volatility;
-                                const key = [SelectedProducts[0], SelectedProducts[1]].sort().join(",");
-                                const rho = rhoMatrix[key] || 0;
-                                // 共分散
-                                const volatility = Math.sqrt(
-                                    (weight1*sigma1)*(weight1*sigma1) + (weight2*sigma2)*(weight2*sigma2) + 2*weight1*weight2*sigma1*sigma2*rho
-                                );
-                                
-                                $("#expectedRateOfReturn").val(expectedRateOfReturn.toFixed(3));
-                                $("#volatility").val(volatility.toFixed(3));
+                                $("#FundOKButton").click(function(){
+                                    $("#selectedFund1").text(products[SelectedProducts[0]].name);
+                                    $("#selectedFund2").text(products[SelectedProducts[1]].name);
+    
+                                    $("#selectedFund1").text(products[SelectedProducts[0]].name);
+                                    $("#selectedFund2").text(products[SelectedProducts[1]].name);
+    
+                                    //2商品の比率
+                                    const weight1 = parseFloat($("#weight1").val()) / 100;
+                                    const weight2 = parseFloat($("#weight2").val()) / 100;
+    
+                                    // 期待収益率の加重平均
+                                    const expectedRateOfReturn = products[SelectedProducts[0]].expectedRateOfReturn * weight1 + products[SelectedProducts[1]].expectedRateOfReturn * weight2;
+    
+                                    // リスクの計算（相関係数考慮）
+                                    const sigma1 = products[SelectedProducts[0]].volatility;
+                                    const sigma2 = products[SelectedProducts[1]].volatility;
+                                    const key = [SelectedProducts[0], SelectedProducts[1]].sort().join(",");
+                                    const rho = rhoMatrix[key] || 0;
+                                    // 共分散
+                                    const volatility = Math.sqrt(
+                                        (weight1*sigma1)*(weight1*sigma1) + (weight2*sigma2)*(weight2*sigma2) + 2*weight1*weight2*sigma1*sigma2*rho
+                                    );
+                                    
+                                    $("#expectedRateOfReturn").val(expectedRateOfReturn.toFixed(3));
+                                    $("#volatility").val(volatility.toFixed(3));
+                                }
                             }
                                     
                                 $("#SelectFunds").dialog("close");
