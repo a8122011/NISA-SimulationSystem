@@ -139,9 +139,8 @@ h1 {
 .annualChangePeriod select {
     appearance: none;
     min-width: 100px;
-    height: 2.2em;
+    height: 1.7em;
     padding: .4em 3.6em .4em .8em;
-    border-radius: 5px;
     color: #4A4A4A;
     font-size: 1em;
     cursor: pointer;
