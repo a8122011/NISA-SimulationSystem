@@ -45,7 +45,7 @@ h1 {
 }
 
 .formContainer textarea {
-    height: 60px;
+    height: 40px;
     margin-bottom: 10px;
 }
 
@@ -60,7 +60,7 @@ h1 {
     background-clip: padding-box;
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
-    max-width: 120px;
+    width: 120px;
 }
 
 .formContainer input:focus {
@@ -130,8 +130,8 @@ h1 {
 
 .annualChangePeriod select {
     appearance: none;
-    min-width: 100px;
-    height: 1.7em;
+    width: 120px;
+    height: 40px;
     padding: .4em 3.6em .4em .8em;
     color: #B6CFFD;
     font-size: 1em;
