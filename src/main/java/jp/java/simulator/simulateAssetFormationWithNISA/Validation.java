@@ -9,6 +9,7 @@ public class Validation {
     String startAgeError;
     String monthlySavingsError;
     String initialValueError;
+}
 
     public Validation() {
     } //デフォルトのコンストラクタ。オブジェクト作成時に必ず呼び出される
