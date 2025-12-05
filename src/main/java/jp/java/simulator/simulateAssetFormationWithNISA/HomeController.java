@@ -171,34 +171,33 @@ public class HomeController {
         if (!requestEndingAge.equals("")) {
           endingAge = Integer.parseInt(requestEndingAge);
         }
+        // 値のセット
+        lifeEventParams = new LifeEventParams(lifeEvent1, lifeEventAge1, requiredFunds1, lifeEvent2, lifeEventAge2, requiredFunds2, lifeEvent3, lifeEventAge3, requiredFunds3, lifeEvent4, lifeEventAge4, requiredFunds4, lifeEvent5, lifeEventAge5, requiredFunds5);
+        advancedSetting = new AdvancedSetting(annualChangeMonth, annualChangeMoney, endingAge);
+        params = new SimulationParams(id, expectedRateOfReturn, volatility, startAge, monthlySavings, initialValue, lifeEventParams, advancedSetting);
 
-            // 値のセット
-            lifeEventParams = new LifeEventParams(lifeEvent1, lifeEventAge1, requiredFunds1, lifeEvent2, lifeEventAge2, requiredFunds2, lifeEvent3, lifeEventAge3, requiredFunds3, lifeEvent4, lifeEventAge4, requiredFunds4, lifeEvent5, lifeEventAge5, requiredFunds5);
-            advancedSetting = new AdvancedSetting(annualChangeMonth, annualChangeMoney, endingAge);
-            params = new SimulationParams(id, expectedRateOfReturn, volatility, startAge, monthlySavings, initialValue, lifeEventParams, advancedSetting);
+        // バリデーション用のオブジェクトを初期化
+        lifeEventValidMessage = new LifeEventValidation();
+        advancedSettingValidMessage = new AdvancedSettingValidation();
+        validMessage = new Validation();
+        validateFlg = false; //エラーなし
 
-            // バリデーション用のオブジェクトを初期化
-            lifeEventValidMessage = new LifeEventValidation();
-            advancedSettingValidMessage = new AdvancedSettingValidation();
-            validMessage = new Validation();
-            validateFlg = false; //エラーなし
-
-            return "redirect:/list"; //　処理成功後、一覧ページにリダイレクト
+        return "redirect:/list"; //　処理成功後、一覧ページにリダイレクト
+      } 
+      
+      catch (Exception e) { //try{}ブロック内で例外が発生した場合に実行される部分
+        // requestParamのセットとバリデーションの初期化
+        LifeEventStr lifeEventStr = new LifeEventStr(requestLifeEventAge1, requestRequiredFunds1, requestLifeEventAge2, requestRequiredFunds2, requestLifeEventAge3, requestRequiredFunds3, requestLifeEventAge4, requestRequiredFunds4, requestLifeEventAge5, requestRequiredFunds5);
+        lifeEventValidMessage = new LifeEventValidation(); //どの項目がエラーかを保持
+        AdvancedSettingStr advancedSettingStr = new AdvancedSettingStr(requestAnnualChangeMoney, requestEndingAge);
+        advancedSettingValidMessage = new AdvancedSettingValidation(); //どの項目がエラーかを保持
+        validMessage = new Validation();
           
-        } catch (Exception e) { //try{}ブロック内で例外が発生した場合に実行される部分
-            // requestParamのセットとバリデーションの初期化
-            LifeEventStr lifeEventStr = new LifeEventStr(requestLifeEventAge1, requestRequiredFunds1, requestLifeEventAge2, requestRequiredFunds2, requestLifeEventAge3, requestRequiredFunds3, requestLifeEventAge4, requestRequiredFunds4, requestLifeEventAge5, requestRequiredFunds5);
-            lifeEventValidMessage = new LifeEventValidation(); //どの項目がエラーかを保持
-            AdvancedSettingStr advancedSettingStr = new AdvancedSettingStr(requestAnnualChangeMoney, requestEndingAge);
-            advancedSettingValidMessage = new AdvancedSettingValidation(); //どの項目がエラーかを保持
-            validMessage = new Validation();
-          
-            // エラーメッセージのセット　どの項目が不正だったのかをユーザーに表示できる
-            validMessage.typeValid(requestExpectedRateOfReturn, requestVolatility, requestStartAge, requestMonthlySavings, requestInitialValue, lifeEventStr, lifeEventValidMessage, advancedSettingStr, advancedSettingValidMessage);
-            validateFlg = true; //エラーあり
-
-            return "redirect:/list"; //再度/listにリダイレクトして、入力フォームにエラーを表示
-        }
+        // エラーメッセージのセット　どの項目が不正だったのかをユーザーに表示できる
+        validMessage.typeValid(requestExpectedRateOfReturn, requestVolatility, requestStartAge, requestMonthlySavings, requestInitialValue, lifeEventStr, lifeEventValidMessage, advancedSettingStr, advancedSettingValidMessage);
+        validateFlg = true; //エラーあり
+        return "redirect:/list"; //再度/listにリダイレクトして、入力フォームにエラーを表示
+      }
     } //@RequestParamでURLパラメータを取得
 
   
