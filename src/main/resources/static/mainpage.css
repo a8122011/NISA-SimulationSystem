@@ -30,7 +30,7 @@ h1 {
 
 /* 入力フォーム */
 .formContainer {
-    max-width:80%;
+    max-width:80vw;
     margin:0 auto;
 }
 
