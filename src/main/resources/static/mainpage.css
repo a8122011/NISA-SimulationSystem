@@ -282,3 +282,11 @@ h1 {
 #productSelectionButton:hover, #lifeEventsButton:hover, #advancedSettingButton:hover, .start:hover{
     transform: scale(1.03);
 }
+
+#expectedRateOfReturnButton, #volatilityButton {
+    border-radius: 30px;
+    border: 1px solid #90CE9C;
+    color: #90CE9C;
+    font-size:1em;
+    background-color: white;
+}
