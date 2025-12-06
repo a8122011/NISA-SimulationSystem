@@ -30,7 +30,7 @@ h1 {
 
 /* 入力フォーム */
 .formContainer {
-    max-width:80vw;
+    max-width:90vw;
     margin:0 auto;
 }
 
@@ -49,7 +49,7 @@ h1 {
     text-align: right;
     font-size: 1.3em;
     padding: 10px;
-    margin-bottom: 5px;
+    margin: 5px 3px;
     border: 1px solid #B6CFFD;
     border-radius: 5px;
     -moz-background-clip: padding;
@@ -101,7 +101,7 @@ h1 {
     background-clip: padding-box;
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
-    max-width: 60px;
+    width: 100px;
 }
 
 /* 年変化 */
@@ -131,7 +131,8 @@ h1 {
     width: 120px;
     height: 40px;
     padding: .4em 3.6em .4em .8em;
-    color: #B6CFFD;
+    border-color: #B6CFFD;
+    border-radius: 5px;
     font-size: 1em;
     cursor: pointer;
 }
@@ -155,11 +156,11 @@ h1 {
 }
 
 .productSelection th {
-    font-size: 1em;
+    font-size: 0.9em;
 }
 
 .productSelection td{
-    font-size: 0.8em;
+    font-size: 0.9em;
 }
 
 .productSelection th, .productSelection td {
@@ -254,8 +255,9 @@ h1 {
 #FundOKButton {
     color: white;
     font-size:1em;
+    padding: 5px;
     background-color: #6ABF7E;
-    border-radius: 20px;
+    border-radius: 5px;
     border: none;
     cursor: pointer;
 }   
