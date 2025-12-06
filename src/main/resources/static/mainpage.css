@@ -17,7 +17,7 @@ h1 {
     text-align: center;
 }
 
-h1 {
+h2 {
     font-size: 1.2em;
     color: #90CE9C;
     padding: 40px;
@@ -279,14 +279,14 @@ h1 {
     cursor: pointer;
 }
 
-#productSelectionButton:hover, #lifeEventsButton:hover, #advancedSettingButton:hover, .start:hover{
-    transform: scale(1.03);
-}
-
 #expectedRateOfReturnButton, #volatilityButton {
     border-radius: 30px;
     border: 1px solid #90CE9C;
     color: #90CE9C;
     font-size:0.8em;
     background-color: white;
+}
+
+#productSelectionButton:hover, #lifeEventsButton:hover, #advancedSettingButton:hover, .start:hover, #expectedRateOfReturnButton:hover, #volatilityButton:hover {
+    transform: scale(1.03);
 }
