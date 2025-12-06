@@ -18,26 +18,27 @@ public class HomeController {
 
   record LifeEventParams(String lifeEvent1, int lifeEventAge1, double requiredFunds1, String lifeEvent2, int lifeEventAge2, double requiredFunds2, String lifeEvent3, int lifeEventAge3, double requiredFunds3, String lifeEvent4, int lifeEventAge4, double requiredFunds4, String lifeEvent5, int lifeEventAge5, double requiredFunds5) {}
   
-    record AdvancedSetting(int annualChangeMonth, int annualChangeMoney, int endingAge) {}
-    record SimulationParams(String id, double expectedRateOfReturn, double volatility, int startAge, double monthlySavings, double initialValue, LifeEventParams lifeEventParams, AdvancedSetting advancedSetting) {}
+  record AdvancedSetting(int annualChangeMonth, int annualChangeMoney, int endingAge) {}
+  record SimulationParams(String id, double expectedRateOfReturn, double volatility, int startAge, double monthlySavings, double initialValue, LifeEventParams lifeEventParams, AdvancedSetting advancedSetting) {}
     
-    private String id;
-    private double expectedRateOfReturn;
-    private double volatility;
-    private int startAge;
-    private double monthlySavings;
-    private double initialValue;
-    private LifeEventParams lifeEventParams;
-    private AdvancedSetting advancedSetting;
-    private SimulationParams params = new SimulationParams(id, expectedRateOfReturn, volatility, startAge, monthlySavings, initialValue, lifeEventParams, advancedSetting);
-    private LifeEventValidation lifeEventValidMessage = new LifeEventValidation();
-    private AdvancedSettingValidation advancedSettingValidMessage = new AdvancedSettingValidation();
-    private Validation validMessage = new Validation();
-     boolean validateFlg = false;
-    List<List<Double>> valuationData;
-    List<String> countList;
-    double suggestedMax;
-    int stepSize;
+  private String id;
+  private double expectedRateOfReturn;
+  private double volatility;
+  private int startAge;
+  private double monthlySavings;
+  private double initialValue;
+  private LifeEventParams lifeEventParams;
+  private AdvancedSetting advancedSetting;
+  private SimulationParams params = new SimulationParams(id, expectedRateOfReturn, volatility, startAge, monthlySavings, initialValue, lifeEventParams, advancedSetting);
+  private LifeEventValidation lifeEventValidMessage = new LifeEventValidation();
+  private AdvancedSettingValidation advancedSettingValidMessage = new AdvancedSettingValidation();
+  private Validation validMessage = new Validation();
+  boolean validateFlg = false;
+  List<List<Double>> valuationData;
+  List<String> countList;
+  double suggestedMax;
+  int stepSize;
+  private List<Map<String, Object>> simulationHistory = new ArrayList<>(); //過去の結果を保持するリスト
   
     @RequestMapping(value="/mainpage")
     String mainpage(Model model) {
@@ -78,6 +79,17 @@ public class HomeController {
       model.addAttribute("monthCountList", countList);
       model.addAttribute("suggestedMax", suggestedMax);
       model.addAttribute("stepSize", stepSize);
+
+      //過去の結果履歴追加処理
+      Map<String, Object> oneResult = new HashMap<>();
+      oneResult.put("id", params.id());
+      oneResult.put("valuationData", valuationData);
+      oneResult.put("countList", countList);
+      oneResult.put("suggestedMax", suggestedMax);
+      oneResult.put("stepSize", stepSize);
+      
+      simulationHistory.add(oneResult);
+      model.addAttribute("history", simulationHistory);
 
       setErrorMessages(model);
       
