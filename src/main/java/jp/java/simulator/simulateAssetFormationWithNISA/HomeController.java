@@ -66,8 +66,8 @@ public class HomeController {
       int i = 0;
       for (List<Double> data : valuationData) {
         switch (i) {
-            case 0 -> model.addAttribute("top10Percent", data);
-            case 1 -> model.addAttribute("top30Percent", data);
+            case 0 -> model.addAttribute("top30Percent", data);
+            case 1 -> model.addAttribute("median", data);
             case 2 -> model.addAttribute("bottom30Percent", data);
             case 3 -> model.addAttribute("bottom10Percent", data);
             case 4 -> model.addAttribute("noOperation", data);
