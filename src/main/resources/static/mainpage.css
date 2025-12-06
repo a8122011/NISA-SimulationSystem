@@ -66,6 +66,10 @@ h1 {
     outline: 0;
 }
 
+.formContainer placeholder {
+    font-size: 0.6em;
+}
+
 /*エラーメッセージ*/
 .validColor {
     color: #E85C5C;
