@@ -266,7 +266,7 @@
                 <tbody>
                     <tr th:each="params : ${params}">
                         <td colspan="3" th:if="${params.advancedSetting.annualChangeMonth != 0}" th:text="'つみたて月額を ' + ${params.advancedSetting.annualChangeMonth} + 'か月 ごとに ' + ${params.advancedSetting.annualChangeMoney} + '万円 増やす'"></td>
-                        <td></td><<td colspan="2" th:if="${params.advancedSetting.endingAge != 0}" th:text="${params.advancedSetting.endingAge} + '歳'"></td>
+                        <td colspan="2" th:if="${params.advancedSetting.endingAge != 0}" th:text="${params.advancedSetting.endingAge} + '歳'"></td>
                     </tr>
                 </tbody>
             </table>
