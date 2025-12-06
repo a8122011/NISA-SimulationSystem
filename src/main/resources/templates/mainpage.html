@@ -272,72 +272,77 @@
             </table>
         </div>
         <div  class="chartContainer">
-            <canvas id="myLineChart"></canvas>
+            <div th:each="simu, iter : ${history}">
+                <canvas th:id="'chart-' + ${iter.index}" width="800" height="400"></canvas>
+                <br>
+            </div>
             <p>※当該評価は過去の一定期間の実績の分析結果を元に予測したものであり、 将来の運用成果等を保証したものではありません。</p>
         </div>
 
         <!-- シミュレーショングラフ -->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.bundle.js"></script>  <!-- Chart.bungle.js読み込み　-->
         <script th:inline="javascript">
-            var ctx = document.getElementById("myLineChart").getContext('2d');  // ctx:キャンバス
-            var myLineChart = new Chart(ctx, {
-                type: 'line',
-                data: {
-                    labels: /*[[${monthCountList}]]*/ [],
-                    datasets: [
-                        {
-                            label: '上位30%',
-                            data: /*[[${top30Percent}]]*/ [],
-                            borderColor: '#e14024a9',
-                            backgroundColor: "rgba(0,0,0,0)"
-                        },
-                        {
-                            label: '中央値',
-                            data: /*[[${median}]]*/ [],
-                            borderColor: '#f8b500a9',
-                            backgroundColor: "rgba(0,0,0,0)"
-                        },
-                        {
-                            label: '下位30%',
-                            data: /*[[${bottom30Percent}]]*/ [],
-                            borderColor: '#73cf54a9',
-                            backgroundColor: "rgba(0,0,0,0)"
-                        },
-                        {
-                            label: '下位10%',
-                            data: /*[[${bottom10Percent}]]*/ [],
-                            borderColor: '#70c4e0a9',
-                            backgroundColor: "rgba(0,0,0,0)"
-                        },
-                        {
-                            label: '運用なし',
-                            data: /*[[${noOperation}]]*/ [],
-                            borderColor: '#666c67a9',
-                            backgroundColor: "rgba(0,0,0,0)"
-                        }
-                    ],
-                },
+            const history = /*[[${history}]]*/ [];
 
-                // グラフ設定
-                options: {
-                    title:{ // グラフ上部に表示
-                        display: true,
-                        text: '資産額推移'
-                    },
-                    
-                    scales: {
-                        yAxes: [{ // Y軸設定 
-                            ticks: {
-                                suggestedMax: /*[[${suggestedMax}]]*/, //縦軸最大値
-                                suggestedMin: 0, //縦軸下限0
-                                stepSize: /*[[${stepSize}]]*/, //目盛の間隔
-                                callback: function(value, index, values){
-                                    return  value +  '万円' //縦軸の単位
-                                }
+            history.forEach(function(simu, index) {
+                const ctx = document.getElementById('chart-' + index).getContext('2d');
+                
+                new Chart(ctx, {
+                    type: 'line',
+                    data: {
+                        labels: simu.countList,
+                        datasets: [
+                            {
+                                label: '上位30%',
+                                data: simu.valuationData[0],
+                                borderColor: '#e14024a9',
+                                fill: false
+                            },
+                            {
+                                label: '中央値',
+                                data: simu.valuationData[1],
+                                borderColor: '#f8b500a9',
+                                fill: false
+                            },
+                            {
+                                label: '下位30%',
+                                data: simu.valuationData[2],
+                                borderColor: '#73cf54a9',
+                                fill: false
+                            },
+                            {
+                                label: '下位10%',
+                                data: simu.valuationData[3],
+                                borderColor: '#70c4e0a9',
+                                fill: false
+                            },
+                            {
+                                label: '運用なし',
+                                data: simu.valuationData[4],
+                                borderColor: '#666c67a9',
+                                fill: false
                             }
-                        }]
+                        ]
                     },
-                }
+                    options: {
+                        title: {
+                            display: true,
+                            text: '資産額推移'
+                        },
+                        scales: {
+                            yAxes: [{
+                                ticks: {
+                                    suggestedMax: simu.suggestedMax,
+                                    suggestedMin: 0,
+                                    stepSize: simu.stepSize,
+                                    callback: function(value) {
+                                        return value + '万円';
+                                    }
+                                }
+                            }]
+                        }
+                    }
+                });
             });
         </script>
 
