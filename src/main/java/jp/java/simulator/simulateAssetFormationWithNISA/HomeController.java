@@ -117,17 +117,17 @@ public class HomeController {
     }
 
   
-    @GetMapping("/add") //Spring MVCのアノテーション　HTTP GETリクエストの/addにアクセスしたときにこのメソッドを呼び出す
-    String addItem(@RequestParam("expectedRateOfReturn") String requestExpectedRateOfReturn, @RequestParam("volatility") String requestVolatility, //addItemメソッドの宣言、@RequestParam()はURLパラメータを取得するためのアノテーション
-                   @RequestParam("startAge") String requestStartAge, @RequestParam("monthlySavings") String requestMonthlySavings,
-                   @RequestParam("initialValue") String requestInitialValue,
+    @GetMapping("/add") //Spring MVCのアノテーション　HTTP GETリクエストの/addにアクセスしたときにこのメソッドを呼び出す addItemメソッドの宣言、@RequestParam()はURLパラメータを取得するためのアノテーション
+    String addItem(@RequestParam("expectedRateOfReturn") String requestExpectedRateOfReturn, @RequestParam("volatility") String requestVolatility, @RequestParam("startAge") String requestStartAge, @RequestParam("monthlySavings") String requestMonthlySavings, @RequestParam("initialValue") String requestInitialValue,
                    @RequestParam("lifeEvent1") String lifeEvent1, @RequestParam("lifeEventAge1") String requestLifeEventAge1, @RequestParam("requiredFunds1") String requestRequiredFunds1,
                    @RequestParam("lifeEvent2") String lifeEvent2, @RequestParam("lifeEventAge2") String requestLifeEventAge2, @RequestParam("requiredFunds2") String requestRequiredFunds2,
                    @RequestParam("lifeEvent3") String lifeEvent3, @RequestParam("lifeEventAge3") String requestLifeEventAge3, @RequestParam("requiredFunds3") String requestRequiredFunds3,
                    @RequestParam("lifeEvent4") String lifeEvent4, @RequestParam("lifeEventAge4") String requestLifeEventAge4, @RequestParam("requiredFunds4") String requestRequiredFunds4,
                    @RequestParam("lifeEvent5") String lifeEvent5, @RequestParam("lifeEventAge5") String requestLifeEventAge5, @RequestParam("requiredFunds5") String requestRequiredFunds5,
                    @RequestParam("annualChangePeriod") String annualChangePeriod, @RequestParam("annualChangeMoney") String requestAnnualChangeMoney,
-                   @RequestParam("endingAge") String requestEndingAge) {
+                   @RequestParam("endingAge") String requestEndingAge,
+                   @RequestParam("weight1") String requestweight1, @RequestParam("weight2") String requestweight2
+                  ) {
       String id = UUID.randomUUID().toString().substring(0, 8); //ランダムなIDを生成
 
       
