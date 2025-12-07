@@ -422,6 +422,11 @@
                                     //2商品の比率
                                     const weight1 = parseFloat($("#weight1").val()) / 100;
                                     const weight2 = parseFloat($("#weight2").val()) / 100;
+
+                                    if(weight1 + weight2 !== 1){
+                                        alert("比率の合計が100%になっていません");
+                                        return;
+                                    }
     
                                     // 期待収益率の加重平均
                                     const expectedRateOfReturn = products[SelectedProducts[0]].expectedRateOfReturn * weight1 + products[SelectedProducts[1]].expectedRateOfReturn * weight2;
