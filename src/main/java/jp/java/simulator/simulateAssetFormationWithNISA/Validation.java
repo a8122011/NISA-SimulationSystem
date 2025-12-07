@@ -9,12 +9,12 @@ public class Validation {
     String startAgeError;
     String monthlySavingsError;
     String initialValueError;
-    string weight1Error;
-    string weight2Error;
+    String weight1Error;
+    String weight2Error;
     public Validation() {
     } //デフォルトのコンストラクタ。オブジェクト作成時に必ず呼び出される
 
-    public void typeValid(String expectedRateOfReturn, String volatility, String startAge, String monthlySavings, String initialValue, LifeEventStr lifeEventStr, LifeEventValidation lev, AdvancedSettingStr advancedSettingStr, AdvancedSettingValidation asv, string weight1, string weight2) {
+    public void typeValid(String expectedRateOfReturn, String volatility, String startAge, String monthlySavings, String initialValue, LifeEventStr lifeEventStr, LifeEventValidation lev, AdvancedSettingStr advancedSettingStr, AdvancedSettingValidation asv, String weight1, String weight2) {
         Pattern pattern1 = Pattern.compile("^[+-]?[0-9]+$|^[+-]?[0-9]+\\.[0-9]+$"); //整数or小数、＋－
         Pattern pattern2 = Pattern.compile("^[+-]?[0-9]+$"); //整数、＋－
         Matcher matcher1 = pattern1.matcher(expectedRateOfReturn);
