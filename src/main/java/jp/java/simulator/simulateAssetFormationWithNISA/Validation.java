@@ -9,10 +9,12 @@ public class Validation {
     String startAgeError;
     String monthlySavingsError;
     String initialValueError;
+    string weight1Error;
+    string weight2Error;
     public Validation() {
     } //デフォルトのコンストラクタ。オブジェクト作成時に必ず呼び出される
 
-    public void typeValid(String expectedRateOfReturn, String volatility, String startAge, String monthlySavings, String initialValue, LifeEventStr lifeEventStr, LifeEventValidation lev, AdvancedSettingStr advancedSettingStr, AdvancedSettingValidation asv) {
+    public void typeValid(String expectedRateOfReturn, String volatility, String startAge, String monthlySavings, String initialValue, LifeEventStr lifeEventStr, LifeEventValidation lev, AdvancedSettingStr advancedSettingStr, AdvancedSettingValidation asv, string weight1, string weight2) {
         Pattern pattern1 = Pattern.compile("^[+-]?[0-9]+$|^[+-]?[0-9]+\\.[0-9]+$"); //整数or小数、＋－
         Pattern pattern2 = Pattern.compile("^[+-]?[0-9]+$"); //整数、＋－
         Matcher matcher1 = pattern1.matcher(expectedRateOfReturn);
@@ -32,6 +34,8 @@ public class Validation {
         Matcher matcher15 = pattern1.matcher(lifeEventStr.requiredFunds5);
         Matcher matcher16 = pattern2.matcher(advancedSettingStr.requestAnnualChangeMoney);
         Matcher matcher17 = pattern2.matcher(advancedSettingStr.requestEndingAge);
+        Matcher matcher18 = pattern2.matcher(weight1);
+        Matcher matcher19 = pattern2.matcher(weight2);
         
         if (!(matcher1.matches())) {
             this.expectedRateOfReturnError = "商品を選択するか、半角数字を入力してください";
@@ -90,6 +94,12 @@ public class Validation {
         }
         if (!(matcher17.matches())&& !(advancedSettingStr.requestEndingAge.equals(""))) {
             asv.setEndingAgeError("0~64を入力してください");
+        }
+        if (!(matcher18.matches())){
+            this.weight1Error = "0~100を入力してください";
+        }
+        if (!(matcher19.matches())){
+            this.weight2Error = "0~100を入力してください";
         }
     }
 }
