@@ -287,6 +287,10 @@ h2 {
     background-color: white;
 }
 
-#productSelectionButton:hover, #lifeEventsButton:hover, #advancedSettingButton:hover, .start:hover, #expectedRateOfReturnButton:hover, #volatilityButton:hover {
+#productSelectionButton:hover, #lifeEventsButton:hover, #advancedSettingButton:hover, .start:hover {
     transform: scale(1.03);
+}
+
+#expectedRateOfReturnButton:hover, #volatilityButton:hover {
+    transform: scale(1.06);
 }
