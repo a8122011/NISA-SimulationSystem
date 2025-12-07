@@ -189,7 +189,7 @@ public class HomeController {
         validMessage = new Validation();
         validateFlg = false; //エラーなし
 
-        return "redirect:/list"; //　処理成功後、一覧ページにリダイレクト
+        return "forward:/list"; //　処理成功後、一覧ページにリダイレクト
       } 
       
       catch (Exception e) { //try{}ブロック内で例外が発生した場合に実行される部分
@@ -203,7 +203,7 @@ public class HomeController {
         // エラーメッセージのセット　どの項目が不正だったのかをユーザーに表示できる
         validMessage.typeValid(requestExpectedRateOfReturn, requestVolatility, requestStartAge, requestMonthlySavings, requestInitialValue, lifeEventStr, lifeEventValidMessage, advancedSettingStr, advancedSettingValidMessage, requestweight1, requestweight2);
         validateFlg = true; //エラーあり
-        return "redirect:/list"; //再度/listにリダイレクトして、入力フォームにエラーを表示
+        return "forward:/list"; //再度/listにリダイレクトして、入力フォームにエラーを表示
       }
     } //@RequestParamでURLパラメータを取得
 
