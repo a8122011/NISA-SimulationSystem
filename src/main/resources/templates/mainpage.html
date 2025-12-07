@@ -325,25 +325,27 @@
                         ]
                     },
                     options: {
-                        title: {
-                            display: true,
-                            text: '資産額推移'
-                        },
-                        scales: {
-                            yAxes: [{
-                                ticks: {
-                                    suggestedMax: simu.suggestedMax,
-                                    suggestedMin: 0,
-                                    stepSize: simu.stepSize,
-                                    callback: function(value) {
-                                        return value + '万円';
+                        plugins: {
+                            title: {
+                                display: true,
+                                text: "資産額推移"
+                            },
+                            scales: {
+                                y: [{
+                                    ticks: {
+                                        suggestedMax: simu.suggestedMax,
+                                        suggestedMin: 0,
+                                        stepSize: simu.stepSize,
+                                        callback: function(value) {
+                                            return value + '万円';
+                                        }
                                     }
-                                }
-                            }]
+                                }]
+                            }
                         }
-                    }
+                    };
                 });
-            });
+            }
         </script>
 
         <script type="text/javascript">
