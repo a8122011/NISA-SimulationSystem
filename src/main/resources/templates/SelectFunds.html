@@ -85,7 +85,7 @@
         </div>
         
         <script type="text/javascript">
-            $(document).on("click", "#expectedRateOfReturnButton", function(){
+            $(document).on("click", "#expectedRateOfReturnButton", function(){ //document(画面全体)のクリックイベントを監視、#expectedRateOfReturnButtonの場合だけ処理実行
                 window.alert('期待収益率：平均的に得られると予想される収益の割合');
             });
             $(document).on("click", "#volatilityButton", function(){
