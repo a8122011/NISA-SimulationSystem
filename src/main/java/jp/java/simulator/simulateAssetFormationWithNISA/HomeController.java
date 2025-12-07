@@ -201,7 +201,7 @@ public class HomeController {
         validMessage = new Validation();
           
         // エラーメッセージのセット　どの項目が不正だったのかをユーザーに表示できる
-        validMessage.typeValid(requestExpectedRateOfReturn, requestVolatility, requestStartAge, requestMonthlySavings, requestInitialValue, lifeEventStr, lifeEventValidMessage, advancedSettingStr, advancedSettingValidMessage);
+        validMessage.typeValid(requestExpectedRateOfReturn, requestVolatility, requestStartAge, requestMonthlySavings, requestInitialValue, lifeEventStr, lifeEventValidMessage, advancedSettingStr, advancedSettingValidMessage, requestweight1, requestweight2);
         validateFlg = true; //エラーあり
         return "redirect:/list"; //再度/listにリダイレクトして、入力フォームにエラーを表示
       }
