@@ -435,7 +435,7 @@
                                     const sigma1 = products[SelectedProducts[0]].volatility;
                                     const sigma2 = products[SelectedProducts[1]].volatility;
                                     const key = [SelectedProducts[0], SelectedProducts[1]].sort().join(",");
-                                    const rho = rhoMatrix[key] || 0;
+                                    const rho = rhoMatrix[key];
                                     // 共分散
                                     const volatility = Math.sqrt(
                                         (weight1*sigma1)*(weight1*sigma1) + (weight2*sigma2)*(weight2*sigma2) + 2*weight1*weight2*sigma1*sigma2*rho
