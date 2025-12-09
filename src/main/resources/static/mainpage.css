@@ -148,7 +148,7 @@ h2 {
 
 
 /* 商品選択ダイアログ */ 
-#SelectFunds {
+.SelectFunds {
     display: none;
 }
 
@@ -190,7 +190,7 @@ h2 {
 
 .productSelection input { 
     transform: scale(1.5) 
-}
+}    
 
 /*シミュレーション情報*/
 .paramList table {
@@ -287,10 +287,17 @@ h2 {
     background-color: white;
 }
 
+.info-btn {
+    border: none;
+    color: #6ABF7E;
+    font-size:0.8em;
+    background-color: white;
+}
+
 #productSelectionButton:hover, #lifeEventsButton:hover, #advancedSettingButton:hover, .start:hover {
     transform: scale(1.03);
 }
 
-#expectedRateOfReturnButton:hover, #volatilityButton:hover {
+#expectedRateOfReturnButton:hover, #volatilityButton:hover, .info-btn:hover {
     transform: scale(1.06);
 }
