@@ -119,14 +119,15 @@ public class HomeController {
   
     @GetMapping("/add") //Spring MVCのアノテーション　HTTP GETリクエストの/addにアクセスしたときにこのメソッドを呼び出す addItemメソッドの宣言、@RequestParam()はURLパラメータを取得するためのアノテーション
     String addItem(@RequestParam("expectedRateOfReturn") String requestExpectedRateOfReturn, @RequestParam("volatility") String requestVolatility, @RequestParam("startAge") String requestStartAge, @RequestParam("monthlySavings") String requestMonthlySavings, @RequestParam("initialValue") String requestInitialValue,
-                   @RequestParam("lifeEvent1") String lifeEvent1, @RequestParam("lifeEventAge1") String requestLifeEventAge1, @RequestParam("requiredFunds1") String requestRequiredFunds1,
-                   @RequestParam("lifeEvent2") String lifeEvent2, @RequestParam("lifeEventAge2") String requestLifeEventAge2, @RequestParam("requiredFunds2") String requestRequiredFunds2,
-                   @RequestParam("lifeEvent3") String lifeEvent3, @RequestParam("lifeEventAge3") String requestLifeEventAge3, @RequestParam("requiredFunds3") String requestRequiredFunds3,
-                   @RequestParam("lifeEvent4") String lifeEvent4, @RequestParam("lifeEventAge4") String requestLifeEventAge4, @RequestParam("requiredFunds4") String requestRequiredFunds4,
-                   @RequestParam("lifeEvent5") String lifeEvent5, @RequestParam("lifeEventAge5") String requestLifeEventAge5, @RequestParam("requiredFunds5") String requestRequiredFunds5,
-                   @RequestParam("annualChangePeriod") String annualChangePeriod, @RequestParam("annualChangeMoney") String requestAnnualChangeMoney,
-                   @RequestParam("endingAge") String requestEndingAge,
-                   @RequestParam("weight1") String requestweight1, @RequestParam("weight2") String requestweight2
+                   @RequestParam(value = "lifeEvent1", required = false) String lifeEvent1,@RequestParam(value = "lifeEventAge1", required = false) String requestLifeEventAge1,@RequestParam(value = "requiredFunds1", required = false) String requestRequiredFunds1,
+                   @RequestParam(value = "lifeEvent2", required = false) String lifeEvent2,@RequestParam(value = "lifeEventAge2", required = false) String requestLifeEventAge2,@RequestParam(value = "requiredFunds2", required = false) String requestRequiredFunds2,
+                   @RequestParam(value = "lifeEvent3", required = false) String lifeEvent3,@RequestParam(value = "lifeEventAge3", required = false) String requestLifeEventAge3,@RequestParam(value = "requiredFunds3", required = false) String requestRequiredFunds3,
+                   @RequestParam(value = "lifeEvent4", required = false) String lifeEvent4,@RequestParam(value = "lifeEventAge4", required = false) String requestLifeEventAge4,@RequestParam(value = "requiredFunds4", required = false) String requestRequiredFunds4,
+                   @RequestParam(value = "lifeEvent5", required = false) String lifeEvent5,@RequestParam(value = "lifeEventAge5", required = false) String requestLifeEventAge5,@RequestParam(value = "requiredFunds5", required = false) String requestRequiredFunds5,
+                   @RequestParam(value = "annualChangePeriod", required = false) String annualChangePeriod,
+                   @RequestParam(value = "annualChangeMoney", required = false) String requestAnnualChangeMoney,
+                   @RequestParam(value = "endingAge", required = false) String requestEndingAge,
+                   @RequestParam(value = "weight1", required = false) String requestweight1,@RequestParam(value = "weight2", required = false) String requestweight2
                   ) {
       String id = UUID.randomUUID().toString().substring(0, 8); //ランダムなIDを生成
 
