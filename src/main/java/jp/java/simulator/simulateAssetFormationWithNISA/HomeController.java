@@ -42,8 +42,9 @@ public class HomeController {
   
     @RequestMapping(value="/mainpage")
     String mainpage(Model model) {
-        model.addAttribute("time", LocalDateTime.now());
-        return "mainpage";
+      model.addAttribute("time", LocalDateTime.now());
+      model.addAttribute("simulationHistory", new ArrayList<>());
+      return "mainpage";
     }
     
     @GetMapping("/list")
