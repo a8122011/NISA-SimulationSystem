@@ -551,17 +551,14 @@
                 $("#productSelectionButton").click(function(){
                     $("#SelectFunds").dialog("open");
                 });
+            // ライフプランの表示非表示
+            $("#lifeEventsButton").click(function(){
+                $(".lifeEvents").toggleClass("display");
+            });
         
-                    // ライフプランの表示非表示
-                    $("#lifeEventsButton").click(function(){
-                        $(".lifeEvents").toggleClass("display");
-                    });
-        
-                    //  詳細設定の表示非表示
-                    $("#advancedSettingButton").click(function(){
-                        $(".advancedSetting").toggleClass("display");
-                    });
-
+            //  詳細設定の表示非表示
+            $("#advancedSettingButton").click(function(){
+                $(".advancedSetting").toggleClass("display");
             });
         </script>
     </body>
