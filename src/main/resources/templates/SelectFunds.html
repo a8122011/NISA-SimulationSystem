@@ -36,8 +36,6 @@
                             <td>8.677%</td>
                             <td> 三井住友DSアセットマネジメント株式会社</td>
                         </tr>
-                    </tbody>
-                    <tbody>
                         <tr>
                             <td>
                                 <input type="checkbox" id="mitsubishi_emaxis" name="productName" value="mitsubishi_emaxis"/>
@@ -48,8 +46,6 @@
                             <td>10.639%</td>
                             <td>三菱UFJアセットマネジメント株式会社</td>
                         </tr>
-                    </tbody>
-                    <tbody>
                         <tr>
                             <td>
                                 <input type="checkbox" id="nomura_nomu" name="productName" value="nomura_nomu"/>
@@ -60,8 +56,6 @@
                             <td>14.521%</td>
                             <td> 野村アセットマネジメント株式会社</td>
                         </tr>
-                    </tbody>
-                    <tbody>
                         <tr>
                             <td>
                                 <input type="checkbox" id="mitsui_smtam" name="productName" value="mitsui_smtam"/>
@@ -72,8 +66,6 @@
                             <td>20.659%</td>
                             <td> 三井住友トラストアセットマネジメント株式会社</td>
                         </tr>
-                    </tbody>
-                    <tbody>
                         <tr>
                             <td>
                                 <input type="checkbox" id="amova_sp500" name="productName" value="amova_sp500"/>
@@ -84,8 +76,6 @@
                             <td>21.038%</td>
                             <td> アモーヴァ・アセットマネジメント株式会社</td>
                         </tr>
-                    </tbody>
-                    <tbody>
                         <tr>
                             <td>
                                 <input type="checkbox" id="daiwa_iFree" name="productName" value="daiwa_iFree"/>
@@ -115,57 +105,6 @@
                 });
             });
         </script>
-
-        <script>
-            $(function () {
-            // 商品ごとの説明データ
-            const fundInfo = {
-                "mitsui_dc": `
-                    <h3>三井住友・DCつみたてNISA・日本株インデックスファンド</h3>
-                    <p>日本株式に長期分散投資する低コストファンド。TOPIX連動。</p>
-                `,
-                "mitsubishi_emaxis": `
-                    <h3>eMAIXISバランス(8資産均等型)</h3>
-                    <p>株式・債券・REIT を均等に組入れたバランス型。</p>
-                `,
-                "nomura_nomu": `
-                    <h3>のむラップ・ファンド(積極型)</h3>
-                    <p>株式比率が高い積極型ポートフォリオ。ハイリスク・ハイリターン。</p>
-                `,
-                "mitsui_smtam": `
-                    <h3>SMTAMダウ・ジョーンズ インデックスファンド</h3>
-                    <p>米国ダウ30 平均株価に連動するインデックスファンド。</p>
-                `,
-                "amova_sp500": `
-                    <h3>上場インデックスファンド米国株式(S&P500)</h3>
-                    <p>米国主要500銘柄へ投資。王道インデックス。</p>
-                `,
-                "daiwa_iFree": `
-                    <h3>iFreeETF JPX 日経400</h3>
-                    <p>東証上場「JPX日経400」指数に連動。</p>
-                `
-            };
-    
-            //ダイアログ設定
-            $("#fundInfoDialog").dialog({
-                autoOpen: false,
-                modal: true,
-                width: 500,
-                height: 380
-            });
-    
-            //info ボタン押下
-            $(".info-btn").on("click", function () {
-                const key = $(this).data("key");
-                const info = fundInfo[key] || "<p>情報がありません。</p>";
-    
-                $("#fundDialogContent").html(info);
-                $("#fundInfoDialog").dialog("open");
-            });
-        });
-    </script>
-
-        
     </body>
 
 </html>
