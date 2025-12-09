@@ -89,7 +89,7 @@ public class HomeController {
       oneResult.put("stepSize", stepSize);
       
       simulationHistory.add(oneResult);
-      model.addAttribute("history", simulationHistory);
+      model.addAttribute("history", simulationHistory != null ? simulationHistory : new ArrayList<>());
 
       setErrorMessages(model);
       
