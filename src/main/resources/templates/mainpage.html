@@ -272,7 +272,7 @@
             </table>
         </div>
         <div  class="chartContainer">
-            <div th:each="simu, iter : ${history}">
+            <div th:each="simu, iter : ${simulationHistory}">
                 <canvas th:id="'chart-' + ${iter.index}" width="800" height="400"></canvas>
                 <br>
             </div>
@@ -282,10 +282,10 @@
         <!-- シミュレーショングラフ -->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.bundle.js"></script>  <!-- Chart.bungle.js読み込み　-->
         <script th:inline="javascript">
-            const history = /*[[${history}]]*/ [];
+            const simulationHistory = /*[[${simulationHistory}]]*/ [];
 
-            if (history && history.length > 0) {
-                history.forEach(function(simu, index) {
+            if (simulationHistory && simulationHistory.length > 0) {
+                simulationHistory.forEach(function(simu, index) {
                     const canvas = document.getElementById('chart-' + index);
                     
                     if (!canvas) return; // canvas がない場合はスキップ
