@@ -282,7 +282,7 @@
         <!-- シミュレーショングラフ -->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.bundle.js"></script>  <!-- Chart.bungle.js読み込み　-->
         <script th:inline="javascript">
-            const history = /*[[${history}]]*/ [];
+            const history = /*[[${history} ?: []]]*/ [];
 
             history.forEach(function(simu, index) {
                 const ctx = document.getElementById('chart-' + index).getContext('2d');
@@ -325,27 +325,25 @@
                         ]
                     },
                     options: {
-                        plugins: {
-                            title: {
-                                display: true,
-                                text: "資産額推移"
-                            },
-                            scales: {
-                                y: [{
-                                    ticks: {
-                                        suggestedMax: simu.suggestedMax,
-                                        suggestedMin: 0,
-                                        stepSize: simu.stepSize,
-                                        callback: function(value) {
-                                            return value + '万円';
-                                        }
+                        title: {
+                            display: true,
+                            text: "資産額推移"
+                        },
+                        scales: {
+                            yAxes: [{
+                                ticks: {
+                                    suggestedMax: simu.suggestedMax,
+                                    suggestedMin: 0,
+                                    stepSize: simu.stepSize,
+                                    callback: function(value) {
+                                        return value + '万円';
                                     }
-                                }]
-                            }
-                        }
-                    };
+                                }
+                            }]
+                        } 
+                    }
                 });
-            }
+            });
         </script>
 
         <script type="text/javascript">
