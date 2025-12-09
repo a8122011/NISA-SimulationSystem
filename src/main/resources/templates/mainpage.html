@@ -284,66 +284,72 @@
         <script th:inline="javascript">
             const history = /*[[${history}]]*/ [];
 
-            history.forEach(function(simu, index) {
-                const ctx = document.getElementById('chart-' + index).getContext('2d');
-                
-                new Chart(ctx, {
-                    type: 'line',
-                    data: {
-                        labels: simu.countList,
-                        datasets: [
-                            {
-                                label: '上位30%',
-                                data: simu.valuationData[0],
-                                borderColor: '#e14024a9',
-                                fill: false
-                            },
-                            {
-                                label: '中央値',
-                                data: simu.valuationData[1],
-                                borderColor: '#f8b500a9',
-                                fill: false
-                            },
-                            {
-                                label: '下位30%',
-                                data: simu.valuationData[2],
-                                borderColor: '#73cf54a9',
-                                fill: false
-                            },
-                            {
-                                label: '下位10%',
-                                data: simu.valuationData[3],
-                                borderColor: '#70c4e0a9',
-                                fill: false
-                            },
-                            {
-                                label: '運用なし',
-                                data: simu.valuationData[4],
-                                borderColor: '#666c67a9',
-                                fill: false
-                            }
-                        ]
-                    },
-                    options: {
-                        title: {
-                            display: true,
-                            text: "資産額推移"
-                        },
-                        scales: {
-                            yAxes: [{
-                                ticks: {
-                                    suggestedMax: simu.suggestedMax,
-                                    suggestedMin: 0,
-                                    stepSize: simu.stepSize,
-                                    callback: function(value) {
-                                        return value + '万円';
-                                    }
+            if (history && history.length > 0) {
+                history.forEach(function(simu, index) {
+                    const canvas = document.getElementById('chart-' + index);
+                    
+                    if (!canvas) return; // canvas がない場合はスキップ
+                    
+                    const ctx = canvas.getContext('2d');
+                    
+                    new Chart(ctx, {
+                        type: 'line',
+                        data: {
+                            labels: simu.countList,
+                            datasets: [
+                                {
+                                    label: '上位30%',
+                                    data: simu.valuationData[0],
+                                    borderColor: '#e14024a9',
+                                    fill: false
+                                },
+                                {
+                                    label: '中央値',
+                                    data: simu.valuationData[1],
+                                    borderColor: '#f8b500a9',
+                                    fill: false
+                                },
+                                {
+                                    label: '下位30%',
+                                    data: simu.valuationData[2],
+                                    borderColor: '#73cf54a9',
+                                    fill: false
+                                },
+                                {
+                                    label: '下位10%',
+                                    data: simu.valuationData[3],
+                                    borderColor: '#70c4e0a9',
+                                    fill: false
+                                },
+                                {
+                                    label: '運用なし',
+                                    data: simu.valuationData[4],
+                                    borderColor: '#666c67a9',
+                                    fill: false
                                 }
-                            }]
-                        } 
-                    }
-                });
-            });
+                            ]
+                        },
+                            options: {
+                                title: {
+                                    display: true,
+                                    text: "資産額推移"
+                                },
+                                scales: {
+                                    yAxes: [{
+                                        ticks: {
+                                            suggestedMax: simu.suggestedMax,
+                                            suggestedMin: 0,
+                                            stepSize: simu.stepSize,
+                                            callback: function(value) {
+                                                return value + '万円';
+                                            }
+                                        }
+                                    }]
+                                } 
+                            }
+                        });
+                }
+            }
         </script>
 
         <script type="text/javascript">
