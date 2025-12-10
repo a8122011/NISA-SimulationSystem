@@ -482,8 +482,8 @@
                 
                 $(".SelectFunds").dialog({
                     autoOpen:false,
-                    width: 1000,
-                    height:"600",
+                    width: 900,
+                    height: 600,
                     modal:true,
                     buttons:{
                         "選択":function(){
@@ -523,7 +523,7 @@
                                     const weight1 = parseFloat($("#weight1").val()) / 100;
                                     const weight2 = parseFloat($("#weight2").val()) / 100;
 
-                                    if(weight1 + weight2 !== 1){
+                                    if(Math.abs(weight1 + weight2 - 1)>0.01){
                                         alert("比率の合計が100%になっていません");
                                         return;
                                     }
