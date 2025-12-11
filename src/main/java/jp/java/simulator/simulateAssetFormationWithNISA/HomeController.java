@@ -86,8 +86,8 @@ public class HomeController {
             @RequestParam("annualChangeMoney") String requestAnnualChangeMoney,
             @RequestParam("endingAge") String requestEndingAge,
         
-            @RequestParam("weight1") String requestweight1,
-            @RequestParam("weight2") String requestweight2,
+            @RequestParam("weight1", required = false) String requestweight1,
+            @RequestParam("weight2", required = false) String requestweight2,
 
             Model model
     ) {
