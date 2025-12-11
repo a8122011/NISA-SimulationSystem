@@ -1,5 +1,6 @@
 package jp.java.simulator.simulateAssetFormationWithNISA;
 
+import jakarta.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -11,9 +12,10 @@ import java.util.*;
 @Controller
 public class HomeController {
 
-    // -----------------------------
-    // record 定義（DTO）
-    // -----------------------------
+    @Autowired
+    HttpSession session;
+    
+    // record 定義
     record LifeEventParams(String lifeEvent1, int lifeEventAge1, double requiredFunds1,
                            String lifeEvent2, int lifeEventAge2, double requiredFunds2,
                            String lifeEvent3, int lifeEventAge3, double requiredFunds3,
@@ -26,14 +28,21 @@ public class HomeController {
                             int startAge, double monthlySavings, double initialValue,
                             LifeEventParams lifeEventParams, AdvancedSetting advancedSetting) {}
 
-    // -----------------------------
     // 初期表示（mainpage）
-    // -----------------------------
     @GetMapping(value = {"/", "/mainpage"})
     public String showMainpage(Model model) {
 
         model.addAttribute("time", LocalDateTime.now());
-        model.addAttribute("simulationHistory", new ArrayList<>());
+
+        //履歴
+        List<Map<String, Object>> history =
+                (List<Map<String, Object>>) session.getAttribute("simulationHistory");
+
+        if (history == null) {
+            history = new ArrayList<>();
+        }
+
+        model.addAttribute("simulationHistory", history);
 
         return "mainpage";
     }
@@ -72,8 +81,8 @@ public class HomeController {
 
             @RequestParam("annualChangePeriod") String annualChangePeriod,
             @RequestParam("annualChangeMoney") String requestAnnualChangeMoney,
-
             @RequestParam("endingAge") String requestEndingAge,
+        
             @RequestParam("weight1") String requestweight1,
             @RequestParam("weight2") String requestweight2,
 
@@ -83,18 +92,14 @@ public class HomeController {
         String id = UUID.randomUUID().toString().substring(0, 8);
 
         try {
-            // ----------------------------------
             // 必須項目の変換
-            // ----------------------------------
             double expectedRateOfReturn = Double.parseDouble(requestExpectedRateOfReturn);
             double volatility = Double.parseDouble(requestVolatility);
             int startAge = Integer.parseInt(requestStartAge);
             double monthlySavings = Double.parseDouble(requestMonthlySavings);
             double initialValue = Double.parseDouble(requestInitialValue);
 
-            // ----------------------------------
             // ライフイベント項目
-            // ----------------------------------
             int lifeEventAge1 = parseOrZero(requestLifeEventAge1);
             double requiredFunds1 = parseOrZeroDouble(requestRequiredFunds1);
 
@@ -110,9 +115,7 @@ public class HomeController {
             int lifeEventAge5 = parseOrZero(requestLifeEventAge5);
             double requiredFunds5 = parseOrZeroDouble(requestRequiredFunds5);
 
-            // ----------------------------------
             // 詳細設定
-            // ----------------------------------
             int annualChangeMonth = getAnnualChangeMonth(annualChangePeriod);
             int annualChangeMoney = parseOrZero(requestAnnualChangeMoney);
             int endingAge = parseOrZero(requestEndingAge);
@@ -133,22 +136,43 @@ public class HomeController {
                     monthlySavings, initialValue, lifeEventParams, advancedSetting
             );
 
-            // ----------------------------------
             // シミュレーション実行
-            // ----------------------------------
             List<List<Double>> valuationData = Simulation.getValuationData(params);
             List<String> countList = Simulation.getAgeCountList(params);
             double suggestedMax = Simulation.getSuggestedMax(valuationData);
             int stepSize = Simulation.getStepSize(suggestedMax);
 
-            // ----------------------------------
+            // 履歴に追加（セッション）
+            List<Map<String, Object>> history =
+                    (List<Map<String, Object>>) session.getAttribute("simulationHistory");
+
+            if (history == null) {
+                history = new ArrayList<>();
+            }
+
+            Map<String, Object> oneResult = new HashMap<>();
+            oneResult.put("id", id);
+            oneResult.put("valuationData", valuationData);
+            oneResult.put("countList", countList);
+            oneResult.put("suggestedMax", suggestedMax);
+            oneResult.put("stepSize", stepSize);
+
+            history.add(oneResult);
+
+            // 5件以上なら古いもの削除
+            if (history.size() > 5) {
+                history.remove(0);
+            }
+
+            session.setAttribute("simulationHistory", history);
+
             // model に全てセット → mainpage に返す
-            // ----------------------------------
             model.addAttribute("params", params);
             model.addAttribute("monthCountList", countList);
             model.addAttribute("valuationData", valuationData);
             model.addAttribute("suggestedMax", suggestedMax);
             model.addAttribute("stepSize", stepSize);
+            model.addAttribute("simulationHistory", history);
 
             return "mainpage";
         }
@@ -158,10 +182,7 @@ public class HomeController {
         }
     }
 
-
-    // -----------------------------
     // 補助メソッド
-    // -----------------------------
     private static int parseOrZero(String s) {
         if (s == null || s.isEmpty()) return 0;
         return Integer.parseInt(s);
