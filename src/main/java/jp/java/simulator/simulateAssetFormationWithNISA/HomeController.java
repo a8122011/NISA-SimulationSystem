@@ -12,8 +12,11 @@ import java.util.*;
 @Controller
 public class HomeController {
 
-    @Autowired
-    HttpSession session;
+    private final HttpSession session;
+
+    public HomeController(HttpSession session) {
+        this.session = session;
+    }
     
     // record 定義
     record LifeEventParams(String lifeEvent1, int lifeEventAge1, double requiredFunds1,
