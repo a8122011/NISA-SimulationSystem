@@ -272,7 +272,7 @@
             </table>
         </div>
         <div  class="chartContainer">
-            <canvas id="myLineChart"</canvas>
+            <canvas id="myLineChart"></canvas>
             <p>※当該評価は過去の一定期間の実績の分析結果を元に予測したものであり、 将来の運用成果等を保証したものではありません。</p>
         </div>
 
@@ -321,7 +321,7 @@
                         scales: {
                             yAxes: [{
                                 ticks: {
-                                    suggestedMax: /*[[${suggestedMax}]]*/ 0,
+                                    suggestedMax: /*[[${suggestedMax}]]*/ undefined,
                                     suggestedMin: 0,
                                     stepSize: /*[[${stepSize}]]*/ 1,
                                     callback: function(value, index, values) {
@@ -430,9 +430,6 @@
                 $(document).on("click", "#volatilityButton", function () {
                     alert('ボラティリティ：価格の変動性。期待収益率が期待通りとなる度合い。');
                 });
-
-            });
-                
                 
                 const products = {
                     //リスト化
@@ -462,6 +459,8 @@
                     "mitsui_smtam,daiwa_iFree": 0.8030,
                     "amova_sp500,daiwa_iFree": 0.2679
                 };
+
+                let SelectedProducts = [];
                 
                 $(".SelectFunds").dialog({
                     autoOpen:false,
@@ -470,7 +469,7 @@
                     modal:true,
                     buttons:{
                         "選択":function(){
-                            const SelectedProducts = $('input:checkbox[name="productName"]:checked').map(function(){ return this.value; }).get(); // 複数選択を取得、値の配列に変換
+                            SelectedProducts = $('input:checkbox[name="productName"]:checked').map(function(){ return this.value; }).get(); // 複数選択を取得、値の配列に変換
                             if(SelectedProducts.length === 0){
                                 alert("少なくとも1つ選んでください");
                                 return;
@@ -483,6 +482,8 @@
                             // 商品が1つだけ選ばれた場合
                             if(SelectedProducts.length === 1){
                                 $(".selectedFundName").show();
+                                $(".weightInputs").hide();
+                                $("#weight1,#weight2").val("");
                                 
                                 const p = products[SelectedProducts[0]];
                                 
@@ -496,17 +497,20 @@
                             //商品が2つ選ばれた場合
                             else if(SelectedProducts.length === 2){
                                 $(".selectedFundName").show();
-                                $(".Inputs").show();
+                                $(".weightInputs").show();
                                 
                                 $("#selectedFund1").text(products[SelectedProducts[0]].name);
                                 $("#selectedFund2").text(products[SelectedProducts[1]].name);
 
                                 $("#FundOKButton").off("click").on("click",function(){ //毎回数値を更新
                                     //2商品の比率
-                                    const 1 = parseFloat($("#1").val()) / 100;
-                                    const 2 = parseFloat($("#2").val()) / 100;
+                                    const weight1 = parseFloat($("#weight1").val()) / 100;
+                                    const weight2 = parseFloat($("#weight2").val()) / 100;
 
-                                    if(Math.abs(weight1 + weight2 - 1)>0.01){
+                                    if (isNaN(weight1) || isNaN(weight2)) {
+                                        alert("割合を入力してください");
+                                        return;
+                                    } else if(Math.abs(weight1 + weight2 - 1)>0.01){
                                         alert("比率の合計が100%になっていません");
                                         return;
                                     }
@@ -535,21 +539,19 @@
                         "閉じる":function(){
                             $(".SelectFunds").dialog("close");
                         }
-                      }
                     });
-                
                 // ダイアログを表示
                 $("#productSelectionButton").click(function(){
                     $(".SelectFunds").dialog("open");
                 });
-            // ライフプランの表示非表示
-            $("#lifeEventsButton").click(function(){
+                // ライフプランの表示非表示
+                $("#lifeEventsButton").click(function(){
                 $(".lifeEvents").toggleClass("display");
-            });
-        
-            //  詳細設定の表示非表示
-            $("#advancedSettingButton").click(function(){
+                });
+                //  詳細設定の表示非表示
+                $("#advancedSettingButton").click(function(){
                 $(".advancedSetting").toggleClass("display");
+                });
             });
         </script>
     </body>
