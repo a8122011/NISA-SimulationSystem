@@ -24,7 +24,7 @@ public class HomeController {
 
     record SimulationParams(String id, double expectedRateOfReturn, double volatility,
                             int startAge, double monthlySavings, double initialValue,
-                            Params Params, AdvancedSetting advancedSetting) {}
+                            LifeEventParams lifeEventParams,, AdvancedSetting advancedSetting) {}
     private String id;
     private double expectedRateOfReturn;
     private double volatility;
@@ -33,7 +33,7 @@ public class HomeController {
     private double initialValue;
     private LifeEventParams lifeEventParams;
     private AdvancedSetting advancedSetting;
-    private SimulationParams params = new SimulationParams(id, expectedRateOfReturn, volatility, startAge, monthlySavings, initialValue, lifeEventParams, advancedSetting);
+    private SimulationParams params;
     private lifeEventValidation lifeEventValidMessage = new lifeEventValidation();
     private advancedSettingValidation advancedSettingValidMessage = new advancedSettingValidation();
     private Validation validMessage = new Validation();
@@ -105,12 +105,6 @@ public class HomeController {
         return "mainpage";
     }
 
-   
-
-
-    // -----------------------------
-    // /add → 計算 → mainpage に表示
-    // -----------------------------
     @GetMapping("/add")
     public String addItem(
             @RequestParam("expectedRateOfReturn") String requestExpectedRateOfReturn,
@@ -119,32 +113,29 @@ public class HomeController {
             @RequestParam("monthlySavings") String requestMonthlySavings,
             @RequestParam("initialValue") String requestInitialValue,
 
-            @RequestParam("lifeEvent1") String lifeEvent1,
-            @RequestParam("lifeEventAge1") String requestLifeEventAge1,
-            @RequestParam("requiredFunds1") String requestRequiredFunds1,
+            @RequestParam(value = "lifeEvent1", required = false, defaultValue = "") String lifeEvent1,
+            @RequestParam(value = "lifeage1", required = false, defaultValue = "") String requestLifeEventAge1,
+            @RequestParam(value = "requiredFunds1", required = false, defaultValue = "") String requestRequiredFunds1,
 
-            @RequestParam("lifeEvent2") String lifeEvent2,
-            @RequestParam("lifeEventAge2") String requestLifeEventAge2,
-            @RequestParam("requiredFunds2") String requestRequiredFunds2,
+            @RequestParam(value = "lifeEvent2", required = false, defaultValue = "") String lifeEvent2,
+            @RequestParam(value = "lifeage2", required = false, defaultValue = "") String requestLifeEventAge2,
+            @RequestParam(value = "requiredFunds2", required = false, defaultValue = "") String requestRequiredFunds2,
 
-            @RequestParam("lifeEvent3") String lifeEvent3,
-            @RequestParam("lifeEventAge3") String requestLifeEventAge3,
-            @RequestParam("requiredFunds3") String requestRequiredFunds3,
+            @RequestParam(value = "lifeEvent3", required = false, defaultValue = "") String lifeEvent3,
+            @RequestParam(value = "lifeage3", required = false, defaultValue = "") String requestLifeEventAge3,
+            @RequestParam(value = "requiredFunds3", required = false, defaultValue = "") String requestRequiredFunds3,
 
-            @RequestParam("lifeEvent4") String lifeEvent4,
-            @RequestParam("lifeEventAge4") String requestLifeEventAge4,
-            @RequestParam("requiredFunds4") String requestRequiredFunds4,
+            @RequestParam(value = "lifeEvent4", required = false, defaultValue = "") String lifeEvent4,
+            @RequestParam(value = "lifeage4", required = false, defaultValue = "") String requestLifeEventAge4,
+            @RequestParam(value = "requiredFunds4", required = false, defaultValue = "") String requestRequiredFunds4,
 
-            @RequestParam("lifeEvent5") String lifeEvent5,
-            @RequestParam("lifeEventAge5") String requestLifeEventAge5,
-            @RequestParam("requiredFunds5") String requestRequiredFunds5,
+            @RequestParam(value = "lifeEvent5", required = false, defaultValue = "") String lifeEvent5,
+            @RequestParam(value = "lifeage5", required = false, defaultValue = "") String requestLifeEventAge5,
+            @RequestParam(value = "requiredFunds5", required = false, defaultValue = "") String requestRequiredFunds5,
 
-            @RequestParam("annualChangePeriod") String annualChangePeriod,
-            @RequestParam("annualChangeMoney") String requestAnnualChangeMoney,
-            @RequestParam("endingAge") String requestEndingAge,
-        
-            @RequestParam(value = "weight1", required = false) String requestweight1,
-            @RequestParam(value = "weight2", required = false) String requestweight2){
+            @RequestParam(value = "annualChangePeriod", required = false, defaultValue = "") String annualChangePeriod,
+            @RequestParam(value = "annualChangeMoney", required = false, defaultValue = "") String requestAnnualChangeMoney,
+            @RequestParam(value = "endingAge", required = false, defaultValue = "") String requestEndingAge,
         String id = UUID.randomUUID().toString().substring(0, 8);
         try {
             // 必須項目の変換
@@ -185,11 +176,11 @@ public class HomeController {
             }
             
             // 詳細設定
-            if (!annualChangePeriod.equals("")) {
+            if (annualChangePeriod != null && !annualChangePeriod.isBlank()) {
                 annualChangeMonth = getAnnualChangeMonth(annualChangePeriod);
                 annualChangeMoney = Integer.parseInt(requestAnnualChangeMoney);
             }
-            if (!requestEndingAge.equals("")) {
+            if (requestEndingAge != null && !requestEndingAge.isBlank()) {
                 endingAge = Integer.parseInt(requestEndingAge);
             }
 
