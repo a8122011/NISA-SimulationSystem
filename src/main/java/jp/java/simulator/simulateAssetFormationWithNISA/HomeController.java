@@ -190,17 +190,17 @@ public class HomeController {
 
             // バリデーションの初期化
             lifeEventValidMessage = new LifeEventValidation();
-            advancedSettingValidMessage = new advancedSettingValidation();
+            advancedSettingValidMessage = new AdvancedSettingValidation();
             validMessage = new Validation();
             validateFlg = false;
 
             return "redirect:/list";
         } catch (Exception e) {
             // requestParamのセットとバリデーションの初期化
-            lifeEventStr lifeEventStr = new lifeEventStr(requestLifeEventAge1, requestRequiredFunds1, requestLifeEventAge2, requestRequiredFunds2, requestLifeEventAge3, requestRequiredFunds3, requestLifeEventAge4, requestRequiredFunds4, requestLifeEventAge5, requestRequiredFunds5);
-            lifeEventValidMessage = new lifeEventValidation();
-            advancedSettingStr advancedSettingStr = new advancedSettingStr(requestAnnualChangeMoney, requestEndingAge);
-            advancedSettingValidMessage = new advancedSettingValidation();
+            LifeEventStr lifeEventStr = new LifeEventStr(requestLifeEventAge1, requestRequiredFunds1, requestLifeEventAge2, requestRequiredFunds2, requestLifeEventAge3, requestRequiredFunds3, requestLifeEventAge4, requestRequiredFunds4, requestLifeEventAge5, requestRequiredFunds5);
+            lifeEventValidMessage = new LifeEventValidation();
+            AdvancedSettingStr advancedSettingStr = new AdvancedSettingStr(requestAnnualChangeMoney, requestEndingAge);
+            advancedSettingValidMessage = new AdvancedSettingValidation();
             validMessage = new Validation();
 
             // エラー文言のセット
