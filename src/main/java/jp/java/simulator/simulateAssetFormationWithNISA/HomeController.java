@@ -24,8 +24,7 @@ public class HomeController {
 
     record SimulationParams(String id, double expectedRateOfReturn, double volatility,
                             int startAge, double monthlySavings, double initialValue,
-                            LifeEventParams lifeEventParams,, AdvancedSetting advancedSetting) {}
-    private String id;
+                            LifeEventParams lifeEventParams, AdvancedSetting advancedSetting) {}
     private double expectedRateOfReturn;
     private double volatility;
     private int startAge;
@@ -45,7 +44,7 @@ public class HomeController {
 
     @GetMapping("/list")
     String listItems(Model model) {
-        if (params.id() != null) {
+        if (params != null && params.id() != null) {
             if (validateFlg) {
                 model.addAttribute("params", params);
                 int i = 0;
@@ -135,7 +134,7 @@ public class HomeController {
 
             @RequestParam(value = "annualChangePeriod", required = false, defaultValue = "") String annualChangePeriod,
             @RequestParam(value = "annualChangeMoney", required = false, defaultValue = "") String requestAnnualChangeMoney,
-            @RequestParam(value = "endingAge", required = false, defaultValue = "") String requestEndingAge,
+            @RequestParam(value = "endingAge", required = false, defaultValue = "") String requestEndingAge){
         String id = UUID.randomUUID().toString().substring(0, 8);
         try {
             // 必須項目の変換
@@ -176,11 +175,11 @@ public class HomeController {
             }
             
             // 詳細設定
-            if (annualChangePeriod != null && !annualChangePeriod.isBlank()) {
+            if (!annualChangePeriod.isBlank() && !requestAnnualChangeMoney.isBlank()) {
                 annualChangeMonth = getAnnualChangeMonth(annualChangePeriod);
                 annualChangeMoney = Integer.parseInt(requestAnnualChangeMoney);
             }
-            if (requestEndingAge != null && !requestEndingAge.isBlank()) {
+            if (!requestEndingAge.isBlank()) {
                 endingAge = Integer.parseInt(requestEndingAge);
             }
 
