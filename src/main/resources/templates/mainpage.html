@@ -280,58 +280,59 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.bundle.js"></script>  <!-- Chart.bungle.js読み込み　-->
         <script th:inline="javascript">
             var ctx = document.getElementById("myLineChart");
-            var myLineChart = new Chart(ctx, {
-                type: 'line',
-                data: {
-                    labels: /*[[${monthCountList}]]*/"monthCountList",
-                    datasets: [
-                        {
-                            label: '上位30%',
-                            data: /*[[${top30Percent}]]*/"top30Percent",
-                            backgroundColor: '#e14024a9',
-                        },
-                        {
-                            label: '中央値',
-                            data: /*[[${median}]]*/"median",
-                            backgroundColor: '#f8b500a9',
-                        },
-                        {
-                            label: '下位30%',
-                            data: /*[[${bottom30Percent}]]*/"bottom30Percent",
-                            backgroundColor: '#73cf54a9',
-                        },
-                        {
-                            label: '下位10%',
-                            data: /*[[${bottom10Percent}]]*/"bottom10Percent",
-                            backgroundColor: '#70c4e0a9'
-                        },
-                        {
-                            label: '運用なし',
-                            data: /*[[${noOperation}]]*/"noOperation",
-                            backgroundColor: '#666c67a9',
-                        }
-                    ],
-                },
-            }
-            options: {
-                title: {
-                display: true,
-                text: "資産額推移"
-                },
-                scales: {
-                    yAxes: [{
-                        ticks: {
-                            suggestedMax: /*[[${suggestedMax}]]*/"suggestedMax",
-                            suggestedMin: 0,
-                            stepSize: /*[[${stepSize}]]*/"stepSize",
-                            callback: function(value, index, values) {
-                                return value + '万円';
+            if(ctx){
+                var myLineChart = new Chart(ctx, {
+                    type: 'line',
+                    data: {
+                        labels: /*[[${monthCountList}]]*/ [],
+                        datasets: [
+                            {
+                                label: '上位30%',
+                                data: /*[[${top30Percent}]]*/ [],
+                                backgroundColor: '#e14024a9',
+                            },
+                            {
+                                label: '中央値',
+                                data: /*[[${median}]]*/"median",
+                                backgroundColor: '#f8b500a9',
+                            },
+                            {
+                                label: '下位30%',
+                                data: /*[[${bottom30Percent}]]*/ [],
+                                backgroundColor: '#73cf54a9',
+                            },
+                            {
+                                label: '下位10%',
+                                data: /*[[${bottom10Percent}]]*/ [],
+                                backgroundColor: '#70c4e0a9'
+                            },
+                            {
+                                label: '運用なし',
+                                data: /*[[${noOperation}]]*/ [],
+                                backgroundColor: '#666c67a9',
                             }
-                        }
-                    }]
-                }, 
-            },
-                
+                        ]
+                    },
+                    options: {
+                        title: {
+                        display: true,
+                        text: "資産額推移"
+                        },
+                        scales: {
+                            yAxes: [{
+                                ticks: {
+                                    suggestedMax: /*[[${suggestedMax}]]*/"suggestedMax",
+                                    suggestedMin: 0,
+                                    stepSize: /*[[${stepSize}]]*/"stepSize",
+                                    callback: function(value, index, values) {
+                                        return value + '万円';
+                                    }
+                                }
+                            }]
+                        } 
+                    }
+                });
+            }
         </script>
 
         <script type="text/javascript">
