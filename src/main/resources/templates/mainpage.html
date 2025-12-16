@@ -34,8 +34,8 @@
                 </tr>
                 <tr class= "weightInputs" style="display:none;">
                     <th><label>割合：</label></th>
-                    <th><input type="number" id="weight1" placeholder="50"> % </th>
-                    <th><input type="number" id="weight2" placeholder="50"> % </th>
+                    <th><input type="number" id="weight1" name="weight1" placeholder="50"> % </th>
+                    <th><input type="number" id="weight2" name="weight2" placeholder="50"> % </th>
                     <th><button type="button" id="FundOKButton"> 決定 </button></th>
                 </tr>
             </table>
@@ -293,7 +293,7 @@
                             },
                             {
                                 label: '中央値',
-                                data: /*[[${median}]]*/"median",
+                                data: /*[[${median}]]*/ [],
                                 backgroundColor: '#f8b500a9',
                             },
                             {
@@ -321,9 +321,9 @@
                         scales: {
                             yAxes: [{
                                 ticks: {
-                                    suggestedMax: /*[[${suggestedMax}]]*/"suggestedMax",
+                                    suggestedMax: /*[[${suggestedMax}]]*/ 0,
                                     suggestedMin: 0,
-                                    stepSize: /*[[${stepSize}]]*/"stepSize",
+                                    stepSize: /*[[${stepSize}]]*/ 1,
                                     callback: function(value, index, values) {
                                         return value + '万円';
                                     }
@@ -496,15 +496,15 @@
                             //商品が2つ選ばれた場合
                             else if(SelectedProducts.length === 2){
                                 $(".selectedFundName").show();
-                                $(".weightInputs").show();
+                                $(".Inputs").show();
                                 
                                 $("#selectedFund1").text(products[SelectedProducts[0]].name);
                                 $("#selectedFund2").text(products[SelectedProducts[1]].name);
 
                                 $("#FundOKButton").off("click").on("click",function(){ //毎回数値を更新
                                     //2商品の比率
-                                    const weight1 = parseFloat($("#weight1").val()) / 100;
-                                    const weight2 = parseFloat($("#weight2").val()) / 100;
+                                    const 1 = parseFloat($("#1").val()) / 100;
+                                    const 2 = parseFloat($("#2").val()) / 100;
 
                                     if(Math.abs(weight1 + weight2 - 1)>0.01){
                                         alert("比率の合計が100%になっていません");
