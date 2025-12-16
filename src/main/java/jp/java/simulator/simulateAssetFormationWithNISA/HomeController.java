@@ -33,8 +33,8 @@ public class HomeController {
     private LifeEventParams lifeEventParams;
     private AdvancedSetting advancedSetting;
     private SimulationParams params;
-    private lifeEventValidation lifeEventValidMessage = new lifeEventValidation();
-    private advancedSettingValidation advancedSettingValidMessage = new advancedSettingValidation();
+    private LifeEventValidation lifeEventValidMessage = new LifeEventValidation();
+    private AdvancedSettingValidation advancedSettingValidMessage = new AdvancedSettingValidation();
     private Validation validMessage = new Validation();
     boolean validateFlg = false;
     List<List<Double>> valuationData;
@@ -189,7 +189,7 @@ public class HomeController {
             params = new SimulationParams(id, expectedRateOfReturn, volatility, startAge, monthlySavings, initialValue, lifeEventParams, advancedSetting);
 
             // バリデーションの初期化
-            lifeEventValidMessage = new lifeEventValidation();
+            lifeEventValidMessage = new LifeEventValidation();
             advancedSettingValidMessage = new advancedSettingValidation();
             validMessage = new Validation();
             validateFlg = false;
