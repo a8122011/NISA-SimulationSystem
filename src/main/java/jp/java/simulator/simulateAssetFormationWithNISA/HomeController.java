@@ -113,23 +113,23 @@ public class HomeController {
         @RequestParam("initialValue") String requestInitialValue,
 
         @RequestParam(value = "lifeEvent1", required = false, defaultValue = "") String lifeEvent1,
-        @RequestParam(value = "lifeage1", required = false, defaultValue = "") String requestLifeEventAge1,
+        @RequestParam(value = "lifeEventAge1", required = false, defaultValue = "") String requestLifeEventAge1,
         @RequestParam(value = "requiredFunds1", required = false, defaultValue = "") String requestRequiredFunds1,
 
         @RequestParam(value = "lifeEvent2", required = false, defaultValue = "") String lifeEvent2,
-        @RequestParam(value = "lifeage2", required = false, defaultValue = "") String requestLifeEventAge2,
+        @RequestParam(value = "lifeEventAge2", required = false, defaultValue = "") String requestLifeEventAge2,
         @RequestParam(value = "requiredFunds2", required = false, defaultValue = "") String requestRequiredFunds2,
 
         @RequestParam(value = "lifeEvent3", required = false, defaultValue = "") String lifeEvent3,
-        @RequestParam(value = "lifeage3", required = false, defaultValue = "") String requestLifeEventAge3,
+        @RequestParam(value = "lifeEventAge3", required = false, defaultValue = "") String requestLifeEventAge3,
         @RequestParam(value = "requiredFunds3", required = false, defaultValue = "") String requestRequiredFunds3,
 
         @RequestParam(value = "lifeEvent4", required = false, defaultValue = "") String lifeEvent4,
-        @RequestParam(value = "lifeage4", required = false, defaultValue = "") String requestLifeEventAge4,
+        @RequestParam(value = "lifeEventAge4", required = false, defaultValue = "") String requestLifeEventAge4,
         @RequestParam(value = "requiredFunds4", required = false, defaultValue = "") String requestRequiredFunds4,
 
         @RequestParam(value = "lifeEvent5", required = false, defaultValue = "") String lifeEvent5,
-        @RequestParam(value = "lifeage5", required = false, defaultValue = "") String requestLifeEventAge5,
+        @RequestParam(value = "lifeEventAge5", required = false, defaultValue = "") String requestLifeEventAge5,
         @RequestParam(value = "requiredFunds5", required = false, defaultValue = "") String requestRequiredFunds5,
 
         @RequestParam(value = "annualChangePeriod", required = false, defaultValue = "") String annualChangePeriod,
