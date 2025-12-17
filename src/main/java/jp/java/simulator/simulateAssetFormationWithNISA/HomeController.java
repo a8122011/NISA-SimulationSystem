@@ -1,227 +1,186 @@
 package jp.java.simulator.simulateAssetFormationWithNISA;
 
+import jakarta.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import java.time.LocalDateTime;
-import java.util.*;
+import java.util.List;
+import java.util.UUID;
 
 @Controller
+@RequestMapping("/")
 public class HomeController {
-    // record 定義
-    record LifeEventParams(String lifeEvent1, int lifeEventAge1, double requiredFunds1,
-                           String lifeEvent2, int lifeEventAge2, double requiredFunds2,
-                           String lifeEvent3, int lifeEventAge3, double requiredFunds3,
-                           String lifeEvent4, int lifeEventAge4, double requiredFunds4,
-                           String lifeEvent5, int lifeEventAge5, double requiredFunds5) {}
 
-    record AdvancedSetting(int annualChangeMonth, int annualChangeMoney, int endingAge) {}
+    /* =========================
+       record 定義（既存流用）
+       ========================= */
+    record LifeEventParams(
+            String lifeEvent1, int lifeEventAge1, double requiredFunds1,
+            String lifeEvent2, int lifeEventAge2, double requiredFunds2,
+            String lifeEvent3, int lifeEventAge3, double requiredFunds3,
+            String lifeEvent4, int lifeEventAge4, double requiredFunds4,
+            String lifeEvent5, int lifeEventAge5, double requiredFunds5
+    ) {}
 
-    record SimulationParams(String id, double expectedRateOfReturn, double volatility,
-                            int startAge, double monthlySavings, double initialValue,
-                            LifeEventParams lifeEventParams, AdvancedSetting advancedSetting) {}
-    private double expectedRateOfReturn;
-    private double volatility;
-    private int startAge;
-    private double monthlySavings;
-    private double initialValue;
-    private LifeEventParams lifeEventParams;
-    private AdvancedSetting advancedSetting;
-    private SimulationParams params;
-    private LifeEventValidation lifeEventValidMessage = new LifeEventValidation();
-    private AdvancedSettingValidation advancedSettingValidMessage = new AdvancedSettingValidation();
-    private Validation validMessage = new Validation();
-    boolean validateFlg = false;
-    List<List<Double>> valuationData;
-    List<String> countList;
-    double suggestedMax;
-    int stepSize;
+    record AdvancedSetting(
+            int annualChangeMonth,
+            int annualChangeMoney,
+            int endingAge
+    ) {}
 
+    record SimulationParams(
+            String id,
+            double expectedRateOfReturn,
+            double volatility,
+            int startAge,
+            double monthlySavings,
+            double initialValue,
+            LifeEventParams lifeEventParams,
+            AdvancedSetting advancedSetting
+    ) {}
+
+    /* =========================
+       初期表示
+       ========================= */
+    @GetMapping("/")
+    public String index() {
+        return "mainpage";
+    }
+
+    /* =========================
+       シミュレーション結果表示
+       ========================= */
     @GetMapping("/list")
-    String listItems(Model model) {
-        if (params != null && params.id() != null) {
-            if (validateFlg) {
-                model.addAttribute("params", params);
-                int i = 0;
-                for (List<Double> data : valuationData) {
-                    switch (i) {
-                        case 0 -> model.addAttribute("top30Percent", data);
-                        case 1 -> model.addAttribute("median", data);
-                        case 2 -> model.addAttribute("bottom30Percent", data);
-                        case 3 -> model.addAttribute("bottom10Percent", data);
-                        case 4 -> model.addAttribute("noOperation", data);
-                    }
-                    i++;
-                }
-                model.addAttribute("monthCountList", countList);
-                model.addAttribute("suggestedMax", suggestedMax);
-                model.addAttribute("stepSize", stepSize);
-            } else {
-                model.addAttribute("params", params);
-                valuationData = Simulation.getValuationData(params);
-                int i = 0;
-                for (List<Double> data : valuationData) {
-                    switch (i) {
-                        case 0 -> model.addAttribute("top30Percent", data);
-                        case 1 -> model.addAttribute("median", data);
-                        case 2 -> model.addAttribute("bottom30Percent", data);
-                        case 3 -> model.addAttribute("bottom10Percent", data);
-                        case 4 -> model.addAttribute("noOperation", data);
-                    }
-                    i++;
-                }
-                countList = Simulation.getAgeCountList(params);
-                model.addAttribute("monthCountList", countList);
-                suggestedMax = Simulation.getSuggestedMax(valuationData);
-                model.addAttribute("suggestedMax", suggestedMax);
-                stepSize = Simulation.getStepSize(suggestedMax);
-                model.addAttribute("stepSize", stepSize);
-            }
+    public String list(Model model, HttpSession session) {
+
+        SimulationParams params =
+                (SimulationParams) session.getAttribute("params");
+
+        if (params == null) {
+            return "mainpage";
         }
-        model.addAttribute("expectedRateOfReturnError", validMessage.expectedRateOfReturnError);
-        model.addAttribute("volatilityError", validMessage.volatilityError);
-        model.addAttribute("startAgeError", validMessage.startAgeError);
-        model.addAttribute("monthlySavingsError", validMessage.monthlySavingsError);
-        model.addAttribute("initialValueError", validMessage.initialValueError);
-        model.addAttribute("lifeEventAge1Error", lifeEventValidMessage.lifeEventAge1Error);
-        model.addAttribute("requiredFunds1Error", lifeEventValidMessage.requiredFunds1Error);
-        model.addAttribute("lifeEventAge2Error", lifeEventValidMessage.lifeEventAge2Error);
-        model.addAttribute("requiredFunds2Error", lifeEventValidMessage.requiredFunds2Error);
-        model.addAttribute("lifeEventAge3Error", lifeEventValidMessage.lifeEventAge3Error);
-        model.addAttribute("requiredFunds3Error", lifeEventValidMessage.requiredFunds3Error);
-        model.addAttribute("lifeEventAge4Error", lifeEventValidMessage.lifeEventAge4Error);
-        model.addAttribute("requiredFunds4Error", lifeEventValidMessage.requiredFunds4Error);
-        model.addAttribute("lifeEventAge5Error", lifeEventValidMessage.lifeEventAge5Error);
-        model.addAttribute("requiredFunds5Error", lifeEventValidMessage.requiredFunds5Error);
-        model.addAttribute("annualChangeMoneyError", advancedSettingValidMessage.annualChangeMoneyError);
-        model.addAttribute("endingAgeError", advancedSettingValidMessage.endingAgeError);
+
+        List<List<Double>> valuationData =
+                Simulation.getValuationData(params);
+
+        model.addAttribute("params", params);
+        model.addAttribute("top30Percent", valuationData.get(0));
+        model.addAttribute("median", valuationData.get(1));
+        model.addAttribute("bottom30Percent", valuationData.get(2));
+        model.addAttribute("bottom10Percent", valuationData.get(3));
+        model.addAttribute("noOperation", valuationData.get(4));
+
+        List<String> countList =
+                Simulation.getAgeCountList(params);
+
+        model.addAttribute("monthCountList", countList);
+
+        double suggestedMax =
+                Simulation.getSuggestedMax(valuationData);
+
+        model.addAttribute("suggestedMax", suggestedMax);
+        model.addAttribute("stepSize",
+                Simulation.getStepSize(suggestedMax));
 
         return "mainpage";
     }
 
-    @GetMapping("/add")
-    public String addItem(
-        @RequestParam("expectedRateOfReturn") String requestExpectedRateOfReturn,
-        @RequestParam("volatility") String requestVolatility,
-        @RequestParam("startAge") String requestStartAge,
-        @RequestParam("monthlySavings") String requestMonthlySavings,
-        @RequestParam("initialValue") String requestInitialValue,
+    /* =========================
+       入力 → Session保存
+       ========================= */
+    @PostMapping("/add")
+    public String add(
+            @RequestParam double expectedRateOfReturn,
+            @RequestParam double volatility,
+            @RequestParam int startAge,
+            @RequestParam double monthlySavings,
+            @RequestParam double initialValue,
 
-        @RequestParam(value = "lifeEvent1", required = false, defaultValue = "") String lifeEvent1,
-        @RequestParam(value = "lifeEventAge1", required = false, defaultValue = "") String requestLifeEventAge1,
-        @RequestParam(value = "requiredFunds1", required = false, defaultValue = "") String requestRequiredFunds1,
+            @RequestParam(required = false, defaultValue = "") String lifeEvent1,
+            @RequestParam(required = false, defaultValue = "") String lifeEventAge1,
+            @RequestParam(required = false, defaultValue = "") String requiredFunds1,
 
-        @RequestParam(value = "lifeEvent2", required = false, defaultValue = "") String lifeEvent2,
-        @RequestParam(value = "lifeEventAge2", required = false, defaultValue = "") String requestLifeEventAge2,
-        @RequestParam(value = "requiredFunds2", required = false, defaultValue = "") String requestRequiredFunds2,
+            @RequestParam(required = false, defaultValue = "") String lifeEvent2,
+            @RequestParam(required = false, defaultValue = "") String lifeEventAge2,
+            @RequestParam(required = false, defaultValue = "") String requiredFunds2,
 
-        @RequestParam(value = "lifeEvent3", required = false, defaultValue = "") String lifeEvent3,
-        @RequestParam(value = "lifeEventAge3", required = false, defaultValue = "") String requestLifeEventAge3,
-        @RequestParam(value = "requiredFunds3", required = false, defaultValue = "") String requestRequiredFunds3,
+            @RequestParam(required = false, defaultValue = "") String lifeEvent3,
+            @RequestParam(required = false, defaultValue = "") String lifeEventAge3,
+            @RequestParam(required = false, defaultValue = "") String requiredFunds3,
 
-        @RequestParam(value = "lifeEvent4", required = false, defaultValue = "") String lifeEvent4,
-        @RequestParam(value = "lifeEventAge4", required = false, defaultValue = "") String requestLifeEventAge4,
-        @RequestParam(value = "requiredFunds4", required = false, defaultValue = "") String requestRequiredFunds4,
+            @RequestParam(required = false, defaultValue = "") String lifeEvent4,
+            @RequestParam(required = false, defaultValue = "") String lifeEventAge4,
+            @RequestParam(required = false, defaultValue = "") String requiredFunds4,
 
-        @RequestParam(value = "lifeEvent5", required = false, defaultValue = "") String lifeEvent5,
-        @RequestParam(value = "lifeEventAge5", required = false, defaultValue = "") String requestLifeEventAge5,
-        @RequestParam(value = "requiredFunds5", required = false, defaultValue = "") String requestRequiredFunds5,
+            @RequestParam(required = false, defaultValue = "") String lifeEvent5,
+            @RequestParam(required = false, defaultValue = "") String lifeEventAge5,
+            @RequestParam(required = false, defaultValue = "") String requiredFunds5,
 
-        @RequestParam(value = "annualChangePeriod", required = false, defaultValue = "") String annualChangePeriod,
-        @RequestParam(value = "annualChangeMoney", required = false, defaultValue = "") String requestAnnualChangeMoney,
-        @RequestParam(value = "endingAge", required = false, defaultValue = "") String requestEndingAge,
-        
-        @RequestParam(value = "weight1", required = false, defaultValue = "") String requestWeight1,
-        @RequestParam(value = "weight2", required = false, defaultValue = "") String requestWeight2
-    ){
-        String id = UUID.randomUUID().toString().substring(0, 8);
-        try {
-            // 必須項目の変換
-            double expectedRateOfReturn = Double.parseDouble(requestExpectedRateOfReturn);
-            double volatility = Double.parseDouble(requestVolatility);
-            int startAge = Integer.parseInt(requestStartAge);
-            double monthlySavings = Double.parseDouble(requestMonthlySavings);
-            double initialValue = Double.parseDouble(requestInitialValue);
+            @RequestParam(required = false, defaultValue = "") String annualChangePeriod,
+            @RequestParam(required = false, defaultValue = "") String annualChangeMoney,
+            @RequestParam(required = false, defaultValue = "") String endingAge,
 
-            // ライフイベント項目
-            int lifeEventAge1 = 0; double requiredFunds1 = 0;
-            int lifeEventAge2 = 0; double requiredFunds2 = 0;
-            int lifeEventAge3 = 0; double requiredFunds3 = 0;
-            int lifeEventAge4 = 0; double requiredFunds4 = 0;
-            int lifeEventAge5 = 0; double requiredFunds5 = 0;
-            int annualChangeMonth = 0; int annualChangeMoney = 0;
-            int endingAge = 0;
+            HttpSession session,
+            RedirectAttributes redirect
+    ) {
 
-            if (!requestLifeEventAge1.equals("") && !requestRequiredFunds1.equals("")) {
-                lifeEventAge1 = Integer.parseInt(requestLifeEventAge1);
-                requiredFunds1 = Double.parseDouble(requestRequiredFunds1);
-            }
-            if (!requestLifeEventAge2.equals("") && !requestRequiredFunds2.equals("")) {
-                lifeEventAge2 = Integer.parseInt(requestLifeEventAge2);
-                requiredFunds2 = Double.parseDouble(requestRequiredFunds2);
-            }
-            if (!requestLifeEventAge3.equals("") && !requestRequiredFunds3.equals("")) {
-                lifeEventAge3 = Integer.parseInt(requestLifeEventAge3);
-                requiredFunds3 = Double.parseDouble(requestRequiredFunds3);
-            }
-            if (!requestLifeEventAge4.equals("") && !requestRequiredFunds4.equals("")) {
-                lifeEventAge4 = Integer.parseInt(requestLifeEventAge4);
-                requiredFunds4 = Double.parseDouble(requestRequiredFunds4);
-            }
-            if (!requestLifeEventAge5.equals("") && !requestRequiredFunds5.equals("")) {
-                lifeEventAge5 = Integer.parseInt(requestLifeEventAge5);
-                requiredFunds5 = Double.parseDouble(requestRequiredFunds5);
-            }
-            
-            // 詳細設定
-            if (!annualChangePeriod.isBlank() && !requestAnnualChangeMoney.isBlank()) {
-                annualChangeMonth = getAnnualChangeMonth(annualChangePeriod);
-                annualChangeMoney = Integer.parseInt(requestAnnualChangeMoney);
-            }
-            if (!requestEndingAge.isBlank()) {
-                endingAge = Integer.parseInt(requestEndingAge);
-            }
+        LifeEventParams lifeEventParams = new LifeEventParams(
+                lifeEvent1,
+                parseInt(lifeEventAge1),
+                parseDouble(requiredFunds1),
+                lifeEvent2,
+                parseInt(lifeEventAge2),
+                parseDouble(requiredFunds2),
+                lifeEvent3,
+                parseInt(lifeEventAge3),
+                parseDouble(requiredFunds3),
+                lifeEvent4,
+                parseInt(lifeEventAge4),
+                parseDouble(requiredFunds4),
+                lifeEvent5,
+                parseInt(lifeEventAge5),
+                parseDouble(requiredFunds5)
+        );
 
-            // 値のセット
-            lifeEventParams = new LifeEventParams(lifeEvent1, lifeEventAge1, requiredFunds1, lifeEvent2, lifeEventAge2, requiredFunds2, lifeEvent3, lifeEventAge3, requiredFunds3, lifeEvent4, lifeEventAge4, requiredFunds4, lifeEvent5, lifeEventAge5, requiredFunds5);
-            advancedSetting = new AdvancedSetting(annualChangeMonth, annualChangeMoney, endingAge);
-            params = new SimulationParams(id, expectedRateOfReturn, volatility, startAge, monthlySavings, initialValue, lifeEventParams, advancedSetting);
+        AdvancedSetting advancedSetting = new AdvancedSetting(
+                getAnnualChangeMonth(annualChangePeriod),
+                parseInt(annualChangeMoney),
+                parseInt(endingAge)
+        );
 
-            // バリデーションの初期化
-            lifeEventValidMessage = new LifeEventValidation();
-            advancedSettingValidMessage = new AdvancedSettingValidation();
-            validMessage = new Validation();
-            validateFlg = false;
+        SimulationParams params = new SimulationParams(
+                UUID.randomUUID().toString().substring(0, 8),
+                expectedRateOfReturn,
+                volatility,
+                startAge,
+                monthlySavings,
+                initialValue,
+                lifeEventParams,
+                advancedSetting
+        );
 
-            return "redirect:/list";
-        } catch (Exception e) {
-            // requestParamのセットとバリデーションの初期化
-            LifeEventStr lifeEventStr = new LifeEventStr(requestLifeEventAge1, requestRequiredFunds1, requestLifeEventAge2, requestRequiredFunds2, requestLifeEventAge3, requestRequiredFunds3, requestLifeEventAge4, requestRequiredFunds4, requestLifeEventAge5, requestRequiredFunds5);
-            lifeEventValidMessage = new LifeEventValidation();
-            AdvancedSettingStr advancedSettingStr = new AdvancedSettingStr(requestAnnualChangeMoney, requestEndingAge);
-            advancedSettingValidMessage = new AdvancedSettingValidation();
-            validMessage = new Validation();
+        session.setAttribute("params", params);
 
-            // エラー文言のセット
-            validMessage.typeValid(requestExpectedRateOfReturn, requestVolatility, requestStartAge, requestMonthlySavings, requestInitialValue, lifeEventStr, lifeEventValidMessage, advancedSettingStr, advancedSettingValidMessage, requestWeight1, requestWeight2);
-            validateFlg = true;
-
-            return "redirect:/list";
-        }
-    }
-    @RequestMapping(value = "/", method = RequestMethod.GET)
-    public ModelAndView getHome(ModelAndView mav) {
-        mav.setViewName("mainpage");
-        return mav;
+        return "redirect:/list";
     }
 
-    private static int getAnnualChangeMonth(String annualChangePeriod) {
-        return switch (annualChangePeriod) {
+    /* =========================
+       Utility
+       ========================= */
+    private static int parseInt(String value) {
+        if (value == null || value.isBlank()) return 0;
+        return Integer.parseInt(value);
+    }
+
+    private static double parseDouble(String value) {
+        if (value == null || value.isBlank()) return 0;
+        return Double.parseDouble(value);
+    }
+
+    private static int getAnnualChangeMonth(String period) {
+        return switch (period) {
             case "6か月" -> 6;
             case "1年" -> 12;
             case "3年" -> 36;
@@ -229,5 +188,4 @@ public class HomeController {
             default -> 0;
         };
     }
-
 }
