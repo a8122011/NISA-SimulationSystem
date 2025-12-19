@@ -168,7 +168,7 @@ public class Simulation {
             getVaR(monthlyValue, top30Percent, median, bottom30Percent, bottom10Percent);
 
             // 運用なし
-            getNoOperation(i, params, monthElement, noOperation);
+            getNoOperation(i, step, params, monthElement, noOperation);
         }
 
         //VaRリストへの格納
@@ -231,54 +231,37 @@ public class Simulation {
      * @param monthElement 運用月数andイベント発生月
      * @param noOperation 運用なしのシナリオ
      */
-    private static void getNoOperation(int i, SimulationParams params, Map<String, Integer> monthElement, List<Double> noOperation) {
-        double totalReserveAmount = params.monthlySavings(); //月々の積立額を初期化
-        //1か月目は初期積立額だけを追加、それ以降は積立額を足して計算
-        if (i == 0) {
-            noOperation.add(params.monthlySavings());
-        } else {
-            totalReserveAmount += params.monthlySavings();
-            //ライフイベント処理
-            if (i == monthElement.get("monthOfLifeEvent1")) {
-                if (totalReserveAmount <= 1800) {
-                    noOperation.add(noOperation.get(i - 1) + params.monthlySavings() - params.lifeEventParams().requiredFunds1());
-                } else {
-                    noOperation.add(noOperation.get(i - 1) - params.lifeEventParams().requiredFunds1());
-                }
-            } else if (i == monthElement.get("monthOfLifeEvent2")) {
-                if (totalReserveAmount <= 1800) {
-                    noOperation.add(noOperation.get(i - 1) + params.monthlySavings() - params.lifeEventParams().requiredFunds2());
-                } else {
-                    noOperation.add(noOperation.get(i - 1) - params.lifeEventParams().requiredFunds2());
-                }
-            } else if (i == monthElement.get("monthOfLifeEvent3")) {
-                if (totalReserveAmount <= 1800) {
-                    noOperation.add(noOperation.get(i - 1) + params.monthlySavings() - params.lifeEventParams().requiredFunds3());
-                } else {
-                    noOperation.add(noOperation.get(i - 1) - params.lifeEventParams().requiredFunds3());
-                }
-            } else if (i == monthElement.get("monthOfLifeEvent4")) {
-                if (totalReserveAmount <= 1800) {
-                    noOperation.add(noOperation.get(i - 1) + params.monthlySavings() - params.lifeEventParams().requiredFunds4());
-                } else {
-                    noOperation.add(noOperation.get(i - 1) - params.lifeEventParams().requiredFunds4());
-                }
-            } else if (i == monthElement.get("monthOfLifeEvent5")) {
-                if (totalReserveAmount <= 1800) {
-                    noOperation.add(noOperation.get(i - 1) + params.monthlySavings() - params.lifeEventParams().requiredFunds5());
-                } else {
-                    noOperation.add(noOperation.get(i - 1) - params.lifeEventParams().requiredFunds5());
-                }
-            } else {
-                if (totalReserveAmount <= 1800) {
-                    noOperation.add(noOperation.get(i - 1) + params.monthlySavings());
-                } else {
-                    noOperation.add(noOperation.get(i - 1));
-                }
+    private static void getNoOperation(int i, int step, SimulationParams params, Map<String, Integer> monthElement, List<Double> noOperation){
+        // 初回
+        if (noOperation.isEmpty()) {
+            noOperation.add(params.initialValue() + params.monthlySavings());
+            return;
+        }
+
+        double prev = noOperation.get(noOperation.size() - 1);
+        double next = prev;
+    
+        // stepか月分まとめて処理
+        for (int m = step - 1; m >= 0; m--) {
+            int currentMonth = i - m;
+    
+            next += params.monthlySavings();
+    
+            if (currentMonth == monthElement.get("monthOfLifeEvent1")) {
+                next -= params.lifeEventParams().requiredFunds1();
+            } else if (currentMonth == monthElement.get("monthOfLifeEvent2")) {
+                next -= params.lifeEventParams().requiredFunds2();
+            } else if (currentMonth == monthElement.get("monthOfLifeEvent3")) {
+                next -= params.lifeEventParams().requiredFunds3();
+            } else if (currentMonth == monthElement.get("monthOfLifeEvent4")) {
+                next -= params.lifeEventParams().requiredFunds4();
+            } else if (currentMonth == monthElement.get("monthOfLifeEvent5")) {
+                next -= params.lifeEventParams().requiredFunds5();
             }
         }
+    
+        noOperation.add(next);
     }
-
     
      /**
      * 運用月数と年齢の対応リストを返す
@@ -302,43 +285,10 @@ public class Simulation {
         for (int i = 1; i < monthCount+1; i++) {
             if (i % 12 == 0) age++; //12か月ごとに年齢を一つ増やす
             if (i % step == 0) {
-            ageCountList.add(age + "歳");
+                ageCountList.add(age + "歳");
             }
+        }
             return ageCountList;
-        }
-
-    /**
-     * グラフ描画用にデータ点を間引く（Y軸）
-     *
-     * @param src 元データ（複数シナリオ）
-     * @param step 間引き間隔（2なら2か月に1点）
-     * @return 間引き後データ
-     */
-    public static List<List<Double>> downSample(List<List<Double>> src, int step) {
-        List<List<Double>> result = new ArrayList<>();
-        for (List<Double> series : src) {
-            List<Double> reduced = new ArrayList<>();
-            for (int i = 0; i < series.size(); i += step) {
-                reduced.add(series.get(i));
-            }
-            result.add(reduced);
-        }
-        return result;
-    }
-
-    /**
-    * グラフX軸（年齢ラベル）をY軸と同じ間隔で間引く
-    *
-    * @param src 年齢ラベル
-    * @param step 間引き間隔
-    * @return 間引き後ラベル
-    */
-    public static List<String> downSampleCount(List<String> src, int step) {
-        List<String> result = new ArrayList<>();
-        for (int i = 0; i < src.size(); i += step) {
-            result.add(src.get(i));
-        }
-        return result;
     }
 
     /**
