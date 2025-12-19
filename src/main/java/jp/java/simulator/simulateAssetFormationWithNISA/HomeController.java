@@ -155,17 +155,7 @@ public class HomeController {
             int stepSize = Simulation.getStepSize(suggestedMax);
 
             session.setAttribute("result",
-                    new SimulationResult(
-                            params,
-                            valuationData,
-                            countList,
-                            suggestedMax,
-                            stepSize,
-                            false,
-                            validMessage,
-                            lifeEventValidMessage,
-                            advancedSettingValidMessage
-                    )
+                    new SimulationResult(params, valuationData, countList, suggestedMax, stepSize, false, validMessage, lifeEventValidMessage, advancedSettingValidMessage)
             );
 
         } catch (Exception e) {
@@ -181,17 +171,7 @@ public class HomeController {
             );
 
             session.setAttribute("result",
-                    new SimulationResult(
-                            null,
-                            Collections.emptyList(),
-                            Collections.emptyList(),
-                            0,
-                            0,
-                            true,
-                            validMessage,
-                            lifeEventValidMessage,
-                            advancedSettingValidMessage
-                    )
+                    new SimulationResult(null, Collections.emptyList(), Collections.emptyList(), 0, 0, true, validMessage, lifeEventValidMessage, advancedSettingValidMessage)
             );
         }
 
