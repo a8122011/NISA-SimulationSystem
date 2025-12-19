@@ -301,7 +301,40 @@ public class Simulation {
 
         return ageCountList;
     }
-    
+
+    /**
+     * グラフ描画用にデータ点を間引く（Y軸）
+     *
+     * @param src 元データ（複数シナリオ）
+     * @param step 間引き間隔（2なら2か月に1点）
+     * @return 間引き後データ
+     */
+    public static List<List<Double>> downSample(List<List<Double>> src, int step) {
+        List<List<Double>> result = new ArrayList<>();
+        for (List<Double> series : src) {
+            List<Double> reduced = new ArrayList<>();
+            for (int i = 0; i < series.size(); i += step) {
+                reduced.add(series.get(i));
+            }
+            result.add(reduced);
+        }
+        return result;
+    }
+
+    /**
+    * グラフX軸（年齢ラベル）をY軸と同じ間隔で間引く
+    *
+    * @param src 年齢ラベル
+    * @param step 間引き間隔
+    * @return 間引き後ラベル
+    */
+    public static List<String> downSampleCount(List<String> src, int step) {
+        List<String> result = new ArrayList<>();
+        for (int i = 0; i < src.size(); i += step) {
+            result.add(src.get(i));
+        }
+        return result;
+    }
 
     /**
      * 縦軸の最大値を返す
