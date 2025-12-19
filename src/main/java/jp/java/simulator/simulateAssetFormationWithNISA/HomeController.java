@@ -150,11 +150,7 @@ public class HomeController {
             );
 
             List<List<Double>> valuationData = Simulation.getValuationData(params);
-            valuationData = Simulation.downSample(valuationData, 2); //2か月に1点
-            
             List<String> countList = Simulation.getAgeCountList(params);
-            countList = Simulation.downSampleCount(countList, 2);
-            
             double suggestedMax = Simulation.getSuggestedMax(valuationData);
             int stepSize = Simulation.getStepSize(suggestedMax);
 
