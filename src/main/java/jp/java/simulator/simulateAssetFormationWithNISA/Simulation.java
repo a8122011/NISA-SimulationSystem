@@ -152,7 +152,7 @@ public class Simulation {
         List<Double> bottom10Percent = new ArrayList<>();
         List<Double> noOperation = new ArrayList<>();
 
-        int step = 2;
+        int step = STEP;
 
         for (int i = 0; i < monthElement.get("monthCount"); i++) {
 
