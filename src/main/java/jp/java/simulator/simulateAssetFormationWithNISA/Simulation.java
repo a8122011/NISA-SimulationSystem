@@ -9,6 +9,7 @@ import java.util.*;  //java.utilパッケージ内のクラスを全て使える
 //シミュレーション繰り返し回数
 public class Simulation {
     static int simuNum = 500;
+    public static final int STEP = 2;
 
     
      /**
@@ -269,7 +270,8 @@ public class Simulation {
      * @param params 入力値
      * @return 運用月数と年齢の対応リスト
      */
-    public static List<String> getAgeCountList(SimulationParams params, int step) { //年齢と運用月数を対応させる、グラフのX軸用
+    public static List<String> getAgeCountList(SimulationParams params) { //年齢と運用月数を対応させる、グラフのX軸用
+        int step = STEP;
         List<String> ageCountList = new ArrayList<>();
 
         // 運用月数
