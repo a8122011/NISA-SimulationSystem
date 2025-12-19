@@ -150,7 +150,7 @@ public class HomeController {
             );
 
             List<List<Double>> valuationData = Simulation.getValuationData(params);
-            List<String> countList = Simulation.getAgeCountList(params, Simulation.STEP);
+            List<String> countList = Simulation.getAgeCountList(params);
             double suggestedMax = Simulation.getSuggestedMax(valuationData);
             int stepSize = Simulation.getStepSize(suggestedMax);
 
