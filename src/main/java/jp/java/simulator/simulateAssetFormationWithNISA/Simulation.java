@@ -66,6 +66,7 @@ public class Simulation {
             double totalReserveAmount = 0; //積立額トータル(上限1800)
             scenario.add(params.initialValue() + params.monthlySavings()); //積立1か月目の残高 「初期資産＋1か月分の積立」
             double limitRevival = 0; //翌年の非課税投資枠復活分
+
             for (int i = 1; i < monthElement.get("monthCount"); i++) {  //1か月ずつ増やしていく
                 double delta = scenario.get(i - 1) * (expectedRateOfReturn / 12 + volatility * random.nextGaussian() / Math.sqrt(12) + 0);
                 // 「今月の増分 = 前月の残高 * 月次リターン」
@@ -150,7 +151,13 @@ public class Simulation {
         List<Double> bottom10Percent = new ArrayList<>();
         List<Double> noOperation = new ArrayList<>();
 
+        int step = 2;
+
         for (int i = 0; i < monthElement.get("monthCount"); i++) {
+
+            // 間引き：step月に1回だけ処理
+            if (i % step != 0) continue;
+            
             // 月ごとの値を取得
             List<Double> monthlyValue = new ArrayList<>();
             for (List<Double> sce : simuArr) {
@@ -279,7 +286,7 @@ public class Simulation {
      * @param params 入力値
      * @return 運用月数と年齢の対応リスト
      */
-    public static List<String> getAgeCountList(SimulationParams params) { //年齢と運用月数を対応させる、グラフのX軸用
+    public static List<String> getAgeCountList(SimulationParams params, int step) { //年齢と運用月数を対応させる、グラフのX軸用
         List<String> ageCountList = new ArrayList<>();
 
         // 運用月数
@@ -293,14 +300,12 @@ public class Simulation {
         //月ごとの年齢を作成
         int age = params.startAge();
         for (int i = 1; i < monthCount+1; i++) {
-            if (i % 12 == 0) {
-                age++; //12か月ごとに年齢を一つ増やす
-            }
+            if (i % 12 == 0) age++; //12か月ごとに年齢を一つ増やす
+            if (i % step == 0) {
             ageCountList.add(age + "歳");
+            }
+            return ageCountList;
         }
-
-        return ageCountList;
-    }
 
     /**
      * グラフ描画用にデータ点を間引く（Y軸）
