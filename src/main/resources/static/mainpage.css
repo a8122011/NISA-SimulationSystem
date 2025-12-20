@@ -299,5 +299,5 @@ h2 {
 }
 
 #expectedRateOfReturnButton:hover, #volatilityButton:hover, .info-btn:hover {
-    transform: scale(1.06);
+    transform: scale(1.08);
 }
