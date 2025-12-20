@@ -281,36 +281,79 @@
                             {
                                 label: '上位30%',
                                 data: /*[[${top30Percent}]]*/ [],
-                                backgroundColor: '#e14024a9',
+                                borderColor: '#e14024a9',
+                                backgroundColor:'#e1402426',
+                                borderWidth: 2,
+                                lineTension: 0.2, //滑らかにする
+                                pointRadius: 0, //点を非表示
+                                fill: true //線の下を塗りつぶす
                             },
                             {
                                 label: '中央値',
                                 data: /*[[${median}]]*/ [],
-                                backgroundColor: '#f8b500a9',
+                                borderColor: '#f8b500a9',
+                                backgroundColor:'#f8b50040',
+                                borderWidth: 3,
+                                lineTension: 0.2,
+                                pointRadius: 0,
+                                fill: true
                             },
                             {
                                 label: '下位30%',
                                 data: /*[[${bottom30Percent}]]*/ [],
-                                backgroundColor: '#73cf54a9',
+                                borderColor: '#73cf54a9',
+                                backgroundColor:'#73cf5426',
+                                borderWidth: 2,
+                                lineTension: 0.2,
+                                pointRadius: 0,
+                                fill: true
                             },
                             {
                                 label: '下位10%',
                                 data: /*[[${bottom10Percent}]]*/ [],
-                                backgroundColor: '#70c4e0a9'
+                                borderColor: '#70c4e0a9',
+                                backgroundColor:'#70c4e026',
+                                borderWidth: 2,
+                                lineTension: 0.2,
+                                pointRadius: 0,
+                                fill: true
                             },
                             {
                                 label: '運用なし',
                                 data: /*[[${noOperation}]]*/ [],
-                                backgroundColor: '#666c67a9',
+                                borderColor: '#666c67a9',
+                                borderWidth: 2,
+                                lineTension: 0,
+                                pointRadius: 0,
+                                borderDash:[6,4], //破線
+                                fill: false
                             }
                         ]
                     },
                     options: {
+                        responsive: true,
                         title: {
-                        display: true,
-                        text: "資産額推移"
+                            fontSize: 15,
+                            display: true,
+                            text: "資産額推移"
                         },
+
+                        tooltips: { //マウスホバー 縦線上の全データ同時表示
+                            mode: 'index',
+                            intersect: false,
+                            callbacks: {
+                                label: function(tooltipItem, data) {
+                                    return data.datasets[tooltipItem.datasetIndex].label + ': ' + tooltipItem.yLabel + '万円';
+                                }
+                            }
+                        },
+
                         scales: {
+                            xAxes: [{
+                                gridLines: {
+                                    color: 'rgba(0,0,0,0.05)'
+                                }
+                            }],
                             yAxes: [{
                                 ticks: {
                                     suggestedMax: /*[[${suggestedMax}]]*/ undefined,
@@ -319,10 +362,13 @@
                                     callback: function(value, index, values) {
                                         return value + '万円';
                                     }
+                                },
+                                gridLines: {
+                                    color: 'rgba(0,0,0,0.08)'
                                 }
                             }]
                         } 
-                    }
+                        }
                 });
             }
         </script>
