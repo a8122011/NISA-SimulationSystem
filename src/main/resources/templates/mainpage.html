@@ -446,7 +446,6 @@
                             <p>運用方法：インデックス型</p>
                             <p>対象インデックス：JPX日経 インデックス400 (配当込み)</p>
                         `
-                    }
                 };
         
                 // ダイアログ設定
@@ -467,7 +466,8 @@
                 });
 
                 $(document).on("click", "#expectedRateOfReturnButton", function () {
-                    alert('期待収益率：平均的に得られると予想される収益の割合。\n 期待収益率が大きいほどリターンが大きい。'});
+                    alert('期待収益率：平均的に得られると予想される収益の割合。\n 期待収益率が大きいほどリターンが大きい。');
+                });
                 $(document).on("click", "#volatilityButton", function () {
                     alert('ボラティリティ：価格の変動性。期待収益率が期待通りとなる度合い。\n ボラティリティが大きいほどリスクが高まる。');
                 });
@@ -507,7 +507,7 @@
                     return rhoMatrix[key1] ?? rhoMatrix[key2] ?? 0;
                 }
 
-                let SelectedProducts = [];
+                let selectedProducts = [];
                 
                 $(".SelectFunds").dialog({
                     autoOpen:false,
@@ -516,23 +516,23 @@
                     modal:true,
                     buttons:{
                         "選択":function(){
-                            SelectedProducts = $('input:checkbox[name="productName"]:checked').map(function(){ return this.value; }).get(); // 複数選択を取得、値の配列に変換
-                            if(SelectedProducts.length === 0){
+                            selectedProducts = $('input:checkbox[name="productName"]:checked').map(function(){ return this.value; }).get(); // 複数選択を取得、値の配列に変換
+                            if(selectedProducts.length === 0){
                                 alert("少なくとも1つ選んでください");
                                 return;
                             }
-                            if(SelectedProducts.length > 2){
+                            if(selectedProducts.length > 2){
                                 alert("選べるのは2つまでです");
                                 return;
                             }
     
                             // 商品が1つだけ選ばれた場合
-                            if(SelectedProducts.length === 1){
+                            if(selectedProducts.length === 1){
                                 $(".selectedFundName").show();
                                 $(".weightInputs").hide();
                                 $("#weight1,#weight2").val("");
                                 
-                                const p = products[SelectedProducts[0]];
+                                const p = products[selectedProducts[0]];
                                 
                                 $("#selectedFund1").text(p.name);
                                 $("#selectedFund2").text(""); 
@@ -542,12 +542,12 @@
                             }
 
                             //商品が2つ選ばれた場合
-                            else if(SelectedProducts.length === 2){
+                            else if(selectedProducts.length === 2){
                                 $(".selectedFundName").show();
                                 $(".weightInputs").show();
                                 
-                                $("#selectedFund1").text(products[SelectedProducts[0]].name);
-                                $("#selectedFund2").text(products[SelectedProducts[1]].name);
+                                $("#selectedFund1").text(products[selectedProducts[0]].name);
+                                $("#selectedFund2").text(products[selectedProducts[1]].name);
 
                                 $("#FundOKButton").off("click").on("click",function(){ //毎回数値を更新
                                     //2商品の比率
@@ -563,12 +563,12 @@
                                     }
     
                                     // 期待収益率の加重平均
-                                    const expectedRateOfReturn = products[SelectedProducts[0]].expectedRateOfReturn * weight1 + products[SelectedProducts[1]].expectedRateOfReturn * weight2;
+                                    const expectedRateOfReturn = products[selectedProducts[0]].expectedRateOfReturn * weight1 + products[selectedProducts[1]].expectedRateOfReturn * weight2;
     
                                     // リスクの計算（相関係数考慮）
-                                    const sigma1 = products[SelectedProducts[0]].volatility;
-                                    const sigma2 = products[SelectedProducts[1]].volatility;
-                                    const rho = getRho(SelectedProducts[0], SelectedProducts[1]);
+                                    const sigma1 = products[selectedProducts[0]].volatility;
+                                    const sigma2 = products[selectedProducts[1]].volatility;
+                                    const rho = getRho(selectedProducts[0], selectedProducts[1]);
                                     // 共分散
                                     const volatility = Math.sqrt(
                                         (weight1*sigma1)*(weight1*sigma1) + (weight2*sigma2)*(weight2*sigma2) + 2*weight1*weight2*sigma1*sigma2*rho
