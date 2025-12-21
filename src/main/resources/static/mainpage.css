@@ -194,7 +194,48 @@ h2 {
 
 /* 商品についてダイアログ */
 .fund-dialog {
+    color: #555;
+    line-height: 1.7;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    border-radius: 8px;
+    padding: 16px;
+    background: #fff;
 }
+
+.fund-dialog h3 {
+    margin: 0 0 12px;
+    padding-bottom: 8px;
+    font-size: 18px;
+    font-weight: bold;
+    border-bottom: 2px solid #f8b500;
+    color: #444;
+}
+
+.fund-dialog p {
+    margin: 6px 0;
+    font-size: 15px;
+}
+
+.fund-dialog p strong {
+    display: inline-block;
+    min-width: 120px;
+    color: #666;
+}
+
+.fund-dialog p.long-text {
+    margin-top: 10px;
+    padding: 10px 12px;
+    background-color: #f9fafb;
+    border-radius: 6px;
+    font-size: 13px;
+}
+
+.fund-dialog .list {
+    margin-top: 8px;
+    padding-left: 12px;
+    border-left: 3px solid #ddd;
+}
+
 
 
 /*シミュレーション情報*/
