@@ -20,7 +20,7 @@ h1 {
 h2 {
     font-size: 1.5em;
     color: #90CE9C;
-    padding: 40px;
+    padding: 10px 40px 40px 40px;
     text-align: center;
 }
 
@@ -177,7 +177,7 @@ h2 {
 }
     
 .returnWidth {
-    width: 15%; 
+    width: 12%; 
 }
 
 .volaWidth {
@@ -185,7 +185,7 @@ h2 {
 }
 
 .companyWidth {
-    width: 35%; 
+    width: 38%; 
 }
 
 .productSelection input { 
