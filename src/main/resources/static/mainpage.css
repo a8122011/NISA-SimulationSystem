@@ -190,7 +190,12 @@ h2 {
 
 .productSelection input { 
     transform: scale(1.5) 
-}    
+}
+
+/* 商品についてダイアログ */
+.fund-dialog {
+}
+
 
 /*シミュレーション情報*/
 .paramList table {
