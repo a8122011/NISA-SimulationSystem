@@ -260,8 +260,10 @@ h2 {
 
 /* グラフ表示 */ 
 .chartContainer {
-    width:70%; 
-    margin:0 auto; 
+    width:90%;
+    max-width: 1000px;
+    height: 520px;
+    margin:30px auto; 
 } 
 
 
