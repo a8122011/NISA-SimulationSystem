@@ -229,36 +229,40 @@
                 </tbody>
                 <thead>
                     <tr>
-                        <th colspan="5">ライフイベント</th>
+                        <th colspan="6">ライフイベント</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr th:if="${params != null and params.lifeEventParams != null and params.lifeEventParams.lifeEventAge1 != 0}">
-                        <td colspan="5" th:text="'・' + ${params.lifeEventParams.lifeEventAge1} + '歳 で ' + ${params.lifeEventParams.lifeEvent1} + ' のため ' + ${params.lifeEventParams.requiredFunds1} + '万円 使用'"></td>
+                        <td colspan="6" th:text="'・' + ${params.lifeEventParams.lifeEventAge1} + '歳 で ' + ${params.lifeEventParams.lifeEvent1} + ' のため ' + ${params.lifeEventParams.requiredFunds1} + '万円 使用'"></td>
                     </tr>
                     <tr th:if="${params != null and params.lifeEventParams != null and params.lifeEventParams.lifeEventAge2 != 0}">
-                        <td colspan="5" th:text="'・' + ${params.lifeEventParams.lifeEventAge2} + '歳 で ' + ${params.lifeEventParams.lifeEvent2} + ' のため ' + ${params.lifeEventParams.requiredFunds2} + '万円 使用'"></td>
+                        <td colspan="6" th:text="'・' + ${params.lifeEventParams.lifeEventAge2} + '歳 で ' + ${params.lifeEventParams.lifeEvent2} + ' のため ' + ${params.lifeEventParams.requiredFunds2} + '万円 使用'"></td>
                     </tr>
                     <tr th:if="${params != null and params.lifeEventParams != null and params.lifeEventParams.lifeEventAge3 != 0}">
-                        <td colspan="5" th:text="'・' + ${params.lifeEventParams.lifeEventAge3} + '歳 で ' + ${params.lifeEventParams.lifeEvent3} + ' のため ' + ${params.lifeEventParams.requiredFunds3} + '万円 使用'"></td>
+                        <td colspan="6" th:text="'・' + ${params.lifeEventParams.lifeEventAge3} + '歳 で ' + ${params.lifeEventParams.lifeEvent3} + ' のため ' + ${params.lifeEventParams.requiredFunds3} + '万円 使用'"></td>
                     </tr>
                     <tr th:if="${params != null and params.lifeEventParams != null and params.lifeEventParams.lifeEventAge4 != 0}">
-                        <td colspan="5" th:text="'・' + ${params.lifeEventParams.lifeEventAge4} + '歳 で ' + ${params.lifeEventParams.lifeEvent4} + ' のため ' + ${params.lifeEventParams.requiredFunds4} + '万円 使用'"></td>
+                        <td colspan="6" th:text="'・' + ${params.lifeEventParams.lifeEventAge4} + '歳 で ' + ${params.lifeEventParams.lifeEvent4} + ' のため ' + ${params.lifeEventParams.requiredFunds4} + '万円 使用'"></td>
                     </tr>
                     <tr th:if="${params != null and params.lifeEventParams != null and params.lifeEventParams.lifeEventAge5 != 0}">
-                        <td colspan="5" th:text="'・' + ${params.lifeEventParams.lifeEventAge5} + '歳 で ' + ${params.lifeEventParams.lifeEvent5} + ' のため ' + ${params.lifeEventParams.requiredFunds5} + '万円 使用'"></td>
+                        <td colspan="6" th:text="'・' + ${params.lifeEventParams.lifeEventAge5} + '歳 で ' + ${params.lifeEventParams.lifeEvent5} + ' のため ' + ${params.lifeEventParams.requiredFunds5} + '万円 使用'"></td>
                     </tr>
                 </tbody>
                 <thead>
                     <tr>
-                        <th colspan="3">年変化</th>
-                        <th colspan="2">シミュレーション終了年齢</th>
+                        <th colspan="6">年変化</th>
+                    </tr>
+                    <tr>
+                        <th colspan="6">シミュレーション終了年齢</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr th:if="${params != null and params.advancedSetting != null}">
-                        <td colspan="3" th:if="${params.advancedSetting.annualChangeMonth != 0}" th:text="'つみたて月額を ' + ${params.advancedSetting.annualChangeMonth} + 'か月 ごとに ' + ${params.advancedSetting.annualChangeMoney} + '万円 増やす'"></td>
-                        <td colspan="2" th:if="${params.advancedSetting.endingAge != 0}" th:text="${params.advancedSetting.endingAge + '歳'}"></td>
+                    <tr th:if="${params != null and params.advancedSetting != null and params.advancedSetting.annualChangeMonth != 0}">
+                        <td colspan="6" th:text="|つみたて月額を ${params.advancedSetting.annualChangeMonth} か月 ごとに ${params.advancedSetting.annualChangeMoney} 万円 増やす|"></td>
+                    </tr>
+                    <tr th:if="${params != null and params.advancedSetting != null and params.advancedSetting.endingAge != 0}">
+                        <td colspan="6" th:text="|${params.advancedSetting.endingAge} 歳|"></td>
                     </tr>
                 </tbody>
             </table>
