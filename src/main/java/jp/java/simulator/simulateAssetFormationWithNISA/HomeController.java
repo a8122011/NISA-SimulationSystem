@@ -34,10 +34,15 @@ public class HomeController {
             LifeEventValidation lifeEventValidMessage,
             AdvancedSettingValidation advancedSettingValidMessage
     ) {}
-   
 
-    @GetMapping("/list")
-    String listItems(HttpSession session, Model model) {
+    @GetMapping("/") //初期表示 毎回リセット
+    public String home(HttpSession session) {
+        session.removeAttribute("result");
+        return "mainpage";
+    }
+
+    @GetMapping("/list") //結果表示
+    public String listItems(HttpSession session, Model model) {
         
         SimulationResult result =
             (SimulationResult) session.getAttribute("result");
@@ -83,7 +88,7 @@ public class HomeController {
         return "mainpage";
     }
 
-    @PostMapping("/add")
+    @PostMapping("/add") //シミュレーション実行
     public String addItem(HttpSession session,
         @RequestParam String expectedRateOfReturn,
         @RequestParam String volatility,
@@ -176,12 +181,6 @@ public class HomeController {
         }
 
         return "redirect:/list";
-    }
-
-    @RequestMapping(value = "/", method = RequestMethod.GET)
-    public ModelAndView getHome(ModelAndView mav) {
-        mav.setViewName("mainpage");
-        return mav;
     }
 
     private static int parseInt(String s) {
