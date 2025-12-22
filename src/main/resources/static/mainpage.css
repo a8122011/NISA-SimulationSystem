@@ -194,8 +194,9 @@ h2 {
 
 /* 商品についてダイアログ */
 .fund-dialog {
+    text-align: left;
     color: #555;
-    line-height: 1.7;
+    line-height: 1.8;
     box-shadow: 0 4px 12px rgba(0,0,0,0.08);
     border-radius: 8px;
     padding: 16px;
@@ -203,7 +204,8 @@ h2 {
 }
 
 .fund-dialog h3 {
-    margin: 0 0 12px;
+    text-align: center;
+    margin: 10px 0 12px 0;
     padding-bottom: 8px;
     font-size: 18px;
     font-weight: bold;
