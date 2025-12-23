@@ -272,6 +272,24 @@
             <p>※当該評価は過去の一定期間の実績の分析結果を元に予測したものであり、 将来の運用成果等を保証したものではありません。</p>
         </div>
 
+        <!-- プラン改善提案 -->
+        <div id="improvement" style="display:none;" class="improvementBox">
+            <h3>投資プランを改善する</h3>
+            <h4>当てはまるものを選択してください</h4>
+            <div class="question">
+                <label><input type="radio" name="improveType" value="moreReturn"> リターンを高めたい</label>
+            </div>
+            
+            <div class="question">
+                <label><input type="radio" name="improveType" value="lessRisk"> リスクを抑えたい</label>
+            </div>
+            
+            <button type="button" id="improvementPlan">改善案を見る</button>
+            
+            <div id="proposalResult" class="proposalResult"></div>
+        </div>
+        
+
         <!-- シミュレーショングラフ -->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.bundle.js"></script>  <!-- Chart.bungle.js読み込み　-->
         <script th:inline="javascript">
@@ -515,7 +533,7 @@
                 function getRho(p1, p2) {
                     const key1 = `${p1},${p2}`;
                     const key2 = `${p2},${p1}`;
-                    return rhoMatrix[key1] ?? rhoMatrix[key2] ?? 0;
+                    return rhoMatrix[key1] ?? rhoMatrix[key2] ?? 0.5;
                 }
 
                 let selectedProducts = [];
@@ -598,19 +616,91 @@
                         }
                     }
                 });
-                // ダイアログを表示
-                $("#productSelectionButton").click(function(){
-                    $(".SelectFunds").dialog("open");
+                    // ダイアログを表示
+                    $("#productSelectionButton").click(function(){
+                        $(".SelectFunds").dialog("open");
+                    });
+                    // ライフプランの表示非表示
+                    $("#lifeEventsButton").click(function(){
+                        $(".lifeEvents").toggleClass("display");
+                    });
+                    //  詳細設定の表示非表示
+                    $("#advancedSettingButton").click(function(){
+                        $(".advancedSetting").toggleClass("display");
+                    });
+                    
+                    //改善プラン提案エリア シミュレーショングラフが存在するときのみ表示
+                    if ($("#myLineChart").length > 0) {
+                        $("#improvement").show();
+                    }
+
+                    //改善案ボタン
+                    $("#improvementPlan").on("click", function () {
+                        //提案表示エリアを初期化
+                        $("#proposalResult").empty();
+                        // どれも選ばれていない場合
+                        if ($('input[name="improveType"]:checked').length === 0) {
+                            alert("改善したい内容を選択してください");
+                            return;
+                        }
+
+                        const selected = $('input[name="improveType"]:checked').val();
+                        switch (selected) {
+                            case "moreReturn":
+                                suggestIncreaseMonthly();
+                                break;
+                            case "lessRisk":
+                                suggestReduceRisk();
+                                break;
+                        }
+                    });
+
+                    //リターンを高める場合
+                    function suggestIncreaseMonthly(){
+                        const expectedRateOfReturn = parseFloat($("#expectedRateOfReturn").val());
+                        const monthly = parseFloat($('input[name="monthlySavings"]').val());
+                        
+                        if (isNaN(expectedRateOfReturn)) {
+                            $("#proposalResult").html("⚠ 期待収益率が未設定です");
+                            return;
+                        }
+
+                        $("#proposalResult").html(`
+                        <p><strong>提案：</strong></p>
+                        <ul>
+                            <li>株式比率の高い商品(国内株式・米国株式など)を取り入れる</li>
+                            <li>成長性の高い地域(米国・先進国株式)への投資比率を増やす</li>
+                            <li>長期で運用する</li>
+                        </ul>
+                        <p>現在の期待収益率：<b>${expectedRateOfReturn.toFixed(2)}%</b></p>
+
+                        ${!isNaN(monthly)
+                            ? `<p class="note">※ 積立額を維持したままでも、商品構成の見直しでリターン改善が期待できます。</p>`
+                            : ""
+                        }
+                        `);
+                    }
+                    
+                    // リスクを抑える場合
+                    function suggestReduceRisk(){
+                        //現在のボラティリティを取得
+                        const volatility = parseFloat($("#volatility").val());
+                    
+                        if (isNaN(volatility)) {
+                            $("#proposalResult").html("⚠ ボラティリティが未設定です");
+                            return;
+                        }
+                    
+                        $("#proposalResult").html(`
+                            <p><strong>提案：</strong></p>
+                            <ul>
+                                <li>株式比率を下げ、債券やバランス型を増やす</li>
+                                <li>つみたて月額を一定に保ち、年変化を小さくする</li>
+                            </ul>
+                            <p>現在のボラティリティ：<b>${volatility}%</b></p>
+                        `);
+                    }
                 });
-                // ライフプランの表示非表示
-                $("#lifeEventsButton").click(function(){
-                $(".lifeEvents").toggleClass("display");
-                });
-                //  詳細設定の表示非表示
-                $("#advancedSettingButton").click(function(){
-                $(".advancedSetting").toggleClass("display");
-                });
-            });
         </script>
     </body>
 </html>
