@@ -727,6 +727,13 @@
                         `);
                     }
 
+                    const previousData = localStorage.getItem("previousSimulationData");
+                    if (previousData) {
+                        $("#compareButton").show();
+                    } else {
+                        $("#compareButton").hide();
+                    }
+
                     // 直前のシミュレーション結果表示ボタン
                     $("#compareButton").on("click", function () {
                     
