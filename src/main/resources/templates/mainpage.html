@@ -272,6 +272,16 @@
             <p>※当該評価は過去の一定期間の実績の分析結果を元に予測したものであり、 将来の運用成果等を保証したものではありません。</p>
         </div>
 
+        <!-- 1回目比較用（最初は非表示） -->
+        <div class="chartContainer" id="compareArea" style="display:none;">
+            <h3>前回のシミュレーション結果</h3>
+            <canvas id="previousChart"></canvas>
+        </div>
+        
+        <div class="buttons">
+            <button type="button" id="compareBtn">前回のシミュレーション結果を見る</button>
+        </div>
+
         <!-- プラン改善提案 -->
         <div id="improvement" style="display:none;" class="improvementBox">
             <h3>投資プランを改善する</h3>
@@ -293,6 +303,13 @@
         <!-- シミュレーショングラフ -->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.bundle.js"></script>  <!-- Chart.bungle.js読み込み　-->
         <script th:inline="javascript">
+            let previousSimulationData = null;
+            const stored = localStorage.getItem("previousSimulationData");
+            if (stored) {
+                previousSimulationData = JSON.parse(stored);
+            }
+            let previousChart = null;
+
             var ctx = document.getElementById("myLineChart");
             if(ctx){
                 var myLineChart = new Chart(ctx, {
@@ -394,6 +411,15 @@
                         } 
                         }
                 });
+                
+                // シミュレーション結果を保存
+                localStorage.setItem(
+                    "previousSimulationData",
+                    JSON.stringify({
+                        labels: myLineChart.data.labels,
+                        datasets: myLineChart.data.datasets
+                    })
+                );
             }
         </script>
 
@@ -700,6 +726,52 @@
                             <p>現在のボラティリティ：<b>${volatility}%</b></p>
                         `);
                     }
+
+                    // 直前のシミュレーション結果表示ボタン
+                    $("#compareBtn").on("click", function () {
+                    
+                        if (!previousSimulationData) {
+                            alert("前回のシミュレーション結果がありません");
+                            return;
+                        }
+                    
+                        // 表示
+                        $("#compareArea").show();
+                    
+                        // 既存グラフ破棄
+                        if (previousChart) {
+                            previousChart.destroy();
+                        }
+                    
+                        const ctxPrev = document.getElementById("previousChart").getContext("2d");
+                    
+                        previousChart = new Chart(ctxPrev, {
+                            type: 'line',
+                            data: previousSimulationData,
+                            options: {
+                                responsive: true,
+                                maintainAspectRatio: false,
+                                title: {
+                                    display: true,
+                                    text: "前回のシミュレーション結果"
+                                },
+                                tooltips: {
+                                    mode: 'index',
+                                    intersect: false
+                                },
+                                scales: {
+                                    yAxes: [{
+                                        ticks: {
+                                            callback: function(value) {
+                                                return value + '万円';
+                                            }
+                                        }
+                                    }]
+                                }
+                            }
+                        });
+                    });
+                    
                 });
         </script>
     </body>
