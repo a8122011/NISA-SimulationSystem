@@ -68,8 +68,10 @@ public class Simulation {
             scenario.add(params.initialValue() + params.monthlySavings()); //積立1か月目の残高 「初期資産＋1か月分の積立」
             double limitRevival = 0; //翌年の非課税投資枠復活分
 
+            int step = STEP;
+            double currentAsset = scenario.get(0); //初期資産
             for (int i = 1; i < monthElement.get("monthCount"); i++) {  //1か月ずつ増やしていく
-                double delta = scenario.get(i - 1) * (expectedRateOfReturn / 12 + volatility * random.nextGaussian() / Math.sqrt(12) + 0);
+                double delta = currentAsset * (expectedRateOfReturn / 12 + volatility * random.nextGaussian() / Math.sqrt(12) + 0);
                 // 「今月の増分 = 前月の残高 * 月次リターン」
 
                 // 非課税投資枠復活
@@ -79,7 +81,8 @@ public class Simulation {
                 }
 
                 // 積立額トータル
-                if (totalReserveAmount < 1800) { //生涯の非課税保有限度額が1800万円
+                boolean canSave = totalReserveAmount < 1800; //生涯の非課税保有限度額が1800万円
+                if (canSave) {
                     totalReserveAmount += monthlySavings;
                 }
 
@@ -88,48 +91,34 @@ public class Simulation {
                     monthlySavings += params.advancedSetting().annualChangeMoney();
                 }
 
-                double percentageOfPrincipal = totalReserveAmount / scenario.get(i-1); // 元本の割合計算（今月の資産のうち元本がどのくらいの割合か） 「積み立てた元本の合計/前月までの総資産（元本＋運用益）」
+                double percentageOfPrincipal = currentAsset > 0 ? totalReserveAmount / currentAsset : 0;
+                
+                double lifeEventCost = 0;
+
                 if (i == monthElement.get("monthOfLifeEvent1")) {
-                    limitRevival += params.lifeEventParams().requiredFunds1() * percentageOfPrincipal; //非課税枠復活の計算（翌年のNISA非課税枠が復活する金額として記録） 「必要資金 * 元本の割合をlimitRevivalに加算」
-                    if (totalReserveAmount < 1800) {
-                        scenario.add(scenario.get(i - 1) + delta + monthlySavings - params.lifeEventParams().requiredFunds1()); //「前年資産＋今月の運用増分＋今月の積立－ライフイベント必要資金」
-                    } else {
-                        scenario.add(scenario.get(i - 1) + delta - params.lifeEventParams().requiredFunds1());
-                    }
+                    lifeEventCost = params.lifeEventParams().requiredFunds1();
                 } else if (i == monthElement.get("monthOfLifeEvent2")) {
-                    limitRevival += params.lifeEventParams().requiredFunds2() * percentageOfPrincipal;
-                    if (totalReserveAmount < 1800) {
-                        scenario.add(scenario.get(i - 1) + delta + monthlySavings - params.lifeEventParams().requiredFunds2());
-                    } else {
-                        scenario.add(scenario.get(i - 1) + delta - params.lifeEventParams().requiredFunds2());
-                    }
+                    lifeEventCost = params.lifeEventParams().requiredFunds2();
                 } else if (i == monthElement.get("monthOfLifeEvent3")) {
-                    limitRevival += params.lifeEventParams().requiredFunds3() * percentageOfPrincipal;
-                    if (totalReserveAmount < 1800) {
-                        scenario.add(scenario.get(i - 1) + delta + monthlySavings - params.lifeEventParams().requiredFunds3());
-                    } else {
-                        scenario.add(scenario.get(i - 1) + delta - params.lifeEventParams().requiredFunds3());
-                    }
+                    lifeEventCost = params.lifeEventParams().requiredFunds3();
                 } else if (i == monthElement.get("monthOfLifeEvent4")) {
-                    limitRevival += params.lifeEventParams().requiredFunds4() * percentageOfPrincipal;
-                    if (totalReserveAmount < 1800) {
-                        scenario.add(scenario.get(i - 1) + delta + monthlySavings - params.lifeEventParams().requiredFunds4());
-                    } else {
-                        scenario.add(scenario.get(i - 1) + delta - params.lifeEventParams().requiredFunds4());
-                    }
+                    lifeEventCost = params.lifeEventParams().requiredFunds4();
                 } else if (i == monthElement.get("monthOfLifeEvent5")) {
-                    limitRevival += params.lifeEventParams().requiredFunds5() * percentageOfPrincipal;
-                    if (totalReserveAmount < 1800) {
-                        scenario.add(scenario.get(i - 1) + delta + monthlySavings - params.lifeEventParams().requiredFunds5());
-                    } else {
-                        scenario.add(scenario.get(i - 1) + delta - params.lifeEventParams().requiredFunds5());
-                    }
-                } else {
-                    if (totalReserveAmount < 1800) {
-                        scenario.add(scenario.get(i - 1) + delta + monthlySavings);
-                    } else {
-                        scenario.add(scenario.get(i - 1) + delta);
-                    }
+                    lifeEventCost = params.lifeEventParams().requiredFunds5();
+                }
+            
+                if (lifeEventCost > 0) {
+                    limitRevival += lifeEventCost * percentageOfPrincipal;
+                }
+            
+                // 資産更新（毎月）
+                currentAsset += delta;
+                if (canSave) currentAsset += monthlySavings;
+                currentAsset -= lifeEventCost;
+            
+                // ★ STEPか月ごとだけ保存
+                if (i % step == 0) {
+                    scenario.add(currentAsset);
                 }
             }
             simuArr.add(scenario);
@@ -162,7 +151,8 @@ public class Simulation {
             // 月ごとの値を取得
             List<Double> monthlyValue = new ArrayList<>();
             for (List<Double> sce : simuArr) {
-                monthlyValue.add(sce.get(i)); //iか月目の資産残高リスト（N個の値）
+                int idx = i / step;
+                monthlyValue.add(sce.get(idx)); //iか月目の資産残高リスト（N個の値）
             }
 
             // 上位30％、中央値、下位10％、下位30％
