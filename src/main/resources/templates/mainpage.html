@@ -279,7 +279,7 @@
         </div>
         
         <div class="buttons">
-            <button type="button" id="compareBtn">前回のシミュレーション結果を見る</button>
+            <button type="button" id="compareButton">前回のシミュレーション結果を見る</button>
         </div>
 
         <!-- プラン改善提案 -->
@@ -512,7 +512,7 @@
                 });
         
                 // ボタンクリック
-                $(document).on("click", ".info-btn", function () {
+                $(document).on("click", ".info-Button", function () {
                     const key = $(this).data("key");
                     const info = fundInfo[key] || "<p>情報がありません。</p>";
         
@@ -728,7 +728,7 @@
                     }
 
                     // 直前のシミュレーション結果表示ボタン
-                    $("#compareBtn").on("click", function () {
+                    $("#compareButton").on("click", function () {
                     
                         if (!previousSimulationData) {
                             alert("前回のシミュレーション結果がありません");
