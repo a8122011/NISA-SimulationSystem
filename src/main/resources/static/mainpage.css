@@ -266,6 +266,69 @@ h2 {
     margin:30px auto; 
 }
 
+/* 改善プラン提案 */
+#improvement {
+    width: 90%;
+    max-width: 900px;
+    margin: 40px auto;
+    padding: 25px;
+    border: 2px solid #C8DCCF;
+    border-radius: 12px;
+    background-color: #FAFFFB;
+    display: none;
+}
+
+#improvement h3 {
+    font-size: 1.3em;
+    color: #6ABF7E;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.improveOptions {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.improveOptions label {
+    margin: 0 15px;
+    font-size: 1em;
+    cursor: pointer;
+}
+
+.improveOptions input[type="radio"] {
+    margin-right: 6px;
+    transform: scale(1.2);
+}
+
+/* 提案結果表示 */
+#proposalResult {
+    text-align: left;
+    padding: 15px 20px;
+    background-color: #FFFFFF;
+    border-radius: 8px;
+    border: 1px solid #E0E0E0;
+    line-height: 1.8;
+    font-size: 0.95em;
+}
+
+  /* 提案リスト */
+#proposalResult ul {
+    margin: 10px 0 15px 20px;
+}
+
+#proposalResult li {
+    margin-bottom: 6px;
+}
+
+  /* 補足文 */
+#proposalResult .note {
+    font-size: 0.8em;
+    color: #777;
+}
+
+
+
 /* 前回シミュレーション表示 */
 #compareArea {
     width: 90%;
@@ -366,7 +429,7 @@ h2 {
 }
 
 /* 商品についてボタン */
-.info-Button {
+.infoButton {
     border: none;
     color: #6ABF7E;
     font-size:0.8em;
@@ -374,9 +437,22 @@ h2 {
     background-color: white;
 }
 
+/* 改善案ボタン */
+#improvementPlan {
+    display: block;
+    margin: 0 auto 25px auto;
+    padding: 10px 30px;
+    border-radius: 25px;
+    border: 2px solid #90CE9C;
+    background-color: white;
+    color: #90CE9C;
+    font-size: 1em;
+    cursor: pointer;
+}
+
 /* 前回結果表示ボタン */
 #compareButton {
-    display: inline-block;
+    display: none;
     margin: 20px auto;
     padding: 10px 28px;
     border-radius: 25px;
@@ -387,10 +463,10 @@ h2 {
     cursor: pointer;
 }
 
-#productSelectionButton:hover, #lifeEventsButton:hover, #advancedSettingButton:hover, .start:hover, #compareButton:hover{
+#productSelectionButton:hover, #lifeEventsButton:hover, #advancedSettingButton:hover, .start:hover, #compareButton:hover, #improvementPlan:hover {
     transform: scale(1.03);
 }
 
-#expectedRateOfReturnButton:hover, #volatilityButton:hover, .info-Button:hover {
+#expectedRateOfReturnButton:hover, #volatilityButton:hover, .infoButton:hover {
     transform: scale(1.08);
 }
