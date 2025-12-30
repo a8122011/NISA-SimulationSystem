@@ -209,6 +209,26 @@
             <table>
                 <thead>
                     <tr>
+                        <th><big>商品 / 比率</big></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:if="${params != null}">
+                        <big>
+                            <td colspan="4" th:text="${params.selectedFund1}"></td>
+                            <td colspan="2"th:text="${params.weight1 + '%'}"></td>
+                        </big>
+                    </tr>
+                    <tr th:if="${params != null}">
+                        <big>
+                            <td colspan="4" th:text="${params.selectedFund2}"></td>
+                            <td colspan="2" th:text="${params.weight2 + '%'}"></td>
+                        </big>
+                    </tr>
+                </tbody>
+                
+                <thead>
+                    <tr>
                         <th class="hidden">ID</th>
                         <th>期待収益率</th>
                         <th>ボラティリティ</th>
@@ -227,6 +247,7 @@
                         <td th:text="${params.initialValue + '万'}"></td>
                     </tr>
                 </tbody>
+                
                 <thead>
                     <tr>
                         <th colspan="6">ライフイベント</th>
@@ -249,6 +270,7 @@
                         <td colspan="6" th:text="'・' + ${params.lifeEventParams.lifeEventAge5} + '歳 で ' + ${params.lifeEventParams.lifeEvent5} + ' のため ' + ${params.lifeEventParams.requiredFunds5} + '万円 使用'"></td>
                     </tr>
                 </tbody>
+                
                 <thead>
                     <tr>
                         <th colspan="6">年変化</th>
@@ -271,6 +293,8 @@
             <canvas id="myLineChart"></canvas>
             <p>※当該評価は過去の一定期間の実績の分析結果を元に予測したものであり、 将来の運用成果等を保証したものではありません。</p>
         </div>
+        <br>
+        <br>
 
         <!-- 1回目比較用（最初は非表示） -->
         <div class="chartContainer" id="compareArea" style="display:none;">
