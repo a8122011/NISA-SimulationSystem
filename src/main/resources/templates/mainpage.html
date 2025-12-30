@@ -412,14 +412,15 @@
                         }
                 });
                 
-                // シミュレーション結果を保存
+                // 今回のシミュレーション結果を保存
                 localStorage.setItem(
-                    "previousSimulationData",
+                    "currentSimulationData",
                     JSON.stringify({
                         labels: myLineChart.data.labels,
                         datasets: myLineChart.data.datasets
                     })
                 );
+
             }
         </script>
 
@@ -654,6 +655,15 @@
                     $("#advancedSettingButton").click(function(){
                         $(".advancedSetting").toggleClass("display");
                     });
+
+                    //シミュレーション開始時 データ保存
+                    $("form").on("submit", function () {
+                        const current = localStorage.getItem("currentSimulationData");
+                        if (current) {
+                            localStorage.setItem("previousSimulationData", current);
+                        }
+                    });
+
                     
                     //改善プラン提案エリア シミュレーショングラフが存在するときのみ表示
                     if ($("#myLineChart").length > 0) {
@@ -736,11 +746,12 @@
 
                     // 直前のシミュレーション結果表示ボタン
                     $("#compareButton").on("click", function () {
-                    
-                        if (!previousSimulationData) {
+                        const stored = localStorage.getItem("previousSimulationData");
+                        if (!stored) {
                             alert("前回のシミュレーション結果がありません");
                             return;
                         }
+                        const previousSimulationData = JSON.parse(stored);
                     
                         // 表示
                         $("#compareArea").show();
