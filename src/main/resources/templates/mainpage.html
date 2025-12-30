@@ -692,15 +692,7 @@
                     });
 
                     //リターンを高める場合
-                    function suggestIncreaseMonthly(){
-                        const expectedRateOfReturn = parseFloat($("#expectedRateOfReturn").val());
-                        const monthly = parseFloat($('input[name="monthlySavings"]').val());
-                        
-                        if (isNaN(expectedRateOfReturn)) {
-                            $("#proposalResult").html("⚠ 期待収益率が未設定です");
-                            return;
-                        }
-
+                    function suggestIncreaseMonthly(){ 
                         $("#proposalResult").html(`
                         <p><strong>提案：</strong></p>
                         <ul>
@@ -708,35 +700,21 @@
                             <li>成長性の高い地域(米国・先進国株式)への投資比率を増やす</li>
                             <li>長期で運用する</li>
                         </ul>
-                        <p>現在の期待収益率：<b>${expectedRateOfReturn.toFixed(2)}%</b></p>
-
-                        ${!isNaN(monthly)
-                            ? `<p class="note">※ 積立額を維持したままでも、商品構成の見直しでリターン改善が期待できます。</p>`
-                            : ""
-                        }
                         `);
                     }
                     
                     // リスクを抑える場合
                     function suggestReduceRisk(){
-                        //現在のボラティリティを取得
-                        const volatility = parseFloat($("#volatility").val());
-                    
-                        if (isNaN(volatility)) {
-                            $("#proposalResult").html("⚠ ボラティリティが未設定です");
-                            return;
-                        }
-                    
                         $("#proposalResult").html(`
                             <p><strong>提案：</strong></p>
                             <ul>
                                 <li>株式比率を下げ、債券やバランス型を増やす</li>
                                 <li>つみたて月額を一定に保ち、年変化を小さくする</li>
                             </ul>
-                            <p>現在のボラティリティ：<b>${volatility}%</b></p>
                         `);
                     }
 
+                    //前回のシミュレーション結果がある場合のみボタン表示
                     const previousData = localStorage.getItem("previousSimulationData");
                     if (previousData) {
                         $("#compareButton").show();
