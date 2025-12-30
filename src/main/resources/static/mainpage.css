@@ -285,20 +285,15 @@ h2 {
     text-align: center;
 }
 
-.improveOptions {
-    text-align: center;
+#improvement h4 {
+    color: #696969;
     margin-bottom: 20px;
+    text-align: center;
 }
 
-.improveOptions label {
-    margin: 0 15px;
-    font-size: 1em;
-    cursor: pointer;
-}
-
-.improveOptions input[type="radio"] {
-    margin-right: 6px;
-    transform: scale(1.2);
+.question {
+    padding: 5px;
+    font-weight: bold;
 }
 
 /* 提案結果表示 */
@@ -326,8 +321,6 @@ h2 {
     font-size: 0.8em;
     color: #777;
 }
-
-
 
 /* 前回シミュレーション表示 */
 #compareArea {
@@ -440,13 +433,13 @@ h2 {
 /* 改善案ボタン */
 #improvementPlan {
     display: block;
-    margin: 0 auto 25px auto;
-    padding: 10px 30px;
+    margin: 25px auto;
+    padding: 5px 15px;
     border-radius: 25px;
     border: 2px solid #90CE9C;
     background-color: white;
     color: #90CE9C;
-    font-size: 1em;
+    font-size: 0.9em;
     cursor: pointer;
 }
 
