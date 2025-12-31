@@ -422,14 +422,16 @@
                             yAxes: [{
                                 ticks: {
                                     suggestedMax: /*[[${suggestedMax}]]*/ undefined,
-                                    suggestedMin: 0,
+                                    beginAtZero: false,
                                     stepSize: /*[[${stepSize}]]*/ 1,
                                     callback: function(value, index, values) {
                                         return value + '万円';
                                     }
                                 },
                                 gridLines: {
-                                    color: 'rgba(0,0,0,0.08)'
+                                    color: 'rgba(0,0,0,0.08)',
+                                    zeroLineColor: '#000',
+                                    zeroLineWidth: 1.5
                                 }
                             }]
                         } 
