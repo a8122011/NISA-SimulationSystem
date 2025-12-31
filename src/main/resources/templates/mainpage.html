@@ -213,16 +213,20 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr th:if="${params != null}">
+                    <tr th:if="${params?.selectedFund1 != null}">
                         <big>
                             <td colspan="4" th:text="${params.selectedFund1}"></td>
-                            <td colspan="2"th:text="${params.weight1 + '%'}"></td>
+                            <td colspan="2"
+                                th:if="${params?.weight1 != null}"
+                                th:text="${params.weight1 + '%'}"></td>
                         </big>
                     </tr>
-                    <tr th:if="${params != null}">
+                    <tr th:if="${params?.selectedFund2 != null}">
                         <big>
                             <td colspan="4" th:text="${params.selectedFund2}"></td>
-                            <td colspan="2" th:text="${params.weight2 + '%'}"></td>
+                            <td colspan="2" 
+                                th:if="${params?.weight2 != null}"
+                                th:text="${params.weight2 + '%'}"></td>
                         </big>
                     </tr>
                 </tbody>
