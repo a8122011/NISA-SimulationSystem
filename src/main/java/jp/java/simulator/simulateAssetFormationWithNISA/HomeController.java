@@ -89,6 +89,15 @@ public class HomeController {
     }
 
     @PostMapping("/add") //シミュレーション実行
+    public String simulate(SimulationParams params, Model model) {
+        // シミュレーション実行
+        model.addAttribute("params", params);
+    
+        model.addAttribute("showResult", true); // ← これが肝
+        return "mainpage";
+    }
+
+    
     public String addItem(HttpSession session,
         @RequestParam String expectedRateOfReturn,
         @RequestParam String volatility,
