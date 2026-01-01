@@ -202,16 +202,15 @@
             <br>
             
         </form>
-
-            <div id="resultArea">
-                <!-- シミュレーション設定 -->
-                <div class="paramList">
-                    <table>
-                        <thead>
-                            <tr>
-                                <th colspan="6"><big>商品 / 比率</big></th>
-                            </tr>
-                        </thead>
+        
+        <!-- シミュレーション設定 -->
+        <div class="paramList">
+            <table>
+                <thead>
+                    <tr>
+                        <th colspan="6"><big>商品 / 比率</big></th>
+                    </tr>
+                </thead>
                         <tbody>
                             <tr th:if="${params != null and !#strings.isEmpty(params.selectedFund1)}">
                                 <td colspan="4">
@@ -343,6 +342,10 @@
         
                     var ctx = document.getElementById("myLineChart");
                     if(ctx){
+                        const labels = /*[[${monthCountList}]]*/ [];
+                        const median = /*[[${median}]]*/ [];
+                        const hasData = median.length > 0;
+                        
                         var myLineChart = new Chart(ctx, {
                             type: 'line',
                             data: {
@@ -428,9 +431,10 @@
                                     }],
                                     yAxes: [{
                                         ticks: {
-                                            suggestedMax: /*[[${suggestedMax}]]*/ undefined,
-                                            beginAtZero: false,
-                                            stepSize: /*[[${stepSize}]]*/ 1,
+                                            beginAtZero: !hasData,
+                                            min: hasData ? undefined : 0,
+                                            suggestedMax: hasData ? /*[[${suggestedMax}]]*/ undefined : undefined,
+                                            stepSize: hasData ? /*[[${stepSize}]]*/ 1 : 1,
                                             callback: function(value, index, values) {
                                                 return value + '万円';
                                             }
@@ -462,7 +466,6 @@
         
                     }
                 </script>
-            </div>
 
         <script type="text/javascript">
                 $(function(){
