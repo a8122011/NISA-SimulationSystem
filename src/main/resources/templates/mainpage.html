@@ -747,8 +747,8 @@
                     }
 
                     //前回のシミュレーション結果がある場合のみボタン表示
-                    const previousData = localStorage.getItem("previousSimulationData");
-                    if (previousData) {
+                    const currentData = localStorage.getItem("currentSimulationData");
+                    if (currentData) {
                         $("#compareButton").show();
                     } else {
                         $("#compareButton").hide();
