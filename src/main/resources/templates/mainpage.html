@@ -203,7 +203,7 @@
             
         </form>
 
-            <div id="resultArea" th:if="${params != null}">
+            <div id="resultArea">
                 <!-- シミュレーション設定 -->
                 <div class="paramList">
                     <table>
@@ -213,7 +213,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr th:if="${!#strings.isEmpty(params.selectedFund1)}">
+                            <tr th:if="${params != null and !#strings.isEmpty(params.selectedFund1)}">
                                 <td colspan="4">
                                     <big th:text="${params.selectedFund1}"></big>
                                 </td>
@@ -222,7 +222,7 @@
                                     <big th:text="${params.weight1 + '%'}"></big>
                                 </td>
                             </tr>
-                            <tr th:if="${!#strings.isEmpty(params.selectedFund2)}">
+                            <tr th:if="${params != null and !#strings.isEmpty(params.selectedFund2)}">
                                 <td colspan="4">
                                     <big th:text="${params.selectedFund2}"></big>
                                 </td>
@@ -299,6 +299,7 @@
                     <canvas id="myLineChart"></canvas>
                     <p>※当該評価は過去の一定期間の実績の分析結果を元に予測したものであり、 将来の運用成果等を保証したものではありません。</p>
                 </div>
+            </div>
                 <br>
                 <br>
         
