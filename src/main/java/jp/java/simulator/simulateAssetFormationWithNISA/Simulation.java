@@ -171,7 +171,7 @@ public class Simulation {
     }
 
     /**
-     * 月ごとの平均値を取得？？
+     * 月ごとの平均値を取得
      *
      * @param monthlyValue シミュレーション回数分のiか月目のリスト
      * @param expectedAverage 予想平均のシナリオ
@@ -222,36 +222,52 @@ public class Simulation {
      * @param monthElement 運用月数andイベント発生月
      * @param noOperation 運用なしのシナリオ
      */
-    private static void getNoOperation(int i, int step, SimulationParams params, Map<String, Integer> monthElement, List<Double> noOperation){
-        // 初回
+    private static void getNoOperation(int i, int step, SimulationParams params, Map<String, Integer> monthElement, List<Double> noOperation){ 
+        // 初回 
         if (noOperation.isEmpty()) {
-            noOperation.add(params.initialValue() + params.monthlySavings());
-            return;
-        }
-
-        double prev = noOperation.get(noOperation.size() - 1);
-        double next = prev;
-    
-        // stepか月分まとめて処理
-        for (int m = step - 1; m >= 0; m--) {
-            int currentMonth = i - m;
-    
-            next += params.monthlySavings();
-    
-            if (currentMonth == monthElement.get("monthOfLifeEvent1")) {
-                next -= params.lifeEventParams().requiredFunds1();
-            } else if (currentMonth == monthElement.get("monthOfLifeEvent2")) {
-                next -= params.lifeEventParams().requiredFunds2();
-            } else if (currentMonth == monthElement.get("monthOfLifeEvent3")) {
-                next -= params.lifeEventParams().requiredFunds3();
-            } else if (currentMonth == monthElement.get("monthOfLifeEvent4")) {
-                next -= params.lifeEventParams().requiredFunds4();
-            } else if (currentMonth == monthElement.get("monthOfLifeEvent5")) {
-                next -= params.lifeEventParams().requiredFunds5();
+            noOperation.add(0.0); 
+        } 
+        
+        double current = noOperation.get(noOperation.size() - 1); 
+        double totalReserveAmount = current;
+        
+        // stepか月分まとめて処理 
+        for (int m = step - 1; m >= 0; m--) { 
+            int currentMonth = i - m; 
+            
+            if (currentMonth == 0) { 
+                current += params.monthlySavings();
+                totalReserveAmount += params.monthlySavings();
+                continue;
+            } 
+            
+            if (currentMonth == monthElement.get("monthOfLifeEvent1")) { 
+                current += (totalReserveAmount <= 1800) 
+                    ? params.monthlySavings() - params.lifeEventParams().requiredFunds1() 
+                    : -params.lifeEventParams().requiredFunds1(); 
+            } else if (currentMonth == monthElement.get("monthOfLifeEvent2")) { 
+                current += (totalReserveAmount <= 1800) 
+                    ? params.monthlySavings() - params.lifeEventParams().requiredFunds2() 
+                    : -params.lifeEventParams().requiredFunds2(); 
+            } else if (currentMonth == monthElement.get("monthOfLifeEvent3")) { 
+                current += (totalReserveAmount <= 1800) 
+                    ? params.monthlySavings() - params.lifeEventParams().requiredFunds3() 
+                    : -params.lifeEventParams().requiredFunds3(); 
+            } else if (currentMonth == monthElement.get("monthOfLifeEvent4")) { 
+                current += (totalReserveAmount <= 1800) 
+                    ? params.monthlySavings() - params.lifeEventParams().requiredFunds4() 
+                    : -params.lifeEventParams().requiredFunds4(); 
+            } else if (currentMonth == monthElement.get("monthOfLifeEvent5")) { 
+                current += (totalReserveAmount <= 1800) 
+                    ? params.monthlySavings() - params.lifeEventParams().requiredFunds5() 
+                    : -params.lifeEventParams().requiredFunds5(); 
+            } else { 
+                if (totalReserveAmount <= 1800) { 
+                    current += params.monthlySavings(); 
+                }
             }
-        }
-    
-        noOperation.add(next);
+        } 
+        // STEP後の値を保存 noOperation.add(current); 
     }
     
      /**
