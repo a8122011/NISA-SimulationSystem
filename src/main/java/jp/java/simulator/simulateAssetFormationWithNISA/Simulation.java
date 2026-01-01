@@ -352,3 +352,4 @@ public class Simulation {
         BigDecimal bdNum = new BigDecimal(num);
         return bdNum.setScale(2, RoundingMode.HALF_UP);
     }
+}
