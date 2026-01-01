@@ -238,14 +238,8 @@ public class Simulation {
             if (currentMonth < 0) continue;
 
             // 毎月のつみたて
-            asset += params.monthlySavings();
+            asset += monthlySavings;
 
-            // 年変化
-            if (params.advancedSetting().annualChangeMonth() != 0
-                    && currentMonth % params.advancedSetting().annualChangeMonth() == 0) {
-                monthlySavings += params.advancedSetting().annualChangeMoney();
-            }
-    
             // ライフイベント判定
             double lifeEventCost = 0;
             if (currentMonth == monthElement.get("monthOfLifeEvent1")) {
