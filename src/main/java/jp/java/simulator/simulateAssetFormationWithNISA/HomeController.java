@@ -21,6 +21,7 @@ public class HomeController {
 
     record SimulationParams(String id, double expectedRateOfReturn, double volatility,
                             int startAge, double monthlySavings, double initialValue,
+                            String selectedFund1, String selectedFund2, Integer weight1, Integer weight2,
                             LifeEventParams lifeEventParams, AdvancedSetting advancedSetting) {}
 
     record SimulationResult(
@@ -119,7 +120,9 @@ public class HomeController {
         @RequestParam(required = false, defaultValue = "") String annualChangePeriod,
         @RequestParam(required = false, defaultValue = "") String annualChangeMoney,
         @RequestParam(required = false, defaultValue = "") String endingAge,
-
+                          
+        @RequestParam(required = false, defaultValue = "") String selectedFund1,
+        @RequestParam(required = false, defaultValue = "") String selectedFund2,
         @RequestParam(required = false, defaultValue = "") String weight1,
         @RequestParam(required = false, defaultValue = "") String weight2
     ) {
@@ -135,6 +138,11 @@ public class HomeController {
                     Integer.parseInt(startAge),
                     Double.parseDouble(monthlySavings),
                     Double.parseDouble(initialValue),
+                selectedFund1,
+                selectedFund2,
+                parseInt(weight1),
+                parseInt(weight2),
+                
                     new LifeEventParams(
                             lifeEvent1,
                             parseInt(lifeEventAge1), parseDouble(requiredFunds1),
