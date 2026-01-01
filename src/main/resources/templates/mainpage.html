@@ -203,8 +203,7 @@
             
         </form>
 
-        <div th:if="${showResult}">
-            <div id="resultArea" style="display:none;">
+            <div id="resultArea" th:if="${params != null}">
                 <!-- シミュレーション設定 -->
                 <div class="paramList">
                     <table>
@@ -214,21 +213,23 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr th:if="${params?.selectedFund1 != null}">
-                                <big>
-                                    <td colspan="4" th:text="${params.selectedFund1}"></td>
-                                    <td colspan="2"
-                                        th:if="${params?.weight1 != null}"
-                                        th:text="${params.weight1 + '%'}"></td>
-                                </big>
+                            <tr th:if="${!#strings.isEmpty(params.selectedFund1)}">
+                                <td colspan="4">
+                                    <big th:text="${params.selectedFund1}"></big>
+                                </td>
+                                <td colspan="2"
+                                    th:if="${!#strings.isEmpty(params.weight1)}">
+                                    <big th:text="${params.weight1 + '%'}"></big>
+                                </td>
                             </tr>
-                            <tr th:if="${params?.selectedFund2 != null}">
-                                <big>
-                                    <td colspan="4" th:text="${params.selectedFund2}"></td>
-                                    <td colspan="2" 
-                                        th:if="${params?.weight2 != null}"
-                                        th:text="${params.weight2 + '%'}"></td>
-                                </big>
+                            <tr th:if="${!#strings.isEmpty(params.selectedFund2)}">
+                                <td colspan="4">
+                                    <big th:text="${params.selectedFund2}"></big>
+                                </td>
+                                    <td colspan="2"
+                                        th:if="${!#strings.isEmpty(params.weight2)}">
+                                        <big th:text="${params.weight2 + '%'}"></big>
+                                    </td>
                             </tr>
                         </tbody>
                         
@@ -461,7 +462,6 @@
                     }
                 </script>
             </div>
-        </div>
 
         <script type="text/javascript">
                 $(function(){
