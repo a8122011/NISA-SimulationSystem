@@ -223,51 +223,48 @@ public class Simulation {
      * @param noOperation 運用なしのシナリオ
      */
     private static void getNoOperation(int i, int step, SimulationParams params, Map<String, Integer> monthElement, List<Double> noOperation){ 
-        // 初回 
+        // 最初
         if (noOperation.isEmpty()) {
-            noOperation.add(0.0); 
+            noOperation.add(params.initialValue());
         } 
         
-        double current = noOperation.get(noOperation.size() - 1); 
-        double totalReserveAmount = current;
+        // 前STEP時点
+        double asset = noOperation.get(noOperation.size() - 1);
+        double monthlySavings = params.monthlySavings();
         
-        // stepか月分まとめて処理 
+        // stepか月分、月次処理 
         for (int m = step - 1; m >= 0; m--) { 
             int currentMonth = i - m; 
-            
-            if (currentMonth == 0) { 
-                current += params.monthlySavings();
-                totalReserveAmount += params.monthlySavings();
-                continue;
-            } 
-            
-            if (currentMonth == monthElement.get("monthOfLifeEvent1")) { 
-                current += (totalReserveAmount <= 1800) 
-                    ? params.monthlySavings() - params.lifeEventParams().requiredFunds1() 
-                    : -params.lifeEventParams().requiredFunds1(); 
-            } else if (currentMonth == monthElement.get("monthOfLifeEvent2")) { 
-                current += (totalReserveAmount <= 1800) 
-                    ? params.monthlySavings() - params.lifeEventParams().requiredFunds2() 
-                    : -params.lifeEventParams().requiredFunds2(); 
-            } else if (currentMonth == monthElement.get("monthOfLifeEvent3")) { 
-                current += (totalReserveAmount <= 1800) 
-                    ? params.monthlySavings() - params.lifeEventParams().requiredFunds3() 
-                    : -params.lifeEventParams().requiredFunds3(); 
-            } else if (currentMonth == monthElement.get("monthOfLifeEvent4")) { 
-                current += (totalReserveAmount <= 1800) 
-                    ? params.monthlySavings() - params.lifeEventParams().requiredFunds4() 
-                    : -params.lifeEventParams().requiredFunds4(); 
-            } else if (currentMonth == monthElement.get("monthOfLifeEvent5")) { 
-                current += (totalReserveAmount <= 1800) 
-                    ? params.monthlySavings() - params.lifeEventParams().requiredFunds5() 
-                    : -params.lifeEventParams().requiredFunds5(); 
-            } else { 
-                if (totalReserveAmount <= 1800) { 
-                    current += params.monthlySavings(); 
-                }
+            if (currentMonth < 0) continue;
+
+            // 毎月のつみたて
+            asset += params.monthlySavings();
+
+            // 年変化
+            if (params.advancedSetting().annualChangeMonth() != 0
+                    && currentMonth % params.advancedSetting().annualChangeMonth() == 0) {
+                monthlySavings += params.advancedSetting().annualChangeMoney();
             }
-        } 
-        // STEP後の値を保存 noOperation.add(current); 
+    
+            // ライフイベント判定
+            double lifeEventCost = 0;
+            if (currentMonth == monthElement.get("monthOfLifeEvent1")) {
+                lifeEventCost = params.lifeEventParams().requiredFunds1();
+            } else if (currentMonth == monthElement.get("monthOfLifeEvent2")) {
+                lifeEventCost = params.lifeEventParams().requiredFunds2();
+            } else if (currentMonth == monthElement.get("monthOfLifeEvent3")) {
+                lifeEventCost = params.lifeEventParams().requiredFunds3();
+            } else if (currentMonth == monthElement.get("monthOfLifeEvent4")) {
+                lifeEventCost = params.lifeEventParams().requiredFunds4();
+            } else if (currentMonth == monthElement.get("monthOfLifeEvent5")) {
+                lifeEventCost = params.lifeEventParams().requiredFunds5();
+            }
+
+            //ライフイベント発生時にひく
+            asset -= lifeEventCost;
+        }
+        // STEP後の値を保存
+        noOperation.add(asset);
     }
     
      /**
@@ -296,8 +293,8 @@ public class Simulation {
                 ageCountList.add(age + "歳");
             }
         }
-            return ageCountList;
-    }
+        return ageCountList;
+}
 
     /**
      * 縦軸の最大値を返す
@@ -361,4 +358,3 @@ public class Simulation {
         BigDecimal bdNum = new BigDecimal(num);
         return bdNum.setScale(2, RoundingMode.HALF_UP);
     }
-}
