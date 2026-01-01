@@ -431,10 +431,8 @@
                                     }],
                                     yAxes: [{
                                         ticks: {
-                                            beginAtZero: !hasData,
-                                            min: hasData ? undefined : 0,
-                                            suggestedMax: hasData ? /*[[${suggestedMax}]]*/ undefined : undefined,
-                                            stepSize: hasData ? /*[[${stepSize}]]*/ 1 : 1,
+                                            suggestedMax: /*[[${suggestedMax}]]*/ undefined,
+                                            stepSize: /*[[${stepSize}]]*/ 1,
                                             callback: function(value, index, values) {
                                                 return value + '万円';
                                             }
