@@ -297,7 +297,7 @@
                         </tbody>
                     </table>
             </div>
-            <div  class="chartContainer">
+            <div  class="chartContainer" id="currentChartArea" style="display:none;">
                 <canvas id="myLineChart"></canvas>
                 <p>※当該評価は過去の一定期間の実績の分析結果を元に予測したものであり、 将来の運用成果等を保証したものではありません。</p>
             </div>
@@ -305,11 +305,11 @@
             <br>
         
             <div class="buttons">
-                <button type="button" id="compareButton">前回のシミュレーション結果を見る</button>
+                <button type="button" id="compareButton" style="display:none;">前回のシミュレーション結果を見る</button>
             </div>
         
         <!-- 1回目比較用（最初は非表示） -->
-        <div class="chartContainer" id="compareArea">
+        <div id="compareArea" style="display:none;">
             <h3>前回のシミュレーション結果</h3>
             <canvas id="previousChart"></canvas>
         </div>
@@ -452,8 +452,11 @@
                                         }
                                     }]
                                 } 
-                                }
+                            }
                         });
+                        $("#currentChartArea").show();
+                        $("#compareButton").show();
+
         
                         //直前の結果
                         const existing = localStorage.getItem("currentSimulationData");
@@ -799,14 +802,6 @@
                                 <li>つみたて月額を一定に保ち、年変化を小さくする</li>
                             </ul>
                         `);
-                    }
-
-                    //前回のシミュレーション結果がある場合のみボタン表示
-                    const currentData = localStorage.getItem("currentSimulationData");
-                    if (currentData) {
-                        $("#compareButton").show();
-                    } else {
-                        $("#compareButton").hide();
                     }
 
                     // 直前のシミュレーション結果表示ボタン
