@@ -318,20 +318,24 @@
                 </div>
         
                 <!-- プラン改善提案 -->
-                <div id="improvement" style="display:none;" class="improvementBox">
-                    <h3>投資プランを改善する</h3>
-                    <h4>当てはまるものを選択してください</h4>
-                    <div class="question">
-                        <label><input type="radio" name="improveType" value="moreReturn"> リターンを高めたい</label>
+                <div id="improvement">
+                    <div class="improvement-header">
+                        <h3>投資プランを改善する
+                            <span class="toggle-icon">▼</span>
+                        </h3>
                     </div>
                     
-                    <div class="question">
-                        <label><input type="radio" name="improveType" value="lessRisk"> リスクを抑えたい</label>
+                    <div class="improvement-body"> 
+                        <h4>当てはまるものを選択してください</h4>
+                        <div class="question">
+                            <label><input type="radio" name="improveType" value="moreReturn"> リターンを高めたい</label>
+                        </div>
+                        <div class="question">
+                            <label><input type="radio" name="improveType" value="lessRisk"> リスクを抑えたい</label>
+                        </div>
+                        <button type="button" id="improvementPlan">改善案を見る</button>
+                        <div id="proposalResult" class="proposalResult"></div>
                     </div>
-                    
-                    <button type="button" id="improvementPlan">改善案を見る</button>
-                    
-                    <div id="proposalResult" class="proposalResult"></div>
                 </div>
                 
         
@@ -748,6 +752,13 @@
                         $("#improvement").show();
                     }
 
+                    //改善プラン提案クリック
+                    $(".improvement-header").on("click", function () {
+                        $(".improvement-body").slideToggle(300);
+                        $(this).toggleClass("open");
+                    });
+
+
                     //改善案ボタン
                     $("#improvementPlan").on("click", function () {
                         //提案表示エリアを初期化
@@ -756,6 +767,11 @@
                         if ($('input[name="improveType"]:checked').length === 0) {
                             alert("改善したい内容を選択してください");
                             return;
+                        }
+                        // 折り畳みが閉じていたら開く
+                        if (!$(".improvement-header").hasClass("open")) {
+                            $(".improvement-body").slideDown(300);
+                            $(".improvement-header").addClass("open");
                         }
 
                         const selected = $('input[name="improveType"]:checked').val();
