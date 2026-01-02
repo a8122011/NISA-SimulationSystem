@@ -212,21 +212,21 @@
                     </tr>
                 </thead>
                         <tbody>
-                            <tr th:if="${params != null and !#strings.isEmpty(params.selectedFund1)}">
+                            <tr th:if="${params != null and params.selectedFund1 != null}">
                                 <td colspan="4">
                                     <big th:text="${params.selectedFund1}"></big>
                                 </td>
                                 <td colspan="2"
-                                    th:if="${!#strings.isEmpty(params.weight1)}">
+                                    th:if="${params != null and params.weight1 != null}">
                                     <big th:text="${params.weight1 + '%'}"></big>
                                 </td>
                             </tr>
-                            <tr th:if="${params != null and !#strings.isEmpty(params.selectedFund2)}">
+                            <tr th:if="${params != null and params.selectedFund2 != null}">
                                 <td colspan="4">
                                     <big th:text="${params.selectedFund2}"></big>
                                 </td>
                                     <td colspan="2"
-                                        th:if="${!#strings.isEmpty(params.weight2)}">
+                                        th:if="${params != null and params.weight2 != null}">
                                         <big th:text="${params.weight2 + '%'}"></big>
                                     </td>
                             </tr>
@@ -425,6 +425,7 @@
         
                                 scales: {
                                     xAxes: [{
+                                        //目盛線
                                         gridLines: {
                                             color: 'rgba(0,0,0,0.05)'
                                         }
