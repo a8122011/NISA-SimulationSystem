@@ -241,6 +241,10 @@ h2 {
 
 
 /*シミュレーション情報*/
+.paramList {
+    display:none;
+}
+
 .paramList table {
     width:70%; 
     margin:0 auto; 
@@ -270,6 +274,7 @@ h2 {
     max-width: 1000px;
     height: 520px;
     margin:30px auto; 
+    display: none;
 }
 
 /* 改善プラン提案 */
