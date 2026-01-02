@@ -274,26 +274,49 @@ h2 {
 
 /* 改善プラン提案 */
 #improvement {
-    width: 90%;
-    max-width: 900px;
-    margin: 40px auto;
-    padding: 25px;
-    border: 2px solid #C8DCCF;
+    width: 50%;
+    max-width: 600px;
+    margin: 15px auto;
+    padding: 15px;
+    border: 1.5px solid #C8DCCF;
     border-radius: 12px;
     background-color: #FAFFFB;
     display: none;
 }
 
-#improvement h3 {
-    font-size: 1.3em;
+.improvement-body {
+    display:none;
+    margin-top: 10px;
+}
+
+.improvement-header {
+    cursor: pointer;
+    user-select: none;
+}
+
+.toggle-icon {
+    float: right;
+    transition: transform 0.3s ease;
+    font-size: 0.9em;
+}
+
+.improvement-header.open .toggle-icon {
+    transform: rotate(180deg);
+}
+
+
+#improvement-header h3 {
+    display: flex;
+    font-size: 1.2em;
     color: #6ABF7E;
-    margin-bottom: 20px;
-    text-align: center;
+    margin: 5px 0;
+    align-items: center;
+    text-align: left;
 }
 
 #improvement h4 {
     color: #696969;
-    margin-bottom: 20px;
+    margin: 5px;
     text-align: center;
 }
 
@@ -305,7 +328,7 @@ h2 {
 /* 提案結果表示 */
 #proposalResult {
     text-align: left;
-    padding: 15px 20px;
+    padding: 10px;
     background-color: #FFFFFF;
     border-radius: 8px;
     border: 1px solid #E0E0E0;
