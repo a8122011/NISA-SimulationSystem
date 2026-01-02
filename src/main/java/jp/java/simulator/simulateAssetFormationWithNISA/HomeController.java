@@ -165,7 +165,7 @@ public class HomeController {
             List<List<Double>> valuationData = Simulation.getValuationData(params);
             List<String> countList = Simulation.getAgeCountList(params);
             double suggestedMax = Simulation.getSuggestedMax(valuationData);
-            int stepSize = Simulation.getStepSize(suggestedMax);
+            int stepSize = Simulation.getStepSize(suggestedMax,suggestedMin);
 
             session.setAttribute("result",
                     new SimulationResult(params, valuationData, countList, suggestedMax, stepSize, false, validMessage, lifeEventValidMessage, advancedSettingValidMessage)
