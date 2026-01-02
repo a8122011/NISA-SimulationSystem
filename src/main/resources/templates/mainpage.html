@@ -213,33 +213,32 @@
             <table>
                 <thead>
                     <tr>
-                        <th colspan="6"><big>商品 / 比率</big></th>
+                        <th colspan="5"><big>商品 / 比率</big></th>
                     </tr>
                 </thead>
-                        <tbody>
-                            <tr th:if="${params != null and params.selectedFund1 != null}">
-                                <td colspan="4">
-                                    <big th:text="${params.selectedFund1}"></big>
-                                </td>
-                                <td colspan="2"
-                                    th:if="${params.weight1 != null and params.weight1 != 0}">
-                                    <big th:text="${params.weight1 + '%'}"></big>
-                                </td>
-                            </tr>
-                            <tr th:if="${params != null and params.selectedFund2 != null}">
-                                <td colspan="4">
-                                    <big th:text="${params.selectedFund2}"></big>
-                                </td>
-                                    <td colspan="2"
-                                        th:if="${params.weight2 != null and params.weight2 != 0}">
-                                        <big th:text="${params.weight2 + '%'}"></big>
-                                    </td>
-                            </tr>
-                        </tbody>
+                <tbody>
+                    <tr th:if="${params != null and params.selectedFund1 != null}">
+                        <td colspan="3">
+                            <big th:text="${params.selectedFund1}"></big>
+                        </td>
+                        <td colspan="2"
+                            th:if="${params.weight1 != null and params.weight1 != 0}">
+                            <big th:text="${params.weight1 + '%'}"></big>
+                        </td>
+                    </tr>
+                    <tr th:if="${params != null and params.selectedFund2 != null}">
+                        <td colspan="3">
+                            <big th:text="${params.selectedFund2}"></big>
+                        </td>
+                        <td colspan="2"
+                            th:if="${params.weight2 != null and params.weight2 != 0}">
+                            <big th:text="${params.weight2 + '%'}"></big>
+                        </td>
+                    </tr>
+                    </tbody>
                         
                         <thead>
                             <tr>
-                                <th class="hidden">ID</th>
                                 <th>期待収益率</th>
                                 <th>ボラティリティ</th>
                                 <th>シミュレーション開始年齢</th>
@@ -249,7 +248,6 @@
                         </thead>
                         <tbody>
                             <tr th:if="${params != null}">
-                                <td class="hidden" th:text="${params.id}"></td>
                                 <td th:text="${params.expectedRateOfReturn + '%'}"></td>
                                 <td th:text="${params.volatility + '%'}"></td>
                                 <td th:text="${params.startAge + '歳'}"></td>
@@ -260,62 +258,62 @@
                         
                         <thead>
                             <tr>
-                                <th colspan="6">ライフイベント</th>
+                                <th colspan="5">ライフイベント</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr th:if="${params != null and params.lifeEventParams != null and params.lifeEventParams.lifeEventAge1 != 0}">
-                                <td colspan="6" th:text="'・' + ${params.lifeEventParams.lifeEventAge1} + '歳 で ' + ${params.lifeEventParams.lifeEvent1} + ' のため ' + ${params.lifeEventParams.requiredFunds1} + '万円 使用'"></td>
+                                <td colspan="5" th:text="'・' + ${params.lifeEventParams.lifeEventAge1} + '歳 で ' + ${params.lifeEventParams.lifeEvent1} + ' のため ' + ${params.lifeEventParams.requiredFunds1} + '万円 使用'"></td>
                             </tr>
                             <tr th:if="${params != null and params.lifeEventParams != null and params.lifeEventParams.lifeEventAge2 != 0}">
-                                <td colspan="6" th:text="'・' + ${params.lifeEventParams.lifeEventAge2} + '歳 で ' + ${params.lifeEventParams.lifeEvent2} + ' のため ' + ${params.lifeEventParams.requiredFunds2} + '万円 使用'"></td>
+                                <td colspan="5" th:text="'・' + ${params.lifeEventParams.lifeEventAge2} + '歳 で ' + ${params.lifeEventParams.lifeEvent2} + ' のため ' + ${params.lifeEventParams.requiredFunds2} + '万円 使用'"></td>
                             </tr>
                             <tr th:if="${params != null and params.lifeEventParams != null and params.lifeEventParams.lifeEventAge3 != 0}">
-                                <td colspan="6" th:text="'・' + ${params.lifeEventParams.lifeEventAge3} + '歳 で ' + ${params.lifeEventParams.lifeEvent3} + ' のため ' + ${params.lifeEventParams.requiredFunds3} + '万円 使用'"></td>
+                                <td colspan="5" th:text="'・' + ${params.lifeEventParams.lifeEventAge3} + '歳 で ' + ${params.lifeEventParams.lifeEvent3} + ' のため ' + ${params.lifeEventParams.requiredFunds3} + '万円 使用'"></td>
                             </tr>
                             <tr th:if="${params != null and params.lifeEventParams != null and params.lifeEventParams.lifeEventAge4 != 0}">
-                                <td colspan="6" th:text="'・' + ${params.lifeEventParams.lifeEventAge4} + '歳 で ' + ${params.lifeEventParams.lifeEvent4} + ' のため ' + ${params.lifeEventParams.requiredFunds4} + '万円 使用'"></td>
+                                <td colspan="5" th:text="'・' + ${params.lifeEventParams.lifeEventAge4} + '歳 で ' + ${params.lifeEventParams.lifeEvent4} + ' のため ' + ${params.lifeEventParams.requiredFunds4} + '万円 使用'"></td>
                             </tr>
                             <tr th:if="${params != null and params.lifeEventParams != null and params.lifeEventParams.lifeEventAge5 != 0}">
-                                <td colspan="6" th:text="'・' + ${params.lifeEventParams.lifeEventAge5} + '歳 で ' + ${params.lifeEventParams.lifeEvent5} + ' のため ' + ${params.lifeEventParams.requiredFunds5} + '万円 使用'"></td>
+                                <td colspan="5" th:text="'・' + ${params.lifeEventParams.lifeEventAge5} + '歳 で ' + ${params.lifeEventParams.lifeEvent5} + ' のため ' + ${params.lifeEventParams.requiredFunds5} + '万円 使用'"></td>
                             </tr>
                         </tbody>
                         
                         <thead>
                             <tr>
-                                <th colspan="6">年変化</th>
+                                <th colspan="5">年変化</th>
                             </tr>
                             <tr>
-                                <th colspan="6">シミュレーション終了年齢</th>
+                                <th colspan="5">シミュレーション終了年齢</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr th:if="${params != null and params.advancedSetting != null and params.advancedSetting.annualChangeMonth != 0}">
-                                <td colspan="6" th:text="|つみたて月額を ${params.advancedSetting.annualChangeMonth} か月 ごとに ${params.advancedSetting.annualChangeMoney} 万円 増やす|"></td>
+                                <td colspan="5" th:text="|つみたて月額を ${params.advancedSetting.annualChangeMonth} か月 ごとに ${params.advancedSetting.annualChangeMoney} 万円 増やす|"></td>
                             </tr>
                             <tr th:if="${params != null and params.advancedSetting != null and params.advancedSetting.endingAge != 0}">
-                                <td colspan="6" th:text="|${params.advancedSetting.endingAge} 歳|"></td>
+                                <td colspan="5" th:text="|${params.advancedSetting.endingAge} 歳|"></td>
                             </tr>
                         </tbody>
                     </table>
-                </div>
-                <div  class="chartContainer">
-                    <canvas id="myLineChart"></canvas>
-                    <p>※当該評価は過去の一定期間の実績の分析結果を元に予測したものであり、 将来の運用成果等を保証したものではありません。</p>
-                </div>
             </div>
-                <br>
-                <br>
+            <div  class="chartContainer">
+                <canvas id="myLineChart"></canvas>
+                <p>※当該評価は過去の一定期間の実績の分析結果を元に予測したものであり、 将来の運用成果等を保証したものではありません。</p>
+            </div>
+            <br>
+            <br>
         
-                <!-- 1回目比較用（最初は非表示） -->
-                <div class="chartContainer" id="compareArea">
-                    <h3>前回のシミュレーション結果</h3>
-                    <canvas id="previousChart"></canvas>
-                </div>
-                
-                <div class="buttons">
-                    <button type="button" id="compareButton">前回のシミュレーション結果を見る</button>
-                </div>
+            <div class="buttons">
+                <button type="button" id="compareButton">前回のシミュレーション結果を見る</button>
+            </div>
+        
+        <!-- 1回目比較用（最初は非表示） -->
+        <div class="chartContainer" id="compareArea">
+            <h3>前回のシミュレーション結果</h3>
+            <canvas id="previousChart"></canvas>
+        </div>
+        
         
                 <!-- プラン改善提案 -->
                 <div id="improvement">
