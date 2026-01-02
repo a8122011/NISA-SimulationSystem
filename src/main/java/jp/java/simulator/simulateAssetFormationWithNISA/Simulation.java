@@ -307,38 +307,50 @@ public class Simulation {
         }
         return suggestedMax;
     }
+    
+    /**
+     * 縦軸の最小値を返す
+     *
+     * @param valuationData グラフの値（全シナリオ）
+     * @return 縦軸の最小値
+     */
+    public static double getSuggestedMin(List<List<Double>> valuationData) {
+        double suggestedMin = 0; // デフォルトは0（負の値がない場合）
+        
+        for (List<Double> data : valuationData) {
+            for (double value : data) {
+                if (value < suggestedMin) {
+                    suggestedMin = value; // 最終的に全シナリオの最小値
+                }
+            }
+        }
+        return suggestedMin;
+    }
+
 
     /**
      * 目盛り線の幅を返す
      *
      * @param suggestedMax 縦軸の最大値
+     * @param suggestedMin 縦軸の最小値
      * @return 目盛り線の幅
      */
-    public static int getStepSize(double suggestedMax) { //グラフのY軸の目盛間隔を自動設定する、最大値に応じて目盛り線の幅を決定
+    public static int getStepSize(double suggestedMax, double suggestedMin) { //グラフのY軸の目盛間隔
+        // Y軸の幅（最大値 - 最小値）を計算
+        double range = suggestedMax - suggestedMin;
         int stepSize;
-        if (suggestedMax < 1000) {
-            stepSize = 100;
-        } else if (suggestedMax < 20000) {
-            stepSize = 1000;
-        } else if (suggestedMax < 50000) {
-            stepSize = 2000;
-        } else if (suggestedMax < 100000) {
-            stepSize = 5000;
-        } else if (suggestedMax < 200000) {
-            stepSize = 10000;
-        } else if (suggestedMax < 500000) {
-            stepSize = 20000;
-        } else if (suggestedMax < 1000000) {
-            stepSize = 50000;
-        } else if (suggestedMax < 2000000) {
-            stepSize = 100000;
-        } else if (suggestedMax < 5000000) {
-            stepSize = 200000;
-        } else if (suggestedMax < 10000000) {
-            stepSize = 500000;
-        } else {
-            stepSize = 1000000;
-        }
+        if (range < 1000) stepSize = 100;
+        else if (range < 20000) stepSize = 1000;
+        else if (range < 50000) stepSize = 2000;
+        else if (range < 100000) stepSize = 5000;
+        else if (range < 200000) stepSize = 10000;
+        else if (range < 500000) stepSize = 20000;
+        else if (range < 1000000) stepSize = 50000;
+        else if (range < 2000000) stepSize = 100000;
+        else if (range < 5000000) stepSize = 200000;
+        else if (range < 10000000) stepSize = 500000;
+        else stepSize = 1000000;
+    
         return stepSize;
     }
 
