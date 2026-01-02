@@ -455,14 +455,37 @@
                         }
                         
                         // 今回の結果
-                        localStorage.setItem(
-                            "currentSimulationData",
-                            JSON.stringify({
-                                labels: myLineChart.data.labels,
-                                datasets: myLineChart.data.datasets
-                            })
-                        );
-        
+                        function saveCurrentSimulation(chart) {
+                            if (!chart) return;
+                        
+                            const simpleData = {
+                                labels: chart.data.labels,
+                                datasets: chart.data.datasets.map(ds => ({
+                                    label: ds.label,
+                                    data: ds.data,
+                                    borderColor: ds.borderColor,
+                                    backgroundColor: ds.backgroundColor,
+                                    borderWidth: ds.borderWidth,
+                                    lineTension: ds.lineTension,
+                                    pointRadius: ds.pointRadius,
+                                    fill: ds.fill,
+                                    borderDash: ds.borderDash || []
+                                }))
+                            };
+                        
+                            localStorage.setItem("currentSimulationData", JSON.stringify(simpleData));
+                        }
+                        
+                        // 直前の結果を「前回」として保存
+                        function savePreviousSimulation() {
+                            const existing = localStorage.getItem("currentSimulationData");
+                            if (existing) {
+                                localStorage.setItem("previousSimulationData", existing);
+                            }
+                        }
+                        savePreviousSimulation();    // 前回用にコピー
+                        saveCurrentSimulation(myLineChart);  // 今回用に保存
+
                     }
                 </script>
 
