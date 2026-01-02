@@ -747,11 +747,6 @@
                         $(".advancedSetting").toggleClass("display");
                     });
                     
-                    //改善プラン提案エリア シミュレーショングラフが存在するときのみ表示
-                    if ($("#myLineChart").length > 0) {
-                        $("#improvement").show();
-                    }
-
                     //改善プラン提案クリック
                     $(".improvement-header").on("click", function () {
                         $(".improvement-body").slideToggle(300);
