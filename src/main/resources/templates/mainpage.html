@@ -44,7 +44,12 @@
         <br>
         
         <form action="/add" method="post"> <!-- ユーザーの入力値を送信するフォーム クエリパラメータで自己ページへ送信 -->
-            <div class="formContainer">
+                <input type="hidden" name="selectedFund1" id="hiddenSelectedFund1">
+                <input type="hidden" name="selectedFund2" id="hiddenSelectedFund2">
+                <input type="hidden" name="weight1" id="hiddenWeight1">
+                <input type="hidden" name="weight2" id="hiddenWeight2">
+                
+                <div class="formContainer">
                 <table>
                     <tr>
                         <th><label>期待収益率 &emsp; </label></th>
@@ -217,7 +222,7 @@
                                     <big th:text="${params.selectedFund1}"></big>
                                 </td>
                                 <td colspan="2"
-                                    th:if="${params != null and params.weight1 != null}">
+                                    th:if="${params.weight1 != null and params.weight1 != 0}">
                                     <big th:text="${params.weight1 + '%'}"></big>
                                 </td>
                             </tr>
@@ -226,7 +231,7 @@
                                     <big th:text="${params.selectedFund2}"></big>
                                 </td>
                                     <td colspan="2"
-                                        th:if="${params != null and params.weight2 != null}">
+                                        th:if="${params.weight2 != null and params.weight2 != 0}">
                                         <big th:text="${params.weight2 + '%'}"></big>
                                     </td>
                             </tr>
@@ -654,9 +659,16 @@
                                 $("#weight1,#weight2").val("");
                                 
                                 const p = products[selectedProducts[0]];
-                                
+
+                                //表示用
                                 $("#selectedFund1").text(p.name);
                                 $("#selectedFund2").text(""); 
+
+                                //送信用
+                                $("#hiddenSelectedFund1").val(p.name);
+                                $("#hiddenSelectedFund2").val("");
+                                $("#hiddenWeight1").val(100);
+                                $("#hiddenWeight2").val(0);
                                 
                                 $("#expectedRateOfReturn").val(p.expectedRateOfReturn.toFixed(3));
                                 $("#volatility").val(p.volatility.toFixed(3));
@@ -666,9 +678,14 @@
                             else if(selectedProducts.length === 2){
                                 $(".selectedFundName").show();
                                 $(".weightInputs").show();
+
                                 
                                 $("#selectedFund1").text(products[selectedProducts[0]].name);
                                 $("#selectedFund2").text(products[selectedProducts[1]].name);
+
+                                //送信用
+                                $("#hiddenSelectedFund1").val(products[selectedProducts[0]].name);
+                                $("#hiddenSelectedFund2").val(products[selectedProducts[1]].name);
 
                                 $("#FundOKButton").off("click").on("click",function(){ //毎回数値を更新
                                     //2商品の比率
@@ -682,6 +699,11 @@
                                         alert("比率の合計が100%になっていません");
                                         return;
                                     }
+
+                                    //送信用
+                                    $("#hiddenWeight1").val(weight1 * 100);
+                                    $("#hiddenWeight2").val(weight2 * 100);
+
     
                                     // 期待収益率の加重平均
                                     const expectedRateOfReturn = products[selectedProducts[0]].expectedRateOfReturn * weight1 + products[selectedProducts[1]].expectedRateOfReturn * weight2;
