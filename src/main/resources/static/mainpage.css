@@ -274,7 +274,7 @@ h2 {
 
 /* 改善プラン提案 */
 #improvement {
-    width: 50%;
+    width: 60%;
     max-width: 600px;
     margin: 15px auto;
     padding: 15px;
@@ -352,17 +352,11 @@ h2 {
 
 /* 前回シミュレーション表示 */
 #compareArea {
-    width: 90%;
-    max-width: 1000px;
+    width: 80%;
     margin: 40px auto;
     padding-top: 20px;
     border-top: 2px dashed #C8DCCF;
-}
-
-#compareArea h3 {
-    font-size: 1.3em;
-    color: #6ABF7E;
-    margin-bottom: 15px;
+    border-bottom: 2px dashed #C8DCCF;
 }
 
 .previousChartContainer {
@@ -472,7 +466,7 @@ h2 {
 
 /* 前回結果表示ボタン */
 #compareButton {
-    margin: 20px auto;
+    margin: 50px auto 20px auto;
     padding: 10px 28px;
     border-radius: 25px;
     border: 2px solid #90CE9C;
