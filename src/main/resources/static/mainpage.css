@@ -266,7 +266,7 @@ h2 {
 .chartContainer {
     width: 75%;
     height: 42vh;
-    min-height: 280px;
+    min-height: 350px;
     max-height: 520px;
     margin: auto; 
 }
@@ -275,7 +275,7 @@ h2 {
 #compareArea {
     width: 65%;
     height: 35vh;
-    min-height: 210px;
+    min-height: 280px;
     max-height: 390px;
     margin: 40px auto;
     padding: 20px auto;
