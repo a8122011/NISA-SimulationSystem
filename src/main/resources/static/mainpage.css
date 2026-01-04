@@ -264,13 +264,19 @@ h2 {
 
 /* グラフ表示 */ 
 .chartContainer {
-    width:75%;
-    margin:35px auto; 
+    width: 75%;
+    height: 42vh;
+    min-height: 280px;
+    max-height: 520px;
+    margin: auto; 
 }
 
 /* 前回シミュレーション表示 */
 #compareArea {
     width: 65%;
+    height: 35vh;
+    min-height: 210px;
+    max-height: 390px;
     margin: 40px auto;
     padding: 20px auto;
     border-top: 2px dashed #C8DCCF;
