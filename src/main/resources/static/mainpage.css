@@ -264,13 +264,13 @@ h2 {
 
 /* グラフ表示 */ 
 .chartContainer {
-    width:80%;
+    width:75%;
     margin:35px auto; 
 }
 
 /* 前回シミュレーション表示 */
 #compareArea {
-    width: 75%;
+    width: 65%;
     margin: 40px auto;
     padding: 20px auto;
     border-top: 2px dashed #C8DCCF;
