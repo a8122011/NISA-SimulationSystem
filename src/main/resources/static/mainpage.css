@@ -270,16 +270,11 @@ h2 {
 
 /* 前回シミュレーション表示 */
 #compareArea {
-    width: 90%;
+    width: 75%;
     margin: 40px auto;
     padding: 20px auto;
     border-top: 2px dashed #C8DCCF;
     border-bottom: 2px dashed #C8DCCF;
-}
-
-#previousChart {
-    width: 70%;
-    margin: 0 auto;
 }
 
 /* 改善プラン提案 */
