@@ -240,7 +240,7 @@ h2 {
 
 /*シミュレーション情報*/
 .paramList table {
-    width:70%; 
+    width:75%; 
     margin:0 auto; 
     -webkit-border-radius:6px; 
     -moz-border-radius:6px; 
@@ -264,9 +264,7 @@ h2 {
 
 /* グラフ表示 */ 
 .chartContainer {
-    width:90%;
-    max-width: 1200px;
-    max-height: 900px;
+    width:80%;
     margin:35px auto; 
 }
 
@@ -280,9 +278,7 @@ h2 {
 }
 
 #previousChart {
-    width: 75%;
-    max-width: 800px;
-    max-height: 600px;
+    width: 70%;
     margin: 0 auto;
 }
 
