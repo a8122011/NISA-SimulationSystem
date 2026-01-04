@@ -280,7 +280,7 @@ h2 {
 }
 
 #previousChart {
-    width: 75%
+    width: 75%;
     max-width: 800px;
     max-height: 600px;
     margin: 0 auto;
@@ -351,16 +351,11 @@ h2 {
   /* 提案リスト */
 #proposalResult ul {
     margin: 10px 0 15px 20px;
+    text-align: left;
 }
 
 #proposalResult li {
     margin-bottom: 6px;
-}
-
-  /* 補足文 */
-#proposalResult .note {
-    font-size: 0.8em;
-    color: #777;
 }
 
 /*ボタン*/
