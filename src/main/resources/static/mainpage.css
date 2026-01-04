@@ -238,8 +238,6 @@ h2 {
     border-left: 3px solid #ddd;
 }
 
-
-
 /*シミュレーション情報*/
 .paramList table {
     width:70%; 
@@ -267,9 +265,9 @@ h2 {
 /* グラフ表示 */ 
 .chartContainer {
     width:90%;
-    max-width: 1000px;
-    height: 520px;
-    margin:30px auto; 
+    max-width: 1200px;
+    max-height: 900px;
+    margin:35px auto; 
 }
 
 /* 前回シミュレーション表示 */
@@ -281,9 +279,10 @@ h2 {
     border-bottom: 2px dashed #C8DCCF;
 }
 
-.previousChart {
-    width: 90%;
-    height: 750px;
+#previousChart {
+    width: 75%
+    max-width: 800px;
+    max-height: 600px;
     margin: 0 auto;
 }
 
