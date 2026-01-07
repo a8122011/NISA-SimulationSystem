@@ -237,6 +237,12 @@ public class Simulation {
             int currentMonth = i - m; 
             if (currentMonth < 0) continue;
 
+            // ★ 年変化（積立額の増減）
+            if (params.advancedSetting().annualChangeMonth() != 0 && currentMonth % params.advancedSetting().annualChangeMonth() == 0) {
+                monthlySavings += params.advancedSetting().annualChangeMoney();
+            }
+            
+
             // 毎月のつみたて
             asset += monthlySavings;
 
