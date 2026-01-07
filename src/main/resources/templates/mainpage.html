@@ -222,7 +222,7 @@
                             <big th:text="${params.selectedFund1}"></big>
                         </td>
                         <td colspan="2"
-                            th:if="${params.weight1 != null and params.weight1 != 0}">
+                            th:if="${params.weight1 != null and params.weight1 != 0}" style="text-align: left;">
                             <big th:text="${params.weight1 + '%'}"></big>
                         </td>
                     </tr>
@@ -231,7 +231,7 @@
                             <big th:text="${params.selectedFund2}"></big>
                         </td>
                         <td colspan="2"
-                            th:if="${params.weight2 != null and params.weight2 != 0}">
+                            th:if="${params.weight2 != null and params.weight2 != 0}" style="text-align: left;">
                             <big th:text="${params.weight2 + '%'}"></big>
                         </td>
                     </tr>
