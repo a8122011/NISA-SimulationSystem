@@ -8,7 +8,7 @@ import java.util.*;  //java.utilパッケージ内のクラスを全て使える
 
 //シミュレーション繰り返し回数
 public class Simulation {
-    static int simuNum = 5000;
+    static int simuNum = 2000;
     public static final int STEP = 2;
 
     
